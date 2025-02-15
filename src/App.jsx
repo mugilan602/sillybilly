@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/holland_lop" element={<BunnyList />} />
+        <Route path="/netherland_dwarf" element={<BunnyList />} />
         <Route path="/chicks-eggs" element={<Chicks />} />
         <Route path="/goats" element={<Goats />} />
         <Route path="/contact" element={<ContactSection />} />

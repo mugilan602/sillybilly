@@ -99,7 +99,7 @@ function Navbar() {
                                     Holland Lops
                                 </Link>
                                 <Link
-                                    to="/Netherland-Dwarf"
+                                    to="/netherland_dwarf"
                                     className="block text-center w-32 py-2 hover:bg-[#A56A3A] hover:text-white"
                                 >
                                     Netherland Dwarf

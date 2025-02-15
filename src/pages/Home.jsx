@@ -61,8 +61,8 @@ function Home() {
                     {[
                         { src: "/Images/holland_lop.png", alt: "Holland Lop", link: "/holland_lop", name: "Holland Lop" },
                         { src: "/Images/netherland_dwarf.png", alt: "Netherland Dwarf", link: "/netherland_dwarf", name: "Netherland Dwarf" },
-                        { src: "/Images/Chicken.png", alt: "Chicken", link: "/chicken", name: "Chicken" },
-                        { src: "/Images/hatching_eggs.png", alt: "Hatching Eggs", link: "/hatching_eggs", name: "Hatching Eggs" },
+                        { src: "/Images/Chicken.png", alt: "Chicken", link: "/chicks-eggs", name: "Chicken" },
+                        { src: "/Images/hatching_eggs.png", alt: "Hatching Eggs", link: "/chicks-eggs", name: "Hatching Eggs" },
                         { src: "/Images/goats.png", alt: "Goats", link: "/goats", name: "Goats" },
                     ].map((pet, index) => (
                         <div key={index} className="relative overflow-hidden shadow-md order-2">
