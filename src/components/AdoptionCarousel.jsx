@@ -30,12 +30,13 @@ function AdoptionGallery() {
                 </div>
             </section>
             <section className="font-[Open_sans] bg-[#FFF8F1] py-8 flex flex-col md:flex-row justify-center items-center gap-6 px-4">
-                <button className="bg-[#3498db] text-white px-6 py-2 text-md lg:text-lg font-semibold rounded-md shadow-[0px_8px_16px_rgba(0,0,0,0.5)] hover:bg-[#917767] transition">
+                <button className="bg-[#3498db] text-white w-72 h-16 text-lg font-semibold rounded-md shadow-[0px_8px_16px_rgba(0,0,0,0.5)] hover:bg-[#917767] transition">
                     View all Holland Lops for adoption
                 </button>
-                <button className="bg-[#3498db] text-white px-6 py-2 text-md lg:text-lg font-semibold rounded-md shadow-[0px_8px_16px_rgba(0,0,0,0.5)] hover:bg-[#917767] transition">
+                <button className="bg-[#3498db] text-white w-72 h-16 text-lg font-semibold rounded-md shadow-[0px_8px_16px_rgba(0,0,0,0.5)] hover:bg-[#917767] transition">
                     View all Netherland Dwarfs for adoption
                 </button>
+
             </section>
         </>
     );
