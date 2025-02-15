@@ -5,7 +5,7 @@ function Gallery() {
         {
             image: "goat-image.jpg", // Replace with actual image URL
             title: "Nigerian Dwarf Buck",
-            description: "Butts in to help!\nOrange Buck",
+            description: "Butts in to help!\nFriendly playful guy",
         },
         {
             image: "goat-image.jpg", // Replace with actual image URL
