@@ -40,7 +40,7 @@ function Navbar() {
                         <img src="/Logos/Logo.avif" alt="Silly Billy Silkies" className="h-full w-12 sm:w-16 rounded-full" />
                         <h1
                             style={{ fontFamily: 'Reklame Script Medium' }}
-                            className="text-2xl md:text-7xl font-medium text-[#5B4D43]">
+                            className="text-3xl md:text-7xl font-medium text-[#5B4D43]">
                             Silly Billy Silkies
                         </h1>
                     </div>
