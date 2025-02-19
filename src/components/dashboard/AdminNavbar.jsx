@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Pencil, Menu, X } from "lucide-react"; // Import icons
 import { motion } from "framer-motion"; // Smooth animations
 
 function AdminNavbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate(); // Hook to navigate
+
+    // Logout function
+    const handleLogout = () => {
+        localStorage.removeItem("isAdmin"); // Remove admin flag
+        navigate("/"); // Redirect to home page
+    };
 
     return (
         <>
@@ -32,7 +39,7 @@ function AdminNavbar() {
                 </button>
 
                 {/* Logout Button (Always Visible) */}
-                <button className="hidden md:block bg-black text-white px-4 py-2 text-sm rounded">Logout</button>
+                <button onClick={handleLogout} className="hidden md:block bg-black text-white px-4 py-2 text-sm rounded">Logout</button>
             </nav>
 
             {/* Mobile Menu Overlay */}
@@ -65,7 +72,9 @@ function AdminNavbar() {
                         </div>
 
                         {/* Logout Button (Visible in Mobile Menu) */}
-                        <button className="mt-8 w-full bg-black text-white py-3 rounded" onClick={() => setIsOpen(false)}>Logout</button>
+                        <button className="mt-8 w-full bg-black text-white py-3 rounded" onClick={handleLogout}>
+                            Logout
+                        </button>
                     </motion.div>
                 </>
             )}
