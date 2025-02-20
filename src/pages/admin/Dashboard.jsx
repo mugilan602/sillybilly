@@ -1,12 +1,36 @@
-import { useState } from "react";
-import { ShoppingCart, Inbox, Database, Image, Film } from "lucide-react"; // Import Icons
+import { useState, useEffect } from "react";
+import { ShoppingCart, Inbox, Database, Image, Film } from "lucide-react";
+import { Link } from "react-router-dom";
 function Dashboard() {
-    const [inquiries] = useState([
-        { name: "Sarah Wilson", message: "Interested in adopting a Holland Lop bunny...", time: "5m ago" },
-        { name: "Michael Brown", message: "Questions about bunny care and housing...", time: "2h ago" },
-        { name: "David Chen", message: "Requesting more information about breeding pairs...", time: "1d ago" }
-    ]);
-    
+    const [inquiries, setInquiries] = useState([]);
+
+    useEffect(() => {
+        fetch("https://workers-getting-started.mugilan7778.workers.dev/responses")
+            .then((res) => res.json())
+            .then((data) => {
+                // Sort by created_at (latest first) and get the top 3
+                const sortedData = data
+                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                    .slice(0, 3)
+                    .map(inquiry => ({
+                        ...inquiry,
+                        // Convert UTC to Canada (Eastern Time)
+                        created_at: new Date(inquiry.created_at).toLocaleString("en-CA", {
+                            timeZone: "America/Toronto",
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        })
+                    }));
+
+                setInquiries(sortedData);
+            })
+            .catch((err) => console.error("Error fetching data:", err));
+    }, []);
+
     return (
         <div className="bg-gray-100 min-h-screen p-6">
             {/* Stats Overview */}
@@ -14,7 +38,7 @@ function Dashboard() {
                 <StatCard title="Available Bunnies" value="24" icon={ShoppingCart} />
                 <StatCard title="Sold Bunnies" value="156" icon={ShoppingCart} />
                 <StatCard title="Storage Used" value="75%" icon={Database} />
-                <StatCard title="New Messages" value="12" icon={Inbox} />
+                <StatCard title="New Messages" value={inquiries.length} icon={Inbox} />
                 <StatCard title="Gallery Listings" value="85" icon={Image} />
                 <StatCard title="Carousel Images" value="32" icon={Film} />
             </div>
@@ -22,16 +46,23 @@ function Dashboard() {
             {/* Recent Inquiries */}
             <div className="bg-white p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Recent Inquiries</h2>
-                {inquiries.map((inquiry, index) => (
-                    <div key={index} className="py-3 border-b last:border-0 flex justify-between items-center">
-                        <div>
-                            <p className="font-semibold">{inquiry.name}</p>
-                            <p className="text-gray-600 text-sm">{inquiry.message}</p>
+                {inquiries.length > 0 ? (
+                    inquiries.map((inquiry) => (
+                        <div key={inquiry.id} className="py-3 border-b last:border-0 flex justify-between items-center">
+                            <div>
+                                <p className="font-semibold">{inquiry.firstname} {inquiry.lastname}</p>
+                                <p className="text-gray-600 text-sm">{inquiry.message}</p>
+                            </div>
+                            <p className="text-gray-500 text-sm">{inquiry.created_at.split(",")[0] + inquiry.created_at.split(",")[1]}</p>
                         </div>
-                        <p className="text-gray-500 text-sm">{inquiry.time}</p>
-                    </div>
-                ))}
-                <button className="mt-4 w-full bg-black text-white py-2 rounded">View All Messages</button>
+                    ))
+                ) : (
+                    <p className="text-gray-500">No recent inquiries.</p>
+                )}
+                <Link to="/admin/forms" className="mt-4 w-full bg-black text-white py-2 rounded text-center block">
+                    View All Messages
+                </Link>
+
             </div>
 
             {/* System Status */}
@@ -45,16 +76,13 @@ function Dashboard() {
     );
 }
 
-// StatCard Component (Reusable)
+// StatCard Component
 const StatCard = ({ title, value, icon: Icon }) => {
     return (
         <div className="bg-white px-2 py-4 rounded-lg shadow flex items-center space-x-4">
-            {/* Icon */}
             <div className="bg-gray-200 p-3 rounded-full">
                 <Icon size={24} className="text-gray-700" />
             </div>
-
-            {/* Text Content */}
             <div>
                 <p className="text-gray-500 text-sm">{title}</p>
                 <p className="text-2xl font-semibold">{value}</p>
@@ -62,6 +90,5 @@ const StatCard = ({ title, value, icon: Icon }) => {
         </div>
     );
 };
-
 
 export default Dashboard;

@@ -79,7 +79,15 @@ const FormResponsesDashboard = () => {
                                     <td className="p-3">{response.lastname}</td>
                                     <td className="p-3">{response.email}</td>
                                     <td className="p-3 truncate max-w-xs">{response.message}</td>
-                                    <td className="p-3">{new Date(response.created_at).toISOString().split("T")[0]}</td>
+                                    <td className="p-3">
+                                        {new Date(response.created_at).toLocaleDateString("en-CA", {
+                                            timeZone: "America/Toronto",
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                        })}
+                                    </td>
+
                                     <td className="p-3 flex items-center space-x-4">
                                         <FaEye className="text-gray-500 cursor-pointer hover:text-black text-lg" />
                                         <button
