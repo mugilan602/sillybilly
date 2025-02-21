@@ -62,7 +62,7 @@ function AdminNavbar() {
                         </button>
 
                         {/* Mobile Navigation Links */}
-                        <div className="flex flex-col space-y-4 mt-10 w-full text-[#4A3B2D] font-medium text-lg">
+                        <div className="flex flex-col space-y-4 backdrop- mt-10 w-full text-[#4A3B2D] font-medium text-lg">
                             <Link to="/admin" className="block py-2" onClick={() => setIsOpen(false)}>Dashboard</Link>
                             <Link to="/admin/manage-listing" className="block py-2" onClick={() => setIsOpen(false)}>Manage Listing</Link>
                             <Link to="/admin/add-bunny" className="block py-2" onClick={() => setIsOpen(false)}>Add new Bunny</Link>

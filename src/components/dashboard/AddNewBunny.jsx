@@ -37,8 +37,8 @@ const AddNewBunny = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-semibold mb-6">Add New Bunny</h1>
+        <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
+            <h1 className="text-center sm:text-left text-2xl font-semibold mb-6">Add New Bunny</h1>
 
             {/* Breed Selection */}
             <div className="bg-white p-6 rounded-lg shadow">

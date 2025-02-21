@@ -77,47 +77,47 @@ const GalleryManagement = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-semibold mb-4">Gallery Management</h1>
-            <p className="text-gray-500 mb-6">Total entries: {entries.length}</p>
+        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
+            <h1 className="text-2xl font-semibold mb-4 text-center md:text-left">Gallery Management</h1>
+            <p className="text-gray-500 mb-6 text-center md:text-left">Total entries: {entries.length}</p>
 
             {/* List Existing Entries */}
             {entries.map((entry) => (
-                <div key={entry.id} className="bg-white p-6 rounded-lg shadow mb-6 flex items-center gap-6 relative">
+                <div key={entry.id} className="bg-white p-4 md:p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 relative">
 
                     {/* Icons for Edit, Save, Delete */}
                     <div className="absolute top-4 right-4 flex gap-3">
                         {entry.isEditing ? (
                             <FaSave
-                                className="text-green-500 cursor-pointer text-xl hover:text-green-700"
+                                className="text-green-500 cursor-pointer text-lg md:text-xl hover:text-green-700"
                                 onClick={() => toggleEdit(entry.id)}
                             />
                         ) : (
                             <FaEdit
-                                className="text-blue-500 cursor-pointer text-xl hover:text-blue-700"
+                                className="text-blue-500 cursor-pointer text-lg md:text-xl hover:text-blue-700"
                                 onClick={() => toggleEdit(entry.id)}
                             />
                         )}
                         <FaTrash
-                            className="text-red-500 cursor-pointer text-xl hover:text-red-700"
+                            className="text-red-500 cursor-pointer text-lg md:text-xl hover:text-red-700"
                             onClick={() => handleDeleteEntry(entry.id)}
                         />
                     </div>
 
                     {/* Image Upload */}
-                    <div className="w-48 h-48 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+                    <div className="w-32 h-32 md:w-48 md:h-48 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
                         {entry.image ? (
                             <img src={entry.image} alt="Uploaded" className="w-full h-full object-cover" />
                         ) : (
-                            <label className="cursor-pointer flex flex-col justify-center items-center text-gray-400">
-                                <span className="text-sm">Click to upload</span>
+                            <label className="cursor-pointer flex flex-col justify-center items-center text-gray-400 text-xs md:text-sm">
+                                <span>Click to upload</span>
                                 <input type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(entry.id, e)} />
                             </label>
                         )}
                     </div>
 
                     {/* Form Inputs */}
-                    <div className="flex-1">
+                    <div className="flex-1 w-full md:w-auto">
                         <div className="mb-4">
                             <label className="block text-gray-700">Breed</label>
                             <input
@@ -157,22 +157,22 @@ const GalleryManagement = () => {
             ))}
 
             {/* Add New Entry Section */}
-            <div className="bg-white p-6 rounded-lg shadow mb-6 flex items-center gap-6 border-2 border-dashed">
+            <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 border-2 border-dashed">
 
                 {/* Image Upload */}
-                <div className="w-48 h-48 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="w-32 h-32 md:w-48 md:h-48 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
                     {newEntry.image ? (
                         <img src={newEntry.image} alt="Uploaded" className="w-full h-full object-cover" />
                     ) : (
-                        <label className="cursor-pointer flex flex-col items-center text-gray-400">
-                            <span className="text-sm">Click to upload</span>
+                        <label className="cursor-pointer flex flex-col items-center text-gray-400 text-xs md:text-sm">
+                            <span>Click to upload</span>
                             <input type="file" className="hidden" accept="image/*" onChange={handleNewImageUpload} />
                         </label>
                     )}
                 </div>
 
                 {/* Form Inputs */}
-                <div className="flex-1">
+                <div className="flex-1 w-full md:w-auto">
                     <div className="mb-4">
                         <label className="block text-gray-700">Breed</label>
                         <input
@@ -195,21 +195,8 @@ const GalleryManagement = () => {
                         </label>
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Description</label>
-                        <textarea
-                            value={newEntry.description}
-                            onChange={(e) => handleNewEntryChange("description", e.target.value)}
-                            className="w-full border p-2 rounded"
-                            rows="3"
-                        ></textarea>
-                    </div>
-
                     {/* Add Entry Button */}
-                    <button
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                        onClick={handleAddEntry}
-                    >
+                    <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full md:w-auto" onClick={handleAddEntry}>
                         Add Entry
                     </button>
                 </div>
