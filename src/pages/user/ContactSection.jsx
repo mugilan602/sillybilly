@@ -23,7 +23,7 @@ const ContactSection = () => {
         setError(null);
 
         try {
-            const response = await fetch("https://workers-getting-started.mugilan7778.workers.dev/submit", {
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

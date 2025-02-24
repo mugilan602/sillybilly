@@ -16,7 +16,7 @@ const FormResponsesDashboard = () => {
     useEffect(() => {
         const fetchResponses = async () => {
             try {
-                const response = await fetch("https://workers-getting-started.mugilan7778.workers.dev/responses");
+                const response = await fetch("https://backend.sillybillysilkies.workers.dev/responses");
                 const data = await response.json();
 
                 if (Array.isArray(data)) {
@@ -39,7 +39,7 @@ const FormResponsesDashboard = () => {
     const handleDelete = async (id) => {
         setDeletingId(id);
         try {
-            await fetch(`https://workers-getting-started.mugilan7778.workers.dev/delete/${id}`, {
+            await fetch(`https://backend.sillybillysilkies.workers.dev/delete/${id}`, {
                 method: "DELETE",
             });
             setResponses(responses.filter(response => response.id !== id));
@@ -55,7 +55,7 @@ const FormResponsesDashboard = () => {
         setSendingReply(true);
 
         try {
-            await fetch("https://workers-getting-started.mugilan7778.workers.dev/reply", {
+            await fetch("https://backend.sillybillysilkies.workers.dev/reply", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

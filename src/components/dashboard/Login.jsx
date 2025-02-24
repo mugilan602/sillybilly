@@ -26,7 +26,7 @@ function Login() {
         setLoading(true); // Start loading animation
 
         try {
-            const response = await fetch("https://workers-getting-started.mugilan7778.workers.dev/login", {
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),

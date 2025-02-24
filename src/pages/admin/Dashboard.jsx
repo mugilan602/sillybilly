@@ -5,7 +5,7 @@ function Dashboard() {
     const [inquiries, setInquiries] = useState([]);
 
     useEffect(() => {
-        fetch("https://workers-getting-started.mugilan7778.workers.dev/responses")
+        fetch("https://backend.sillybillysilkies.workers.dev/responses")
             .then((res) => res.json())
             .then((data) => {
                 // Sort by created_at (latest first) and get the top 3
