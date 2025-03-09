@@ -19,6 +19,8 @@ import HomePageCarousel from "./components/dashboard/HomePageCarousel";
 import AddNewBunny from "./components/dashboard/AddNewBunny";
 import Login from "./components/dashboard/Login";
 import ProtectedRoute from "./components/ProtectedRoute"; // ✅ Import ProtectedRoute
+import HollandLop from "./pages/user/HollandLop";
+import NetherlandDwarf from "./pages/user/NetherlandDwarf";
 
 // User Layout
 const UserLayout = ({ children }) => (
@@ -54,7 +56,7 @@ function App() {
           path="/holland_lop"
           element={
             <UserLayout>
-              <BunnyList />
+              <HollandLop />
             </UserLayout>
           }
         />
@@ -62,7 +64,7 @@ function App() {
           path="/netherland_dwarf"
           element={
             <UserLayout>
-              <BunnyList />
+              <NetherlandDwarf />
             </UserLayout>
           }
         />

@@ -39,7 +39,6 @@ function Home() {
                             to welcome more people to the passion of raising and caring for animals.
                         </p>
                     </div>
-
                 </div>
             </section>
 

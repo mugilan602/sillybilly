@@ -8,7 +8,7 @@ const AddNewBunny = () => {
         dob: "",
         takeHomeDate: "",
         price: "",
-        status: "Available",
+        status: "",
         description: "",
         images: [],
     });
@@ -31,29 +31,79 @@ const AddNewBunny = () => {
         setBunny({ ...bunny, images: updatedImages });
     };
 
-    const handleSubmit = () => {
-        console.log("Bunny Data:", bunny);
-        alert("Bunny saved successfully!");
+    const handleSubmit = async () => {
+        if (!bunny.breed || !bunny.name || !bunny.gender || !bunny.dob || !bunny.takeHomeDate || !bunny.price) {
+            alert("Please fill all required fields!");
+            return;
+        }
+
+        const details = JSON.stringify({
+            breed: bunny.breed,
+            name: bunny.name,
+            gender: bunny.gender,
+            dob: bunny.dob,
+            takeHomeDate: bunny.takeHomeDate,
+            price: bunny.price,
+            status: bunny.status,
+            description: bunny.description,
+        });
+
+        const formData = new FormData();
+        formData.append("details", details);
+        formData.append("pageType", `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`);
+
+        bunny.images.forEach((file) => {
+            formData.append("file", file);
+        });
+
+        try {
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Success:", data);
+
+            // Reset form to initial empty state
+            setBunny({
+                breed: "",
+                name: "",
+                gender: "",
+                dob: "",
+                takeHomeDate: "",
+                price: "",
+                status: "",
+                description: "",
+                images: [],
+            });
+
+            alert("Bunny saved successfully!");
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("Failed to save bunny. Please try again.");
+        }
     };
 
     return (
         <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
             <h1 className="text-center sm:text-left text-2xl font-semibold mb-6">Add New Bunny</h1>
 
-            {/* Breed Selection */}
             <div className="bg-white p-6 rounded-lg shadow">
                 <h2 className="text-lg font-semibold mb-4">Select Breed</h2>
                 <div className="grid grid-cols-2 gap-4 mb-6">
                     <div
-                        className={`border rounded-lg p-6 flex items-center justify-center h-24 cursor-pointer ${bunny.breed === "Holland Lop" ? "bg-blue-200 border-blue-500" : "bg-white"
-                            }`}
+                        className={`border rounded-lg p-6 flex items-center justify-center h-24 cursor-pointer ${bunny.breed === "Holland Lop" ? "bg-blue-200 border-blue-500" : "bg-white"}`}
                         onClick={() => handleBreedSelection("Holland Lop")}
                     >
                         <p className="text-gray-700 font-medium">Holland Lop</p>
                     </div>
                     <div
-                        className={`border rounded-lg p-6 flex items-center justify-center h-24 cursor-pointer ${bunny.breed === "Netherland Dwarf" ? "bg-blue-200 border-blue-500" : "bg-white"
-                            }`}
+                        className={`border rounded-lg p-6 flex items-center justify-center h-24 cursor-pointer ${bunny.breed === "Netherland Dwarf" ? "bg-blue-200 border-blue-500" : "bg-white"}`}
                         onClick={() => handleBreedSelection("Netherland Dwarf")}
                     >
                         <p className="text-gray-700 font-medium">Netherland Dwarf</p>
@@ -66,6 +116,7 @@ const AddNewBunny = () => {
                         <input
                             type="text"
                             name="name"
+                            value={bunny.name}
                             placeholder="Enter name or ID"
                             className="w-full border p-2 rounded"
                             onChange={handleChange}
@@ -76,11 +127,23 @@ const AddNewBunny = () => {
                         <label className="block text-gray-700">Gender</label>
                         <div className="flex gap-4 mt-2">
                             <label className="flex items-center">
-                                <input type="radio" name="gender" value="Male" onChange={handleChange} />
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="Male"
+                                    checked={bunny.gender === "Male"}
+                                    onChange={handleChange}
+                                />
                                 <span className="ml-2">Male</span>
                             </label>
                             <label className="flex items-center">
-                                <input type="radio" name="gender" value="Female" onChange={handleChange} />
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="Female"
+                                    checked={bunny.gender === "Female"}
+                                    onChange={handleChange}
+                                />
                                 <span className="ml-2">Female</span>
                             </label>
                         </div>
@@ -91,6 +154,7 @@ const AddNewBunny = () => {
                         <input
                             type="date"
                             name="dob"
+                            value={bunny.dob}
                             className="w-full border p-2 rounded"
                             onChange={handleChange}
                         />
@@ -101,6 +165,7 @@ const AddNewBunny = () => {
                         <input
                             type="date"
                             name="takeHomeDate"
+                            value={bunny.takeHomeDate}
                             className="w-full border p-2 rounded"
                             onChange={handleChange}
                         />
@@ -111,6 +176,7 @@ const AddNewBunny = () => {
                         <input
                             type="number"
                             name="price"
+                            value={bunny.price}
                             placeholder="$"
                             className="w-full border p-2 rounded"
                             onChange={handleChange}
@@ -119,7 +185,13 @@ const AddNewBunny = () => {
 
                     <div>
                         <label className="block text-gray-700">Status</label>
-                        <select name="status" className="w-full border p-2 rounded" onChange={handleChange}>
+                        <select
+                            name="status"
+                            value={bunny.status}
+                            className="w-full border p-2 rounded"
+                            onChange={handleChange}
+                        >
+                            <option value="">Select Status</option>
                             <option value="Available">Available</option>
                             <option value="Sold">Sold</option>
                         </select>
@@ -130,6 +202,7 @@ const AddNewBunny = () => {
                     <label className="block text-gray-700">Bunny Description</label>
                     <textarea
                         name="description"
+                        value={bunny.description}
                         placeholder="Enter bunny description..."
                         className="w-full border p-2 rounded"
                         rows="3"
@@ -137,7 +210,6 @@ const AddNewBunny = () => {
                     ></textarea>
                 </div>
 
-                {/* Image Upload */}
                 <div className="mt-6 border-dashed border-2 border-gray-300 rounded-lg p-6 text-center bg-gray-50">
                     <p className="text-gray-500">Upload Bunny Images</p>
                     <p className="text-xs text-gray-400 mb-2">PNG, JPG, GIF up to 10MB</p>
@@ -147,7 +219,6 @@ const AddNewBunny = () => {
                         <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
                     </label>
 
-                    {/* Show Uploaded Images */}
                     <div className="mt-4 grid grid-cols-4">
                         {bunny.images.length === 0 ? (
                             <p className="col-span-4 text-gray-400 italic">No images uploaded</p>
