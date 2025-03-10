@@ -1,0 +1,14 @@
+{
+  "pets": {
+    "0c2cb5aa-03de-4fdc-b6d5-263cb5bcb924": {
+      "id": "0c2cb5aa-03de-4fdc-b6d5-263cb5bcb924",
+      "breed": "​ Netherland Dwarf",
+      "pedigreed": true,
+      "purebred": false,
+      "description": "Orange Buck",
+      "image_url": "/static-images/gallery/0c2cb5aa-03de-4fdc-b6d5-263cb5bcb924.avif",
+      "created_at": "2025-03-10T06:02:17.538Z",
+      "updated_at": "2025-03-10T06:02:17.538Z"
+    }
+  }
+}

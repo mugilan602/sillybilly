@@ -6,12 +6,12 @@ function Chicks() {
         {
             title: "Gold / Silver Laced Orpingtons",
             images: [
-                "image1.jpg",
-                "image2.jpg",
-                "image3.jpg",
-                "image4.jpg",
-                "image5.jpg",
-                "image6.jpg",
+                "/Images/Chicks/1.2.png",
+                "/Images/Chicks/1.1.png",
+                "/Images/Chicks/1.3.png",
+                "/Images/Chicks/1.4.png",
+                "/Images/Chicks/1.5.png",
+                "/Images/Chicks/1.6.png",
             ],
             description:
                 "Stunning Gold Laced and Silver Laced English Orpingtons! These fluffy and huge birds are such a treat to watch wander around. Their docile and friendly personality is an added bonus. This dual-purpose bird lays medium-sized cream eggs consistently. Around 200-250 per year.",
@@ -19,41 +19,41 @@ function Chicks() {
         {
             title: "Silver Laced Orpingtons",
             images: [
-                "image7.jpg",
-                "image8.jpg",
-                "image9.jpg",
-                "image10.jpg",
-                "image11.jpg",
-                "image12.jpg",
+                "/Images/Chicks/2.1.png",
+                "/Images/Chicks/2.2.png",
+                "/Images/Chicks/2.3.png",
+                "/Images/Chicks/2.4.png",
+                "/Images/Chicks/2.5.png",
+                "/Images/Chicks/2.6.png",
             ],
             description:
-                "Silver Laced Orpingtons are elegant and large birds with a calm demeanor. These birds are excellent layers, producing a steady supply of medium-sized cream eggs. Ideal for backyard farms and homesteads.",
+                "Ameraucanas are known for their friendly and calm demeanor. They are tailed, muffed and bearded. They stand out with their puffy cheeks and gorgeous blue eggs. Easy going friendly birds that are not difficult to integrate into a flock. Our coop consists of White, Self Blue / Lavender and Blue Black Splash colors. Popular for both their gorgeous medium sized blue eggs and being dual-purpose. They are hardy in cold and heat alike. Lays 200-250 eggs per year",
         },
         {
             title: "Buff Orpingtons",
             images: [
-                "image13.jpg",
-                "image14.jpg",
-                "image15.jpg",
-                "image16.jpg",
-                "image17.jpg",
-                "image18.jpg",
+                "/Images/Chicks/3.1.png",
+                "/Images/Chicks/3.2.png",
+                "/Images/Chicks/3.3.png",
+                "/Images/Chicks/3.4.png",
+                "/Images/Chicks/3.5.png",
+                "/Images/Chicks/3.6.png",
             ],
             description:
-                "Buff Orpingtons are known for their golden feathers and friendly nature. They are great family birds that lay consistent medium-sized eggs and are very easy to raise.",
+                "Copper Marans originated in France and are coveted for their chocolate  brown large eggs. These birds have feathered feet and bright orange eyes. Friendly and must have in any flock. Dual purpose bird who lays between 150-250 eggs per year.",
         },
         {
             title: "Lavender Orpingtons",
             images: [
-                "image19.jpg",
-                "image20.jpg",
-                "image21.jpg",
-                "image22.jpg",
-                "image23.jpg",
-                "image24.jpg",
+                "/Images/Chicks/4.1.png",
+                "/Images/Chicks/4.2.png",
+                "/Images/Chicks/4.3.png",
+                "/Images/Chicks/4.4.png",
+                "/Images/Chicks/4.5.png",
+                "/Images/Chicks/4.6.png",
             ],
             description:
-                "Lavender Orpingtons have a stunning soft gray appearance and an affectionate personality. They are prolific layers, producing around 200-250 eggs per year.",
+                "Who can resist a fluffy friendly Silkie chicken? Silky soft to the touch, these birds are gentle, docile and tolerant making them an ideal family pet. They do well in heat and cold alike. They lay small light cream eggs. They lay 100-150 eggs per year.",
         },
     ];
 

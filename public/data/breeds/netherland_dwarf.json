@@ -1,0 +1,22 @@
+{
+  "bunnies": [
+    {
+      "id": "1e3e02f5-7180-4e69-83d1-27628ca0f403",
+      "breed": "Netherland Dwarf",
+      "name": "netherland_dwarf",
+      "gender": "Male",
+      "dob": "2025-03-10",
+      "takeHomeDate": "Ready Now",
+      "price": "123",
+      "status": "available",
+      "pedigreedParents": "Tina and Miya",
+      "color": "Black",
+      "images": [
+        "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-0.png",
+        "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-1.png",
+        "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-2.png",
+        "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-3.png"
+      ]
+    }
+  ]
+}

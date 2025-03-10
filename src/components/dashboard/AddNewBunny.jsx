@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const AddNewBunny = () => {
+    const { id } = useParams(); // Get bunny ID from URL (if editing)
+    const location = useLocation(); // Get state from navigation
+    const navigate = useNavigate();
+
     const [bunny, setBunny] = useState({
         breed: "",
         name: "",
@@ -9,9 +14,17 @@ const AddNewBunny = () => {
         takeHomeDate: "",
         price: "",
         status: "",
-        description: "",
+        pedigreedParents: "", 
+        color: "", 
         images: [],
     });
+
+    useEffect(() => {
+        if (id && location.state?.bunny) {
+            // Use the data passed from Manage Listings
+            setBunny(location.state.bunny);
+        }
+    }, [id, location.state]);
 
     const handleChange = (e) => {
         setBunny({ ...bunny, [e.target.name]: e.target.value });
@@ -37,61 +50,140 @@ const AddNewBunny = () => {
             return;
         }
 
-        const details = JSON.stringify({
-            breed: bunny.breed,
-            name: bunny.name,
-            gender: bunny.gender,
-            dob: bunny.dob,
-            takeHomeDate: bunny.takeHomeDate,
-            price: bunny.price,
-            status: bunny.status,
-            description: bunny.description,
-        });
-
-        const formData = new FormData();
-        formData.append("details", details);
-        formData.append("pageType", `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`);
-
-        bunny.images.forEach((file) => {
-            formData.append("file", file);
-        });
-
         try {
-            const response = await fetch("https://backend.sillybillysilkies.workers.dev/upload", {
-                method: "POST",
-                body: formData,
-            });
+            if (id) {
+                // 🟢 **Update Existing Bunny** (Send Full Data as JSON)
+                const updatedData = {
+                    id: id,
+                    pageType: `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`,
+                    breed: bunny.breed,
+                    name: bunny.name,
+                    gender: bunny.gender,
+                    dob: bunny.dob,
+                    takeHomeDate: bunny.takeHomeDate,
+                    price: bunny.price,
+                    status: bunny.status,
+                    pedigreedParents: bunny.pedigreedParents,
+                    color: bunny.color, 
+                    images: bunny.images, // Keeping existing image URLs
+                };
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const response = await fetch("https://backend.sillybillysilkies.workers.dev/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedData),
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                alert("Bunny updated successfully!");
+            } else {
+                // 🟢 **Create New Bunny** (Send as FormData)
+                const details = JSON.stringify({
+                    breed: bunny.breed,
+                    name: bunny.name,
+                    gender: bunny.gender,
+                    dob: bunny.dob,
+                    takeHomeDate: bunny.takeHomeDate,
+                    price: bunny.price,
+                    status: bunny.status,
+                    pedigreedParents: bunny.pedigreedParents,
+                    color: bunny.color, 
+                    images:bunny.images
+                });
+                console.log(details);
+
+                const formData = new FormData();
+                formData.append("details", details);
+                formData.append("pageType", `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`);
+                console.log(bunny.images);
+
+                bunny.images.forEach((img) => {
+                    if (img instanceof File) {
+                        formData.append("file", img); // ✅ Only append File objects
+                    }
+                });
+
+
+                const response = await fetch("https://backend.sillybillysilkies.workers.dev/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                alert("Bunny added successfully!");
             }
 
-            const data = await response.json();
-            console.log("Success:", data);
-
-            // Reset form to initial empty state
-            setBunny({
-                breed: "",
-                name: "",
-                gender: "",
-                dob: "",
-                takeHomeDate: "",
-                price: "",
-                status: "",
-                description: "",
-                images: [],
-            });
-
-            alert("Bunny saved successfully!");
+            navigate("/admin/manage-listing");
         } catch (error) {
             console.error("Error submitting data:", error);
             alert("Failed to save bunny. Please try again.");
         }
     };
 
+    const handleDeleteImage = async (imageUrl, index) => {
+        try {
+            // Prepare the required data
+            const bunnyId = id; // Assuming `id` is coming from `useParams()`
+            const pageType = `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`;
+            const imageUrls = [imageUrl]; // Backend expects an array of image URLs
+
+            // Send DELETE request to backend
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/deleteImage", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bunnyId, pageType, imageUrls }),
+            });
+
+            if (!response.ok) throw new Error("Failed to delete image");
+
+            // Remove the image from state if deleted successfully
+            setBunny((prev) => ({
+                ...prev,
+                images: prev.images.filter((_, i) => i !== index),
+            }));
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            alert("Failed to delete image. Please try again.");
+        }
+    };
+
+
+    const handleAddImages = async (event) => {
+        const files = Array.from(event.target.files);
+        if (files.length === 0) return;
+
+        const formData = new FormData();
+        formData.append("pageType", `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`);
+        files.forEach((file) => formData.append("files", file));
+
+        try {
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/addImages", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) throw new Error("Image upload failed");
+
+            const { uploadedUrls } = await response.json();
+
+            // Add new URLs to state
+            setBunny((prev) => ({
+                ...prev,
+                images: [...prev.images, ...uploadedUrls],
+            }));
+        } catch (error) {
+            console.error("Error uploading images:", error);
+            alert("Failed to upload images.");
+        }
+    };
+
     return (
         <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-center sm:text-left text-2xl font-semibold mb-6">Add New Bunny</h1>
+            <h1 className="text-center sm:text-left text-2xl font-semibold mb-6">
+                {id ? "Edit Bunny" : "Add New Bunny"}
+            </h1>
 
             <div className="bg-white p-6 rounded-lg shadow">
                 <h2 className="text-lg font-semibold mb-4">Select Breed</h2>
@@ -163,9 +255,10 @@ const AddNewBunny = () => {
                     <div>
                         <label className="block text-gray-700">Take Home Date</label>
                         <input
-                            type="date"
+                            type="text"
                             name="takeHomeDate"
                             value={bunny.takeHomeDate}
+                            placeholder="Enter take-home date"
                             className="w-full border p-2 rounded"
                             onChange={handleChange}
                         />
@@ -192,13 +285,37 @@ const AddNewBunny = () => {
                             onChange={handleChange}
                         >
                             <option value="">Select Status</option>
-                            <option value="Available">Available</option>
-                            <option value="Sold">Sold</option>
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
                         </select>
                     </div>
-                </div>
+                    <div>
+                        <label className="block text-gray-700">Pedigreed Parents</label>
+                        <input
+                            type="text"
+                            name="pedigreedParents"
+                            value={bunny.pedigreedParents}
+                            placeholder="Enter pedigreed parents info"
+                            className="w-full border p-2 rounded"
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="mt-4">
+                    <div>
+                        <label className="block text-gray-700">Color</label>
+                        <input
+                            type="text"
+                            name="color"
+                            value={bunny.color}
+                            placeholder="Enter bunny color"
+                            className="w-full border p-2 rounded"
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+               
+
+                {/* <div className="mt-4">
                     <label className="block text-gray-700">Bunny Description</label>
                     <textarea
                         name="description"
@@ -208,7 +325,7 @@ const AddNewBunny = () => {
                         rows="3"
                         onChange={handleChange}
                     ></textarea>
-                </div>
+                </div> */}
 
                 <div className="mt-6 border-dashed border-2 border-gray-300 rounded-lg p-6 text-center bg-gray-50">
                     <p className="text-gray-500">Upload Bunny Images</p>
@@ -216,27 +333,32 @@ const AddNewBunny = () => {
 
                     <label className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                         Select Images
-                        <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
+                        <input type="file" accept="image/*" multiple className="hidden" onChange={handleAddImages} />
                     </label>
 
-                    <div className="mt-4 grid grid-cols-4">
+                    <div className="mt-4 grid grid-cols-4 gap-2">
                         {bunny.images.length === 0 ? (
                             <p className="col-span-4 text-gray-400 italic">No images uploaded</p>
                         ) : (
-                            bunny.images.map((img, index) => (
-                                <div key={index} className="relative w-44 h-44 rounded-lg overflow-hidden border">
-                                    <img src={URL.createObjectURL(img)} alt="Preview" className="w-full h-full object-cover" />
-                                    <button
-                                        onClick={() => removeImage(index)}
-                                        className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 rounded-bl"
-                                    >
-                                        ✖
-                                    </button>
-                                </div>
-                            ))
+                            bunny.images.map((img, index) => {
+                                const imageUrl = img instanceof File ? URL.createObjectURL(img) : img;
+
+                                return (
+                                    <div key={index} className="relative w-32 h-32 rounded-lg overflow-hidden border">
+                                        <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                                        <button
+                                            onClick={() => handleDeleteImage(img, index)}
+                                            className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 rounded-bl"
+                                        >
+                                            ✖
+                                        </button>
+                                    </div>
+                                );
+                            })
                         )}
                     </div>
                 </div>
+
 
                 <div className="mt-6 flex justify-end">
                     <button onClick={handleSubmit} className="bg-black text-white px-4 py-2 rounded hover:opacity-80">

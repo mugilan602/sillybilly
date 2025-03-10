@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Edit, Trash2, CheckCircle, RefreshCcw } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ManageListings = () => {
     const [bunnies, setBunnies] = useState([]); // Store fetched bunnies
     const [search, setSearch] = useState("");
     const [breedFilter, setBreedFilter] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
+    const navigate = useNavigate();
 
     // Fetch bunnies from both endpoints
     useEffect(() => {
@@ -203,9 +205,14 @@ const ManageListings = () => {
                             {/* Buttons */}
                             {/* Buttons */}
                             <div className="mt-4 flex justify-center gap-2">
-                                <button className="border px-3 py-1 rounded flex items-center">
+                                <button
+                                    className="border px-3 py-1 rounded flex items-center"
+                                    onClick={() => navigate(`/admin/edit-bunny/${bunny.id}`, { state: { bunny } })}
+                                >
                                     <Edit size={16} className="mr-1" /> Edit
                                 </button>
+
+
                                 <button
                                     className="bg-red-500 text-white px-3 py-1 rounded flex items-center"
                                     onClick={() => handleDelete(bunny.id, bunny.breed)}

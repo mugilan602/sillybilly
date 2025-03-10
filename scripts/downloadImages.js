@@ -1,89 +1,138 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
+import axios from "axios";
+import { fileURLToPath } from "url";
 
-// JSON file URLs
-const JSON_FILES = [
-    "https://pub-61a0ce49134240fc832eac0f30d0dabc.r2.dev/cms/homepage.json",
-    "https://pub-61a0ce49134240fc832eac0f30d0dabc.r2.dev/cms/breeds/holland_lop.json",
-    "https://pub-61a0ce49134240fc832eac0f30d0dabc.r2.dev/cms/breeds/netherland_dwarf.json",
-    "https://pub-61a0ce49134240fc832eac0f30d0dabc.r2.dev/cms/gallery.json"
-];
+// Get directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-async function downloadImages() {
-    const basePath = path.join(process.cwd(), "public", "static-images");
-    const cmsPath = path.join(process.cwd(), "public", "cms"); // CMS JSON storage path
+// Define storage locations inside `public/`
+const PUBLIC_DIR = path.join(__dirname, "../public");
+const STATIC_IMAGES_DIR = path.join(PUBLIC_DIR, "static-images");
+const DATA_DIR = path.join(PUBLIC_DIR, "data");
 
-    for (const jsonUrl of JSON_FILES) {
-        try {
-            const response = await fetch(jsonUrl);
-            const data = await response.json();
+// Function to clean the directories before downloading new files
+async function cleanDirectories() {
+    console.log("🧹 Cleaning up old data...");
 
-            // Convert image URLs to relative paths
-            const updatedData = {
-                ...data,
-                images: await Promise.all(data.images.map(async (imageUrl) => {
-                    return await downloadImage(imageUrl, basePath);
-                }))
-            };
+    try {
+        await fs.remove(STATIC_IMAGES_DIR); // Delete existing images folder
+        await fs.remove(DATA_DIR); // Delete existing data folder
 
-            // Save updated JSON
-            await saveJSON(jsonUrl, updatedData, cmsPath);
+        await fs.ensureDir(STATIC_IMAGES_DIR); // Recreate empty folder
+        await fs.ensureDir(DATA_DIR);
 
-        } catch (error) {
-            console.error(`❌ Error fetching ${jsonUrl}:`, error);
+        console.log("✅ Cleanup complete!");
+    } catch (error) {
+        console.error("❌ Error while cleaning directories:", error.message);
+    }
+}
+
+// Cloudflare KV URLs
+const jsonUrls = {
+    "homepage": "https://backend.sillybillysilkies.workers.dev/cms/homepage.json",
+    "breeds/holland_lop": "https://backend.sillybillysilkies.workers.dev/cms/breeds/holland_lop.json",
+    "breeds/netherland_dwarf": "https://backend.sillybillysilkies.workers.dev/cms/breeds/netherland_dwarf.json",
+    "gallery": "https://backend.sillybillysilkies.workers.dev/cms/gallery.json"
+};
+
+/**
+ * Downloads an image and saves it in `public/static-images/` under the correct subdirectory
+ */
+async function downloadImage(url, folder, filename) {
+    try {
+        const saveDir = path.join(STATIC_IMAGES_DIR, folder);
+        await fs.ensureDir(saveDir);
+
+        const savePath = path.join(saveDir, filename);
+        const relativePath = `/static-images/${folder}/${filename}`; // Web-friendly path
+
+        console.log(`⬇️ Downloading: ${url}`);
+        const response = await axios({ url, responseType: "arraybuffer" });
+
+        await fs.writeFile(savePath, response.data);
+        console.log(`✅ Saved: ${relativePath}`);
+        return relativePath;
+    } catch (error) {
+        console.error(`❌ Failed to download ${url}:`, error.message);
+        return url; // Return original URL if download fails
+    }
+}
+
+/**
+ * Fetch JSON from Cloudflare KV and process images
+ */
+async function processJson(key, url) {
+    try {
+        console.log(`🔄 Fetching JSON from: ${url}`);
+        const response = await axios.get(url);
+        const data = response.data;
+
+        if (!data || typeof data !== "object") {
+            console.error(`❌ Invalid JSON data from ${url}`);
+            return;
         }
-    }
 
-    console.log("✅ All images and JSON files downloaded successfully!");
-}
+        // Process images based on data type
+        if (key === "homepage" && data.images) {
+            console.log(`📸 Processing homepage images`);
+            data.images = await Promise.all(
+                data.images.map(async (image) => {
+                    const ext = path.extname(image.url);
+                    const filename = `${image.id}${ext}`;
+                    const relativePath = await downloadImage(image.url, "homepage", filename);
 
-// Function to save modified JSON in public/cms
-async function saveJSON(jsonUrl, data, cmsPath) {
-    try {
-        const urlParts = new URL(jsonUrl);
-        const pathSegments = urlParts.pathname.split("/").slice(2); // Skip leading slashes
-        const saveDir = path.join(cmsPath, ...pathSegments.slice(0, -1)); // Directory path
-        const fileName = pathSegments[pathSegments.length - 1]; // JSON file name
-        const filePath = path.join(saveDir, fileName);
+                    return { ...image, url: relativePath };
+                })
+            );
+        } else if (key.startsWith("breeds") && data.bunnies) {
+            console.log(`🐰 Processing breed images: ${key}`);
+            const breedFolder = key.replace("breeds/", "breeds/"); // Example: breeds/holland_lop
+            for (let bunny of data.bunnies) {
+                if (bunny.images) {
+                    bunny.images = await Promise.all(
+                        bunny.images.map(async (imageUrl, index) => {
+                            const ext = path.extname(imageUrl);
+                            const filename = `${bunny.id}-${index}${ext}`;
+                            return await downloadImage(imageUrl, breedFolder, filename);
+                        })
+                    );
+                }
+            }
+        } else if (key === "gallery" && data.pets) {
+            console.log(`🖼️ Processing gallery images`);
+            for (let petId in data.pets) {
+                let pet = data.pets[petId];
+                if (pet.image_url) {
+                    const ext = path.extname(pet.image_url);
+                    const filename = `${petId}${ext}`;
+                    pet.image_url = await downloadImage(pet.image_url, "gallery", filename);
+                }
+            }
+        }
 
-        // Ensure directory exists
-        if (!fs.existsSync(saveDir)) fs.mkdirSync(saveDir, { recursive: true });
+        // Ensure nested directory structure for breeds
+        const jsonFilePath = path.join(DATA_DIR, `${key}.json`);
+        await fs.ensureDir(path.dirname(jsonFilePath));
 
-        // Save JSON file with modified image paths
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-
-        console.log(`✅ Saved JSON: ${filePath}`);
+        // Save updated JSON with relative paths
+        await fs.writeJson(jsonFilePath, data, { spaces: 2 });
+        console.log(`✅ Processed and saved: ${jsonFilePath}`);
     } catch (error) {
-        console.error(`❌ Error saving JSON file: ${jsonUrl}`, error);
+        console.error(`❌ Error processing ${url}:`, error.message);
     }
 }
 
-// Function to download images & return relative path
-async function downloadImage(imageUrl, basePath) {
-    try {
-        const urlParts = new URL(imageUrl);
-        const pathSegments = urlParts.pathname.split("/").slice(2); // Skip leading slashes and 'uploads'
-        const saveDir = path.join(basePath, ...pathSegments.slice(0, -1)); // Directory path
-        const imageName = pathSegments[pathSegments.length - 1]; // Image file name
-        const imagePath = path.join(saveDir, imageName);
+/**
+ * Main function to clean directories, fetch JSONs, and process images
+ */
+(async () => {
+    await cleanDirectories(); // Clean data before fetching new content
 
-        // Ensure directory exists
-        if (!fs.existsSync(saveDir)) fs.mkdirSync(saveDir, { recursive: true });
-
-        // Download and save image
-        const imgResponse = await fetch(imageUrl);
-        const buffer = await imgResponse.arrayBuffer();
-        fs.writeFileSync(imagePath, Buffer.from(buffer));
-
-        console.log(`✅ Downloaded: ${imagePath}`);
-
-        // Return relative path from public
-        return `/static-images/${pathSegments.join("/")}`;
-    } catch (error) {
-        console.error(`❌ Error downloading ${imageUrl}:`, error);
-        return imageUrl; // Fallback to original URL if download fails
+    for (const [key, url] of Object.entries(jsonUrls)) {
+        await processJson(key, url);
     }
-}
 
-// Run the script
-downloadImages();
+    console.log("🎉 Image download and JSON update complete!");
+})();

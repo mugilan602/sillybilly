@@ -139,6 +139,16 @@ function App() {
           }
         />
         <Route
+          path="/admin/edit-bunny/:id"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <AddNewBunny />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/add-bunny"
           element={
             <ProtectedRoute>

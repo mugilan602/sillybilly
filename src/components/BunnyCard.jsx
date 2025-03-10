@@ -21,13 +21,14 @@ const BunnyCard = ({ data, index }) => {
                 </motion.div>
 
                 {/* Text Section */}
-                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-black flex flex-col text-lg sm:text-2xl space-y-4">
+                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-black flex flex-col text-lg sm:text-2xl space-y-3">
                     <p>Breed: {data.breed}</p>
-                    <p>Pedigreed Parents:{data.parents}</p>
+                    <p>Pedigreed Parents:{data.pedigreedParents}</p>
                     <p>Gender: {data.gender}</p>
-                    <p>Date of Birth: {data.dateOfBirth}</p>
+                    <p>Color:{data.color}</p>
+                    <p>Date of Birth: {data.dob}</p>
                     <p>Take home date:{data.takeHomeDate}</p>
-                    <p>Price:   {data.price}</p>
+                    <p>Price:$ {data.price}</p>
                 </div>
             </div>
 

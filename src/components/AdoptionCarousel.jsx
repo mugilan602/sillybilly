@@ -11,9 +11,12 @@ function AdoptionGallery() {
     useEffect(() => {
         async function fetchImages() {
             try {
-                const response = await fetch("/cms/homepage.json"); // Fetch from public/cms/homepage.json
+                const response = await fetch("/data/homepage.json"); // Fetch JSON
                 const data = await response.json();
-                setImages(data.images); // Set images from JSON
+                console.log(data);
+
+                // Directly use the URL field from JSON (since it's already absolute)
+                setImages(data.images.map(image => image.url));
             } catch (error) {
                 console.error("❌ Error fetching images:", error);
             }

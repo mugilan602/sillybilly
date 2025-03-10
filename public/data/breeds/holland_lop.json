@@ -1,0 +1,40 @@
+{
+  "bunnies": [
+    {
+      "id": "ecade4aa-0658-4b38-9c5b-dc6ae35b1db4",
+      "breed": "Holland Lop",
+      "name": "Final",
+      "gender": "Male",
+      "dob": "2025-03-13",
+      "takeHomeDate": "Ready Now",
+      "price": "123",
+      "status": "available",
+      "pedigreedParents": "Dam & Sire",
+      "color": "Opal with Vienna Mark (VC)",
+      "images": [
+        "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-0.png",
+        "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-1.jpeg",
+        "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-2.jpeg",
+        "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-3.jpeg"
+      ]
+    },
+    {
+      "id": "edd06ad5-aff9-410a-ac9c-e35141b60ed4",
+      "breed": "Holland Lop",
+      "name": "Holland_lop 2",
+      "gender": "Male",
+      "dob": "2025-03-10",
+      "takeHomeDate": "Ready Now",
+      "price": "122",
+      "status": "available",
+      "pedigreedParents": "Riya and Tiya",
+      "color": "Blue",
+      "images": [
+        "/static-images/breeds/holland_lop/edd06ad5-aff9-410a-ac9c-e35141b60ed4-0.png",
+        "/static-images/breeds/holland_lop/edd06ad5-aff9-410a-ac9c-e35141b60ed4-1.png",
+        "/static-images/breeds/holland_lop/edd06ad5-aff9-410a-ac9c-e35141b60ed4-2.png",
+        "/static-images/breeds/holland_lop/edd06ad5-aff9-410a-ac9c-e35141b60ed4-3.png"
+      ]
+    }
+  ]
+}

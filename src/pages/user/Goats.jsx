@@ -4,25 +4,34 @@ import GoatCard from "../../components/GoatCard";
 function Goats() {
     const data = [
         {
-            image: "goat-image.jpg", // Replace with actual image URL
-            title: "Nigerian Dwarf Buck",
+            image: "/Images/Goats/1.png", // Replace with actual image URL
+            breed: "Nigerian Dwarf Buck",
             description: "Butts in to help!\nFriendly playful guy",
         },
         {
-            image: "goat-image.jpg", // Replace with actual image URL
-            title: "Nigerian Dwarf Buck",
-            description: "Butts in to help!\nFriendly playful guy",
+            image: "/Images/Goats/2.png", // Replace with actual image URL
+            breed: "​ Miniature Silky Fainting Buck",
+            description: "Purebred\nTri-Color",
+        }, {
+            image: "/Images/Goats/3.png", // Replace with actual image URL
+            breed: "​Miniature Silky Fainting Doe",
+            description: "Purebred\nWhite and Black",
         },
         {
-            image: "goat-image.jpg", // Replace with actual image URL
-            title: "Nigerian Dwarf Buck",
-            description: "Butts in to help!\nFriendly playful guy",
+            image: "/Images/Goats/4.png", // Replace with actual image URL
+            breed: "Nigerian Dwarf Doe",
+            description: "Purebred\nOrange and White",
+        }, {
+            image: "/Images/Goats/5.png", // Replace with actual image URL
+            breed: "​Nigerial Dwarf Doeling",
+            description: "Purebred\nOrange",
         },
         {
-            image: "goat-image.jpg", // Replace with actual image URL
-            title: "Nigerian Dwarf Buck",
-            description: "Butts in to help!\nFriendly playful guy",
-        },]
+            image: "/Images/Goats/6.png", // Replace with actual image URL
+            breed: "Miniature Silky Fainting Doe",
+            description: "MSGA Registered\nGorgeous Blue",
+        },
+    ]
 
     return (
         <>
