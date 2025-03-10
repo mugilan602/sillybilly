@@ -3,6 +3,7 @@ import BunnyCard from "../../components/BunnyCard";
 
 const HollandLop = () => {
     const [bunnies, setBunnies] = useState([]);
+    const [isSoldOut, setIsSoldOut] = useState(false);
 
     useEffect(() => {
         async function fetchBunnyData() {
@@ -23,6 +24,10 @@ const HollandLop = () => {
 
                 console.log("✅ Successfully fetched bunny data:", data.bunnies);
                 setBunnies(data.bunnies);
+
+                // Check if all bunnies are sold
+                const allSold = data.bunnies.every((bunny) => bunny.status === "sold");
+                setIsSoldOut(allSold);
             } catch (error) {
                 console.error("❌ Error fetching Holland Lop data:", error.message);
             }
@@ -34,7 +39,14 @@ const HollandLop = () => {
     console.log("🐰 Current bunnies state:", bunnies);
 
     return (
-        <div className="p-3 lg:p-6 bg-[#FFF8F1] min-h-screen">
+        <div className="relative p-3 lg:p-6 bg-[#FFF8F1] min-h-screen">
+            {/* Sold Out Overlay */}
+            {isSoldOut && (
+                <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-600 text-6xl sm:text-7xl font-bold uppercase rotate-[-15deg] px-6 py-2 opacity-90 z-50">
+                    **SOLD OUT**
+                </div>
+            )}
+
             {/* Header */}
             <div className="my-4">
                 <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-4xl text-center mb-5 text-[#A2672D]">

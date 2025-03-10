@@ -8,7 +8,7 @@
       "dob": "2025-03-13",
       "takeHomeDate": "Ready Now",
       "price": "123",
-      "status": "available",
+      "status": "sold",
       "pedigreedParents": "Dam & Sire",
       "color": "Opal with Vienna Mark (VC)",
       "images": [
@@ -26,7 +26,7 @@
       "dob": "2025-03-10",
       "takeHomeDate": "Ready Now",
       "price": "122",
-      "status": "available",
+      "status": "sold",
       "pedigreedParents": "Riya and Tiya",
       "color": "Blue",
       "images": [
