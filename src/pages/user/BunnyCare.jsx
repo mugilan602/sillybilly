@@ -290,11 +290,11 @@ function BunnyCare() {
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8  rounded-lg text-black">
                     <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
-                    <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
-                    <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
-                    <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
-                    <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
-                    <img className='rounded-xl' src="/Images/BunnyCare/cage1.png" alt="" />
+                    <img className='rounded-xl' src="/Images/BunnyCare/cage2.png" alt="" />
+                    <img className='rounded-xl' src="/Images/BunnyCare/cage3.png" alt="" />
+                    <img className='rounded-xl' src="/Images/BunnyCare/cage4.png" alt="" />
+                    <img className='rounded-xl' src="/Images/BunnyCare/cage5.png" alt="" />
+                    <img className='rounded-xl' src="/Images/BunnyCare/cage6.png" alt="" />
                 </div>
             </div>
             <div className="max-w-5xl py-8 mx-auto px-3 lg:p-6">

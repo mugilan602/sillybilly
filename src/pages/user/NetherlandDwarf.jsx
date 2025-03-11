@@ -42,7 +42,7 @@ const NetherlandDwarf = () => {
         <div className="relative p-3 lg:p-6 bg-[#FFF8F1] min-h-screen">
             {/* Sold Out Overlay */}
             {isSoldOut && (
-                <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-600 text-6xl sm:text-7xl font-bold uppercase rotate-[-15deg] px-6 py-2 opacity-90 z-50">
+                <div className="absolute top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-600 text-6xl sm:text-7xl font-bold uppercase rotate-[-15deg] px-6 py-2 opacity-90 z-10">
                     **SOLD OUT**
                 </div>
             )}

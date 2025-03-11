@@ -1,5 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, Autoplay } from "swiper/modules";
 
 const BunnyCard = ({ data, index }) => {
     return (
@@ -7,33 +11,63 @@ const BunnyCard = ({ data, index }) => {
             {/* Ensure flex-row and alternate layout for odd and even indexes */}
             <div className={`flex flex-col sm:flex-row ${index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} ${index % 2 === 0 ? "sm:space-x-12" : "sm:ml-5"} items-center`}>
 
-                {/* Image Section */}
+                {/* Image Section - Carousel on Mobile */}
                 <motion.div
-                    className="relative w-full sm:w-1/2 flex-shrink-0"
-                    whileHover={{ scale: 1.5, zIndex: 50 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ position: "relative", zIndex: 1 }}
-                >
-                    {/* Wrap Image and Label in the Same Motion.div to Scale Together */}
-                    <motion.div className="relative">
-                        {/* Sold Badge */}
+                    className="relative w-full sm:w-1/2 flex-shrink-0 sm:hover:scale-150 sm:hover:z-50 transition-transform duration-300">
+
+                    {/* Mobile: Swiper Carousel */}
+                    <div className="sm:hidden">
+                        <Swiper
+                            spaceBetween={10}
+                            slidesPerView={1}
+                            pagination={{ clickable: true }}
+                            autoplay={{ delay: 2000, disableOnInteraction: false }}
+                            modules={[Pagination, Autoplay]}
+                            className="w-full relative"
+                        >
+                            {data.images.map((img, imgIndex) => (
+                                <SwiperSlide key={imgIndex}>
+                                    <motion.div className="relative w-full flex justify-center">
+                                        {/* Sold Badge */}
+                                        {data.status === "sold" && (
+                                            <motion.div
+                                                className="absolute top-2 right-8 font-[Overlock] bg-blue-400 text-white text-sm font-bold px-3 py-1 rounded z-10"
+                                            >
+                                                SOLD
+                                            </motion.div>
+                                        )}
+
+                                        <img
+                                            src={img}
+                                            alt={`Bunny ${imgIndex + 1}`}
+                                            className="w-11/12 h-64 rounded-lg object-cover border"
+                                        />
+                                    </motion.div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+
+                        {/* Pagination Below the Image */}
+                        <div className="swiper-pagination !static mt-3"></div>
+                    </div>
+
+                    {/* Desktop: Static Image with Hover Effect */}
+                    <div className="hidden sm:block relative">
                         {data.status === "sold" && (
                             <motion.div
                                 className="absolute top-2 right-2 bg-blue-400 text-white text-sm font-bold px-3 py-1 rounded"
-                                whileHover={{ scale: 1.1 }}
-                                transition={{ duration: 0.3 }}
                             >
                                 SOLD
                             </motion.div>
                         )}
-
-                        <img
+                        <motion.img
                             src={data.images[0]}
                             alt="Bunny"
                             className="w-full h-64 lg:w-full sm:h-80 rounded-lg object-cover border"
                         />
-                    </motion.div>
+                    </div>
                 </motion.div>
+
 
                 {/* Text Section */}
                 <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-black flex flex-col text-lg sm:text-2xl space-y-3">
@@ -47,8 +81,8 @@ const BunnyCard = ({ data, index }) => {
                 </div>
             </div>
 
-            {/* Small Image Gallery */}
-            <div className="flex flex-col items-center space-y-4 sm:space-y-0 md:flex-row justify-between mt-6">
+            {/* Desktop: Standard Layout */}
+            <div className="hidden sm:flex flex-row justify-between mt-8 space-x-4">
                 {data.images.slice(1).map((img, imgIndex) => (
                     <motion.div
                         key={imgIndex}
@@ -71,7 +105,7 @@ const BunnyCard = ({ data, index }) => {
                         <motion.img
                             src={img}
                             alt={`Bunny ${imgIndex + 2}`}
-                            className="w-11/12 h-64 sm:w-52 sm:h-52 rounded-lg object-cover border"
+                            className="w-52 h-52 rounded-lg object-cover border"
                         />
                     </motion.div>
                 ))}

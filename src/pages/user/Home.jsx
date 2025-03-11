@@ -6,7 +6,7 @@ function Home() {
     return (
         <>
             <section>
-                <img className="w-full h-[50vh] lg:h-[90vh] object-cover" src="/Images/Landing.webp" alt="Landing Image" />
+                <img className="w-full h-[50vh] lg:h-[90vh] object-cover" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
             </section>
 
             <section className="mt-4">
@@ -56,8 +56,8 @@ function Home() {
 
                     {/* Images with buttons */}
                     {[
-                        { src: "/Images/holland_lop.png", alt: "Holland Lop", link: "/holland_lop", name: "Holland Lop" },
-                        { src: "/Images/netherland_dwarf.png", alt: "Netherland Dwarf", link: "/netherland_dwarf", name: "Netherland Dwarf" },
+                        { src: "/Images/Homepage/holland_lop.jpg", alt: "Holland Lop", link: "/holland_lop", name: "Holland Lop" },
+                        { src: "/Images/Homepage/netherland_dwarf.jpg", alt: "Netherland Dwarf", link: "/netherland_dwarf", name: "Netherland Dwarf" },
                         // { src: "/Images/Chicken.png", alt: "Chicken", link: "/chicks-eggs", name: "Chicken" },
                         // { src: "/Images/hatching_eggs.png", alt: "Hatching Eggs", link: "/chicks-eggs", name: "Hatching Eggs" },
                         // { src: "/Images/goats.png", alt: "Goats", link: "/goats", name: "Goats" },
@@ -85,9 +85,9 @@ function Home() {
                     {[
                         // { src: "/Images/holland_lop.png", alt: "Holland Lop", link: "/holland_lop", name: "Holland Lop" },
                         // { src: "/Images/netherland_dwarf.png", alt: "Netherland Dwarf", link: "/netherland_dwarf", name: "Netherland Dwarf" },
-                        { src: "/Images/Chicken.png", alt: "Chicken", link: "/chicks-eggs", name: "Chicken" },
-                        { src: "/Images/hatching_eggs.png", alt: "Hatching Eggs", link: "/chicks-eggs", name: "Hatching Eggs" },
-                        { src: "/Images/goats.png", alt: "Goats", link: "/goats", name: "Goats" },
+                        { src: "/Images/Homepage/chicken.jpg", alt: "Chicken", link: "/chicks-eggs", name: "Chicken" },
+                        { src: "/Images/Homepage/hatching_eggs.jpg", alt: "Hatching Eggs", link: "/chicks-eggs", name: "Hatching Eggs" },
+                        { src: "/Images/Homepage/goats.jpg", alt: "Goats", link: "/goats", name: "Goats" },
                     ].map((pet, index) => (
                         <div key={index} className="relative overflow-hidden shadow-md order-2">
                             <img

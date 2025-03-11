@@ -10,7 +10,7 @@ function Rabbit() {
                         {/* Image with SVG Mask */}
                         <div className=" w-5/6 mx-auto md:w-2/6 flex items-center justify-center">
                             <img
-                                src="/Images/rabit_final.png"
+                                src="/Images/Homepage/rabit.jpg"
                                 alt="Cute Rabbit"
                                 className="w-full h-full object-cover"
                             />

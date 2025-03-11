@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaEdit, FaSave, FaTrash } from "react-icons/fa";
+import { CgSpinner } from "react-icons/cg"; // Import spinner icon
 
 const API_URL = "https://backend.sillybillysilkies.workers.dev/pets"; // Replace with your backend URL
 
@@ -12,9 +13,15 @@ const GalleryManagement = () => {
         purebred: false,
         image: "",
     });
+    // Add loading state variables
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAdding, setIsAdding] = useState(false);
+    const [savingId, setSavingId] = useState(null);
+    const [deletingId, setDeletingId] = useState(null);
 
     // ✅ Fetch existing entries from backend
     useEffect(() => {
+        setIsLoading(true);
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
@@ -31,6 +38,9 @@ const GalleryManagement = () => {
             .catch(error => {
                 console.error("Error fetching data:", error);
                 setEntries([]); // Ensure entries is always an array
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     }, []);
 
@@ -81,6 +91,7 @@ const GalleryManagement = () => {
         }
 
         console.log("New Entry:", newEntry);
+        setIsAdding(true);
 
         // Create a FormData object
         const formData = new FormData();
@@ -131,6 +142,8 @@ const GalleryManagement = () => {
 
         } catch (error) {
             console.error("Error adding entry:", error);
+        } finally {
+            setIsAdding(false);
         }
     };
 
@@ -144,6 +157,7 @@ const GalleryManagement = () => {
             return;
         }
 
+        setSavingId(id);
         const formData = new FormData();
 
         // ✅ Send ID as a separate key
@@ -184,12 +198,15 @@ const GalleryManagement = () => {
 
         } catch (error) {
             console.error("Error updating entry:", error);
+        } finally {
+            setSavingId(null);
         }
     };
 
 
     // ✅ Delete an entry
     const handleDeleteEntry = async (id) => {
+        setDeletingId(id);
         try {
             const response = await fetch(API_URL, {
                 method: "DELETE",
@@ -207,167 +224,203 @@ const GalleryManagement = () => {
             setEntries(entries.filter(entry => entry.id !== id));
         } catch (error) {
             console.error("Error deleting entry:", error);
+        } finally {
+            setDeletingId(null);
         }
     };
 
     return (
         <div className="p-4 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-semibold mb-4">Gallery Management</h1>
-            <p className="text-gray-500 mb-6">Total entries: {entries.length}</p>
+            <h1 className="text-2xl text-[#754E1A] font-semibold mb-4">Gallery Management</h1>
+            <p className="text-[#4A3B2D] mb-6">Total entries: {entries.length}</p>
 
-            {/* List Existing Entries */}
-            {entries.map((entry) => (
-                <div key={entry.id} className="bg-white p-4 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
-                    {/* Icons for Edit, Save, Delete */}
-                    <div className="absolute top-4 right-4 flex gap-3">
-                        {entry.isEditing ? (
-                            <FaSave className="text-green-500 cursor-pointer" onClick={() => handleSaveEntry(entry.id)} />
-                        ) : (
-                            <FaEdit className="text-blue-500 cursor-pointer" onClick={() => toggleEdit(entry.id)} />
+            {/* Show loading spinner for initial data load */}
+            {isLoading ? (
+                <div className="flex justify-center items-center p-12">
+                    <CgSpinner className="animate-spin text-blue-500 text-4xl" />
+                    <span className="ml-2 text-gray-600">Loading entries...</span>
+                </div>
+            ) : (
+                <>
+                    {/* List Existing Entries */}
+                    {entries.map((entry) => (
+                        <div key={entry.id} className="bg-white p-4 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
+                            {/* Show spinner overlay when saving or deleting */}
+                            {(savingId === entry.id || deletingId === entry.id) && (
+                                <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded-lg z-10">
+                                    <CgSpinner className="animate-spin text-blue-500 text-4xl" />
+                                    <span className="ml-2 font-medium">
+                                        {savingId === entry.id ? "Saving..." : "Deleting..."}
+                                    </span>
+                                </div>
+                            )}
+
+                            {/* Icons for Edit, Save, Delete */}
+                            <div className="absolute top-8 right-8 sm:top-4 sm:right-4 flex gap-3">
+                                {entry.isEditing ? (
+                                    <FaSave size={20} className="text-green-500 cursor-pointer" onClick={() => handleSaveEntry(entry.id)} />
+                                ) : (
+                                    <FaEdit size={20} className="text-blue-500 cursor-pointer" onClick={() => toggleEdit(entry.id)} />
+                                )}
+                                <FaTrash size={20} className="text-red-500 cursor-pointer" onClick={() => handleDeleteEntry(entry.id)} />
+                            </div>
+
+                            {/* Image Upload */}
+                            <div className="w-80 h-80 sm:w-64 sm:h-64 border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden">
+                                {entry.image_url ? (
+                                    <img src={entry.image_url} alt="Uploaded" className="w-full h-full object-cover" />
+                                ) : (
+                                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload(entry.id, e)} disabled={!entry.isEditing} />
+                                )}
+                            </div>
+
+                            {/* Form Inputs */}
+                            <div className="flex-1">
+                                <div className="flex-1 w-full md:w-auto">
+                                    <div className="mb-4">
+                                        <label className="block text-[#4A3B2D]">Breed</label>
+                                        <input
+                                            type="text"
+                                            value={entry.breed}
+                                            onChange={(e) => handleChange(entry.id, "breed", e.target.value)}
+                                            className="w-full text-[#4A3B2D] border border-[#4A3B2D] p-2 rounded"
+                                            disabled={!entry.isEditing}
+                                        />
+                                    </div>
+                                    <div className="flex space-x-4">
+                                        <div className="mb-4">
+                                            <label className="flex items-center text-[#4A3B2D]">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={entry.pedigreed}
+                                                    onChange={(e) => handleChange(entry.id, "pedigreed", e.target.checked)}
+                                                    className="mr-2"
+                                                    disabled={!entry.isEditing}
+                                                />
+                                                Pedigreed Parent
+                                            </label>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="flex items-center text-[#4A3B2D]">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={entry.purebred}
+                                                    onChange={(e) => handleChange(entry.id, "purebred", e.target.checked)}
+                                                    className="mr-2"
+                                                    disabled={!entry.isEditing}
+                                                />
+                                                Purebred
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-[#4A3B2D]">Description</label>
+                                        <textarea
+                                            value={entry.description}
+                                            onChange={(e) => handleChange(entry.id, "description", e.target.value)}
+                                            className="w-full text-[#4A3B2D] border border-[#4A3B2D] p-2 rounded"
+                                            rows="3"
+                                            disabled={!entry.isEditing}
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Add New Entry Section */}
+                        <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 border-2 border-dashed border-[#4A3B2D] relative">
+                        {/* Show spinner overlay when adding a new entry */}
+                        {isAdding && (
+                            <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded-lg z-10">
+                                <CgSpinner className="animate-spin text-green-500 text-4xl" />
+                                <span className="ml-2 font-medium">Adding new entry...</span>
+                            </div>
                         )}
-                        <FaTrash className="text-red-500 cursor-pointer" onClick={() => handleDeleteEntry(entry.id)} />
-                    </div>
 
-                    {/* Image Upload */}
-                    <div className="w-64 h-64 border-dashed border-2 rounded-lg flex items-center justify-center overflow-hidden">
-                        {entry.image_url ? (
-                            <img src={entry.image_url} alt="Uploaded" className="w-full h-full object-cover" />
-                        ) : (
-                            <input type="file" accept="image/*" onChange={(e) => handleImageUpload(entry.id, e)} disabled={!entry.isEditing} />
-                        )}
-                    </div>
+                        {/* Image Upload */}
+                            <div className="w-32 h-32 md:w-64 md:h-64 border-dashed border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden">
+                            {newEntry.image ? (
+                                <img src={newEntry.image} alt="Uploaded" className="w-full h-full object-cover" />
+                            ) : (
+                                <label className="cursor-pointer flex flex-col items-center text-gray-400 text-xs md:text-sm">
+                                    <span>Click to upload</span>
+                                    <input type="file" className="hidden" accept="image/*" onChange={handleNewImageUpload} />
+                                </label>
+                            )}
+                        </div>
 
-                    {/* Form Inputs */}
-                    <div className="flex-1">
+                        {/* Form Inputs */}
                         <div className="flex-1 w-full md:w-auto">
+                            {/* Breed Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700">Breed</label>
+                                <label className="block text-[#4A3B2D] font-medium">Breed</label>
                                 <input
                                     type="text"
-                                    value={entry.breed}
-                                    onChange={(e) => handleChange(entry.id, "breed", e.target.value)}
-                                    className="w-full border p-2 rounded"
-                                    disabled={!entry.isEditing}
+                                    value={newEntry.breed}
+                                    onChange={(e) => handleNewEntryChange("breed", e.target.value)}
+                                        className="w-full border placeholder:text-[#4A3B2D] border-[#4A3B2D] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    placeholder="Enter breed name"
+                                />
+                            </div>
+
+                            {/* Description Input */}
+                            <div className="mb-4">
+                                <label className="block text-[#4A3B2D] font-medium">Description</label>
+                                <textarea
+                                    value={newEntry.description}
+                                    onChange={(e) => handleNewEntryChange("description", e.target.value)}
+                                    className="w-full border  placeholder:text-[#4A3B2D] border-[#4A3B2D] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                                    rows="3"
+                                    placeholder="Enter a description..."
                                 />
                             </div>
                             <div className="flex space-x-4">
+                                {/* Pedigreed Parent Checkbox */}
                                 <div className="mb-4">
-                                    <label className="flex items-center text-gray-700">
+                                    <label className="flex items-center text-[#4A3B2D] font-medium">
                                         <input
                                             type="checkbox"
-                                            checked={entry.pedigreed}
-                                            onChange={(e) => handleChange(entry.id, "pedigreed", e.target.checked)}
-                                            className="mr-2"
-                                            disabled={!entry.isEditing}
+                                            checked={newEntry.pedigreed}
+                                            onChange={(e) => handleNewEntryChange("pedigreed", e.target.checked)}
+                                            className="mr-2 accent-blue-500"
                                         />
                                         Pedigreed Parent
                                     </label>
                                 </div>
+
+                                {/* Purebred Checkbox */}
                                 <div className="mb-4">
-                                    <label className="flex items-center text-gray-700">
+                                    <label className="flex items-center text-[#4A3B2D] font-medium">
                                         <input
                                             type="checkbox"
-                                            checked={entry.purebred}
-                                            onChange={(e) => handleChange(entry.id, "purebred", e.target.checked)}
-                                            className="mr-2"
-                                            disabled={!entry.isEditing}
+                                            checked={newEntry.purebred}
+                                            onChange={(e) => handleNewEntryChange("purebred", e.target.checked)}
+                                            className="mr-2 accent-blue-500"
                                         />
                                         Purebred
                                     </label>
                                 </div>
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Description</label>
-                                <textarea
-                                    value={entry.description}
-                                    onChange={(e) => handleChange(entry.id, "description", e.target.value)}
-                                    className="w-full border p-2 rounded"
-                                    rows="3"
-                                    disabled={!entry.isEditing}
-                                ></textarea>
-                            </div>
+                            {/* Add Entry Button */}
+                            <button
+                                className="bg-[#754E1A] text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full md:w-auto flex items-center justify-center"
+                                onClick={handleAddEntry}
+                                disabled={isAdding}
+                            >
+                                {isAdding ? (
+                                    <>
+                                        <CgSpinner className="animate-spin mr-2" />
+                                        Adding...
+                                    </>
+                                ) : (
+                                    "Add Entry"
+                                )}
+                            </button>
                         </div>
                     </div>
-                </div>
-            ))}
-
-            {/* Add New Entry Section */}
-            <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 border-2 border-dashed">
-
-                {/* Image Upload */}
-                <div className="w-32 h-32 md:w-64 md:h-64 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
-                    {newEntry.image ? (
-                        <img src={newEntry.image} alt="Uploaded" className="w-full h-full object-cover" />
-                    ) : (
-                        <label className="cursor-pointer flex flex-col items-center text-gray-400 text-xs md:text-sm">
-                            <span>Click to upload</span>
-                            <input type="file" className="hidden" accept="image/*" onChange={handleNewImageUpload} />
-                        </label>
-                    )}
-                </div>
-
-                {/* Form Inputs */}
-                <div className="flex-1 w-full md:w-auto">
-                    {/* Breed Input */}
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-medium">Breed</label>
-                        <input
-                            type="text"
-                            value={newEntry.breed}
-                            onChange={(e) => handleNewEntryChange("breed", e.target.value)}
-                            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            placeholder="Enter breed name"
-                        />
-                    </div>
-
-                    {/* Description Input */}
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-medium">Description</label>
-                        <textarea
-                            value={newEntry.description}
-                            onChange={(e) => handleNewEntryChange("description", e.target.value)}
-                            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-                            rows="3"
-                            placeholder="Enter a description..."
-                        />
-                    </div>
-                    <div className="flex space-x-4">
-                        {/* Pedigreed Parent Checkbox */}
-                        <div className="mb-4">
-                            <label className="flex items-center text-gray-700 font-medium">
-                                <input
-                                    type="checkbox"
-                                    checked={newEntry.pedigreed}
-                                    onChange={(e) => handleNewEntryChange("pedigreed", e.target.checked)}
-                                    className="mr-2 accent-blue-500"
-                                />
-                                Pedigreed Parent
-                            </label>
-                        </div>
-
-                        {/* Purebred Checkbox */}
-                        <div className="mb-4">
-                            <label className="flex items-center text-gray-700 font-medium">
-                                <input
-                                    type="checkbox"
-                                    checked={newEntry.purebred}
-                                    onChange={(e) => handleNewEntryChange("purebred", e.target.checked)}
-                                    className="mr-2 accent-blue-500"
-                                />
-                                Purebred
-                            </label>
-                        </div>
-                    </div>
-                    {/* Add Entry Button */}
-                    <button
-                        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full md:w-auto"
-                        onClick={handleAddEntry}
-                    >
-                        Add Entry
-                    </button>
-                </div>
-            </div>
-
+                </>
+            )}
         </div>
     );
 };

@@ -8,7 +8,7 @@ const GoatCard = ({ data }) => {
                 <img
                     src={data.image}
                     alt="Goat"
-                    className="w-full h-52 sm:h-72 sm:w-80 object-cover"
+                    className="w-full h-72 sm:w-80 object-cover"
                 />
 
                 
@@ -16,7 +16,7 @@ const GoatCard = ({ data }) => {
             {/* Text Box Over Image */}
             <div
                 style={{ fontFamily: "Futura LT W01 Medium" }}
-                className=" bg-[#D4A373] w-11/12 mx-auto relative bottom-6 bg-opacity-75 text-black text-lg sm:text-lg font-thin p-3 rounded-lg shadow-md">
+                className=" bg-[#D4A373] w-full sm:w-11/12 mx-auto mt-2 sm:mt-0 sm:relative sm:bottom-6 bg-opacity-75 text-black text-lg sm:text-lg font-thin p-3 rounded-lg shadow-md">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}
                 {data.purebred && <p>Purebred</p>}

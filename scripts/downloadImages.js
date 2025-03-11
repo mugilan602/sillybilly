@@ -34,7 +34,8 @@ const jsonUrls = {
     "homepage": "https://backend.sillybillysilkies.workers.dev/cms/homepage.json",
     "breeds/holland_lop": "https://backend.sillybillysilkies.workers.dev/cms/breeds/holland_lop.json",
     "breeds/netherland_dwarf": "https://backend.sillybillysilkies.workers.dev/cms/breeds/netherland_dwarf.json",
-    "gallery": "https://backend.sillybillysilkies.workers.dev/cms/gallery.json"
+    "gallery": "https://backend.sillybillysilkies.workers.dev/cms/gallery.json",
+    "profile":"https://backend.sillybillysilkies.workers.dev/GetProfilePic",
 };
 
 /**
@@ -111,6 +112,20 @@ async function processJson(key, url) {
                 }
             }
         }
+        else if (key === "profile" && data.imageUrl) {
+            console.log(`📸 Processing profile image...`);
+
+            const profileImageUrl = data.imageUrl;
+            const ext = path.extname(profileImageUrl);
+            const filename = `profile${ext}`; // Standard filename
+
+            // Download image and get relative path
+            const relativePath = await downloadImage(profileImageUrl, "profile", filename);
+
+            // ✅ Update the JSON structure
+            data.imageUrl = relativePath;  // Replace external URL with local path
+        }
+
 
         // Ensure nested directory structure for breeds
         const jsonFilePath = path.join(DATA_DIR, `${key}.json`);

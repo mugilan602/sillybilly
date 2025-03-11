@@ -19,7 +19,7 @@ const ChickenCard = ({ data }) => {
                         key={index}
                         src={img}
                         alt={`Chicken ${index + 1}`}
-                        className="w-full h-64 lg:w-full sm:h-80 rounded-lg object-cover border"
+                        className="h-80 w-5/6 mx-auto sm:w-full sm:h-80 rounded-lg object-cover border"
                     />
                 ))}
             </div>

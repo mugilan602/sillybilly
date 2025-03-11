@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react"; // Icons for mobile menu
 import { motion } from "framer-motion"; // Import Framer Motion for animation
+import axios from "axios"; // HTTP requests
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation(); // Get the current location
     const [isBunnyHovered, setIsBunnyHovered] = useState(false);
     const [isBunnyOpen, setIsBunnyOpen] = useState(false); // Dropdown for Bunny
+    const [profileImage, setProfileImage] = useState(null); // Default logo
 
     // Function to determine if a link is active
     const isActive = (path) => {
@@ -22,13 +24,26 @@ function Navbar() {
             document.body.style.overflow = "auto";
         }
     }, [isOpen]);
+    useEffect(() => {
+        async function fetchProfileImage() {
+            try {
+                const response = await axios.get("/data/profile.json"); // Fetch from public/data/profile.json
+                if (response.data.imageUrl) {
+                    setProfileImage(response.data.imageUrl); // Update image state
+                }
+            } catch (error) {
+                console.error("❌ Error fetching profile image:", error.message);
+            }
+        }
 
+        fetchProfileImage();
+    }, []);
     return (
         <>
             {/* Top Header */}
-            <header 
+            <header
                 style={{ fontFamily: 'League Spartan' }}
-            className="bg-[#A56A3A] text-white tracking-wider text-center py-2 text-sm lg:text-xl">
+                className="bg-[#A56A3A] text-white tracking-wider text-center py-2 text-sm lg:text-xl">
                 Your friend - AWAITS
             </header>
 
@@ -37,7 +52,8 @@ function Navbar() {
                 <div className="mx-auto flex justify-between items-center px-6 py-4">
                     {/* Logo and Tagline */}
                     <div className="flex items-center space-x-4">
-                        <img src="/Logos/Logo.avif" alt="Silly Billy Silkies" className="h-full w-12 sm:w-16 rounded-full" />
+                        {profileImage && <img src={profileImage} alt="Silly Billy Silkies" className="h-full w-12 sm:w-16 rounded-full" />}
+
                         <h1
                             style={{ fontFamily: 'Reklame Script Medium' }}
                             className="text-4xl md:text-7xl font-medium text-[#5B4D43]">
@@ -179,7 +195,7 @@ function Navbar() {
                                         <Link to="/holland_lop" className="block py-2 px-3 hover:bg-[#A56A3A] hover:text-white" onClick={() => { setIsBunnyOpen(false); setIsOpen(false); }}>
                                             Holland Lops
                                         </Link>
-                                        <Link to="/Netherland-Dwarf" className="block py-2 px-3 hover:bg-[#A56A3A] hover:text-white" onClick={() => { setIsBunnyOpen(false); setIsOpen(false); }}>
+                                        <Link to="/netherland_dwarf" className="block py-2 px-3 hover:bg-[#A56A3A] hover:text-white" onClick={() => { setIsBunnyOpen(false); setIsOpen(false); }}>
                                             Netherland Dwarf
                                         </Link>
                                         <Link to="/gallery" className="block py-2 px-3 hover:bg-[#A56A3A] hover:text-white" onClick={() => { setIsBunnyOpen(false); setIsOpen(false); }}>

@@ -37,29 +37,42 @@ function AdoptionGallery() {
                 {/* Swiper Carousel */}
                 <div className="relative max-w-5xl mx-auto">
                     {images.length > 0 ? (
-                        <Swiper
-                            modules={[Navigation, Pagination, Autoplay]}
-                            spaceBetween={20}
-                            slidesPerView={1}
-                            breakpoints={{
-                                640: { slidesPerView: 2 },
-                                1024: { slidesPerView: 3 },
-                            }}
-                            navigation
-                            pagination={{ clickable: true, el: ".custom-pagination" }}
-                            autoplay={{ delay: 2000, disableOnInteraction: false }}
-                            className="pb-12"
-                        >
-                            {images.map((src, index) => (
-                                <SwiperSlide key={index} className="flex justify-center">
-                                    <img
-                                        src={src}
-                                        alt={`Kit ${index + 1}`}
-                                        className="w-full aspect-square object-cover lg:rounded-lg shadow-md"
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                        <>
+                            {/* Custom Navigation Buttons (Placed Outside the Swiper) */}
+                            <button className="custom-prev absolute left-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
+                                ❮
+                            </button>
+                            <button className="custom-next absolute right-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
+                                ❯
+                            </button>
+
+                            <Swiper
+                                modules={[Navigation, Pagination, Autoplay]}
+                                spaceBetween={20}
+                                slidesPerView={1}
+                                breakpoints={{
+                                    640: { slidesPerView: 2 },
+                                    1024: { slidesPerView: 3 },
+                                }}
+                                navigation={{
+                                    nextEl: ".custom-next",
+                                    prevEl: ".custom-prev",
+                                }}
+                                pagination={{ clickable: true, el: ".custom-pagination" }}
+                                autoplay={{ delay: 2000, disableOnInteraction: false }}
+                                className="pb-12"
+                            >
+                                {images.map((src, index) => (
+                                    <SwiperSlide key={index} className="flex justify-center">
+                                        <img
+                                            src={src}
+                                            alt={`Kit ${index + 1}`}
+                                            className="w-full aspect-square object-cover lg:rounded-lg shadow-md"
+                                        />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </>
                     ) : (
                         <p className="text-center text-gray-500">Loading images...</p>
                     )}

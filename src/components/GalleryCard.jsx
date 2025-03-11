@@ -2,21 +2,21 @@ import React from "react";
 
 const GalleryCard = ({ data }) => {
     return (
-        <div className="relative max-w-md mx-auto sm:p-4 rounded-lg text-center">
-            {/* Image Section */}
-            <div className="border-4 border-white rounded-lg shadow-2xl overflow-hidden relative">
+        <div className="sm:max-w-md mx-auto p-2 sm:p-4 rounded-lg text-center">
+            {/* Image Section (Fixed Height) */}
+            <div className="border-4 border-white rounded-lg shadow-2xl overflow-hidden h-72 sm:h-80">
                 <img
                     src={data.image_url}
                     alt="Goat"
-                    className="w-full h-52 sm:h-72 sm:w-80 object-cover"
+                    className="w-full h-full object-cover"
                 />
-
-
             </div>
-            {/* Text Box Over Image */}
+
+            {/* Text Box - Below Image on Mobile, Over Image on Larger Screens */}
             <div
                 style={{ fontFamily: "Futura LT W01 Medium" }}
-                className=" bg-[#D4A373] w-10/12 mx-auto relative bottom-6 bg-opacity-75 text-black text-lg sm:text-lg font-thin p-3 rounded-lg shadow-md">
+                className="w-full sm:w-10/12 mx-auto bg-[#D4A373] bg-opacity-75 text-black 
+                text-lg font-thin p-3 rounded-lg shadow-md mt-3 sm:relative sm:bottom-6">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}
                 {data.purebred && <p>Purebred</p>}

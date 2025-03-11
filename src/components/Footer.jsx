@@ -8,7 +8,7 @@ function Footer() {
                 {/* Image 1 - Square */}
                 <div className="w-full aspect-square">
                     <img
-                        src="/Images/Footer/image1.png"
+                        src="/Images/Footer/image1.jpg"
                         alt="Silkie 1"
                         className="w-full h-full object-cover "
                     />
@@ -28,7 +28,7 @@ function Footer() {
                 {/* Image 2 - Square */}
                 <div className="w-full aspect-square">
                     <img
-                        src="/Images/Footer/image2.png"
+                        src="/Images/Footer/image2.jpg"
                         alt="Silkie 2"
                         className="w-full h-full object-cover "
                     />
@@ -37,7 +37,7 @@ function Footer() {
                 {/* Image 3 - Rectangular (spans 2 columns on large screens, full width on mobile) */}
                 <div className="w-full md:col-span-2 aspect-[2/1]">
                     <img
-                        src="/Images/Footer/image3.png"
+                        src="/Images/Footer/image3.jpg"
                         alt="Silkie 3"
                         className="w-full h-full object-cover "
                     />
