@@ -13,13 +13,13 @@ const ChickenCard = ({ data }) => {
 
 
             {/* Top Images */}
-            <div className="flex flex-col sm:flex-row justify-center space-y-8 sm:space-y-0 sm:space-x-8 mt-4">
+            <div className="flex flex-col sm:flex-row justify-center space-y-8 sm:space-y-0 mt-4">
                 {data.images.slice(0, 3).map((img, index) => (
                     <img
                         key={index}
                         src={img}
                         alt={`Chicken ${index + 1}`}
-                        className="h-80 w-5/6 mx-auto sm:w-full sm:h-80 rounded-lg object-cover border"
+                        className="h-80 w-5/6 mx-auto sm:w-72 sm:h-80 object-cover"
                     />
                 ))}
             </div>
