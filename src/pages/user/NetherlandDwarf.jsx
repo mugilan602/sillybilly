@@ -4,6 +4,11 @@ import BunnyCard from "../../components/BunnyCard";
 const NetherlandDwarf = () => {
     const [bunnies, setBunnies] = useState([]);
     const [isSoldOut, setIsSoldOut] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [currentPage]);
 
     useEffect(() => {
         async function fetchBunnyData() {

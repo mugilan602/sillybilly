@@ -37,6 +37,36 @@ const FormResponsesDashboard = () => {
 
         fetchResponses();
     }, []);
+    const handleReply = async () => {
+        if (!replyMessage.trim() || !subject.trim()) {
+            alert("Please enter both subject and message.");
+            return;
+        }
+
+        setSendingReply(true);
+
+        try {
+            const formData = new FormData();
+            formData.append("to", selectedResponse.email);
+            formData.append("subject", subject);
+            formData.append("message", replyMessage);
+
+            await fetch("https://backend.sillybillysilkies.workers.dev/sendmail", {
+                method: "POST",
+                body: formData, // FormData automatically sets the correct Content-Type
+            });
+
+            alert("Reply sent successfully!");
+            setReplyMessage("");
+            setSubject("");
+            setSelectedResponse(null);
+        } catch (err) {
+            console.error("Error sending reply:", err);
+            alert("Failed to send reply.");
+        } finally {
+            setSendingReply(false);
+        }
+    };
 
     const handleDelete = async (id) => {
         setDeletingId(id);
@@ -129,7 +159,20 @@ const FormResponsesDashboard = () => {
                             </tbody>
                         </table>
                     </div>
-
+                    {selectedResponse && (
+                        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setSelectedResponse(null)}>
+                            <div className="bg-white p-6 rounded-lg shadow-lg max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+                                <h2 className="text-xl font-semibold mb-3">Response</h2>
+                                <p className="text-gray-700 mb-4">{selectedResponse.message}</p>
+                                <input className="w-full border rounded-md p-2" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
+                                <textarea className="w-full p-2 border rounded-md mt-3" rows="4" placeholder="Type your reply..." value={replyMessage} onChange={(e) => setReplyMessage(e.target.value)}></textarea>
+                                <div className="flex justify-end mt-4">
+                                    <button className="px-4 py-2 bg-[#754E1A] cursor-pointer hover:bg-[#5f482a] text-white rounded mr-2" onClick={() => setSelectedResponse(null)}>Close</button>
+                                    <button className="px-4 py-2 bg-[#754E1A] cursor-pointer hover:bg-[#5f482a] text-white rounded mr-2" onClick={handleReply} disabled={sendingReply}>{sendingReply ? "Sending..." : "Send Reply"}</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {/* Pagination Controls */}
                     <div className="flex justify-between items-center mt-4 text-gray-700">
                         <p className="text-sm">

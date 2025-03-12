@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Edit, Trash2, CheckCircle, RefreshCcw } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaChevronDown } from "react-icons/fa";
 
 const ManageListings = () => {
     const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ const ManageListings = () => {
                 ]);
 
                 // Combine both lists
+                
                 const allBunnies = [...hollandLopData.bunnies, ...netherlandDwarfData.bunnies];
                 setBunnies(allBunnies);
 
@@ -168,26 +170,36 @@ const ManageListings = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <select
-                    className="p-2 border border-[#4A3B2D] rounded-lg pointer-events-auto"
-                    onChange={(e) => setBreedFilter(e.target.value)}
-                >
-                    <option value="">All Breeds</option>
-                    <option value="Holland Lop">Holland Lop</option>
-                    <option value="Netherland Dwarf">Netherland Dwarf</option>
-                </select>
-                <select
-                    className="p-2 border border-[#4A3B2D] rounded-lg pointer-events-auto"
-                    onChange={(e) => {
-                        setStatusFilter(e.target.value);
-                        console.log(e.target.value);
-                    }}
-
-                >
-                    <option value="">All Status</option>
-                    <option value="available">Available</option>
-                    <option value="sold">Sold</option>
-                </select>
+                <div className="relative">
+                    <select
+                        className="p-3 border border-[#4A3B2D] rounded-lg pointer-events-auto text-[#4A3B2D] pr-10 appearance-none"
+                        onChange={(e) => setBreedFilter(e.target.value)}
+                    >
+                        <option value="">All Breeds</option>
+                        <option value="Holland Lop">Holland Lop</option>
+                        <option value="Netherland Dwarf">Netherland Dwarf</option>
+                    </select>
+                    {/* Dropdown Icon */}
+                    <span className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-[#4A3B2D]">
+                        <FaChevronDown />
+                    </span>
+                </div>
+                <div className="relative">
+                    <select
+                        className="p-3 border border-[#4A3B2D] rounded-lg pointer-events-auto text-[#4A3B2D] pr-10 appearance-none"
+                        onChange={(e) => {
+                            setStatusFilter(e.target.value);
+                            console.log(e.target.value);
+                        }}
+                    >
+                        <option value="">All Status</option>
+                        <option value="available">Available</option>
+                        <option value="sold">Sold</option>
+                    </select>
+                    <span className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-[#4A3B2D]">
+                        <FaChevronDown />
+                    </span>
+                </div>
             </div>
             {loading ? (
                 <div className="flex justify-center items-center h-32">
@@ -199,14 +211,24 @@ const ManageListings = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {filteredBunnies.length > 0 ? (
-                        filteredBunnies.map((bunny) => (
+                        filteredBunnies.map((bunny) => (                            
                             <div key={bunny.id} className="bg-white p-4 shadow rounded-lg">
                                 {/* Bunny Image */}
-                                <img
-                                    src={bunny.images[0]}
-                                    alt={bunny.name}
-                                    className="w-full h-64 object-cover rounded-lg"
-                                />
+                                <div className="relative">
+                                    {/* Bunny Image */}
+                                    <img
+                                        src={bunny.images[0]}
+                                        alt={bunny.name}
+                                        className="w-full h-64 object-cover rounded-lg"
+                                    />
+
+                                    {/* Sold Label */}
+                                    {bunny.status.toLowerCase() === "sold" && (
+                                        <span className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold px-2 py-1 rounded">
+                                            SOLD
+                                        </span>
+                                    )}
+                                </div>
 
                                 {/* Bunny Info */}
                                 <h2 className="text-lg font-semibold mt-3">{bunny.name}</h2>
@@ -217,7 +239,7 @@ const ManageListings = () => {
                                 {/* Buttons */}
                                 <div className="mt-4 flex justify-center gap-2">
                                     <button
-                                        className="border px-3 py-1 rounded flex items-center"
+                                        className="border border-[#4A3B2D] text-[#4A3B2D] px-3 py-1 rounded flex items-center"
                                         onClick={() => navigate(`/admin/edit-bunny/${bunny.id}`, { state: { bunny } })}
                                     >
                                         <Edit size={16} className="mr-1" /> Edit
@@ -225,16 +247,16 @@ const ManageListings = () => {
 
 
                                     <button
-                                        className="bg-red-500 text-white px-3 py-1 rounded flex items-center"
+                                        className="bg-white border border-[#4A3B2D] text-[#4A3B2D]  px-3 py-1 rounded flex items-center"
                                         onClick={() => handleDelete(bunny.id, bunny.breed)}
                                     >
-                                        <Trash2 size={16} className="mr-1" /> Delete
+                                        <Trash2 strokeWidth={2.5} size={16} st className="mr-1" /> Delete
                                     </button>
 
                                     <button
                                         className={`px-3 py-1 rounded flex items-center ${bunny.status.toLowerCase() === "available"
-                                            ? "bg-green-500 text-white"
-                                            : "bg-blue-500 text-white"
+                                            ? "bg-[#754E1A] text-white"
+                                            : "bg-gray-500 text-white"
                                             }`}
                                         onClick={() => toggleStatus(bunny.id, bunny.breed)}
                                     >

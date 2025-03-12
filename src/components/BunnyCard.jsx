@@ -82,7 +82,7 @@ const BunnyCard = ({ data, index }) => {
             </div>
 
             {/* Desktop: Standard Layout */}
-            <div className="hidden sm:flex flex-row justify-between mt-8 space-x-4">
+            <div className="hidden sm:grid grid-cols-3 mt-8 space-x-4">
                 {data.images.slice(1).map((img, imgIndex) => (
                     <motion.div
                         key={imgIndex}
@@ -105,7 +105,7 @@ const BunnyCard = ({ data, index }) => {
                         <motion.img
                             src={img}
                             alt={`Bunny ${imgIndex + 2}`}
-                            className="w-52 h-52 rounded-lg object-cover border"
+                            className="w-60 h-60 rounded-lg object-cover border"
                         />
                     </motion.div>
                 ))}

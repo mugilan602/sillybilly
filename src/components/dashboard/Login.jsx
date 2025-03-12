@@ -81,7 +81,7 @@ function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                        className={`w-full flex items-center justify-center bg-[#754E1A] text-white cursor-pointer hover:bg-[#5f482a] font-medium py-2.5 rounded-lg transition-colors ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
                             }`}
                     >
                         {loading ? (

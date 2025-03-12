@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { CircleArrowLeft } from 'lucide-react';
+import { X } from "lucide-react";
 
 const AddNewBunny = () => {
     const { id } = useParams(); // Get bunny ID from URL (if editing)
     const location = useLocation(); // Get state from navigation
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-
+    const [currentPage, setCurrentPage] = useState(1);
     const [bunny, setBunny] = useState({
         breed: "",
         name: "",
@@ -26,6 +28,9 @@ const AddNewBunny = () => {
             setBunny(location.state.bunny);
         }
     }, [id, location.state]);
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [currentPage]);
 
     const handleChange = (e) => {
         setBunny({ ...bunny, [e.target.name]: e.target.value });
@@ -121,7 +126,7 @@ const AddNewBunny = () => {
         } catch (error) {
             console.error("Error submitting data:", error);
             alert("Failed to save bunny. Please try again.");
-        }finally{
+        } finally {
             setLoading(false);
         }
     };
@@ -155,7 +160,9 @@ const AddNewBunny = () => {
             setLoading(false); // Hide spinner
         }
     };
-
+    const handleback = () => {
+        navigate("/admin/manage-listing");
+    }
 
     const handleAddImages = async (event) => {
         const files = Array.from(event.target.files);
@@ -187,6 +194,20 @@ const AddNewBunny = () => {
             setLoading(false); // Hide spinner
         }
     };
+    const handleCancel = () => {
+        setBunny({
+            breed: "",
+            name: "",
+            gender: "",
+            dob: "",
+            takeHomeDate: "",
+            price: "",
+            status: "",
+            pedigreedParents: "",
+            color: "",
+            images: [],
+        })
+    }
 
     return (
         <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
@@ -195,13 +216,12 @@ const AddNewBunny = () => {
                     <span className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-12 h-12"></span>
                 </div>
             )}
-
-
-
-            <h1 className="text-center text-[#754E1A] sm:text-left text-2xl font-semibold mb-6">
-                {id ? "Edit Bunny" : "Add New Bunny"}
-            </h1>
-
+            <div className="flex space-x-3 items-center mb-6">
+                {id && <><span className="cursor-pointer" onClick={handleback}><CircleArrowLeft strokeWidth={2.5} size={25} /></span></>}
+                <h1 className="text-center text-[#754E1A] sm:text-left text-2xl font-semibold">
+                    {id ? "Edit Bunny" : "Add New Bunny"}
+                </h1>
+            </div>
             <div className="bg-white text-[#4A3B2D] p-6 rounded-lg shadow">
                 <h2 className="text-lg text-[#754E1A] font-semibold mb-4">Select Breed</h2>
                 <div className="grid grid-cols-2 gap-4 mb-6">
@@ -361,13 +381,13 @@ const AddNewBunny = () => {
                                 const imageUrl = img instanceof File ? URL.createObjectURL(img) : img;
 
                                 return (
-                                    <div key={index} className="relative w-64 h-64 sm:w-64 sm:h-64 rounded-lg overflow-hidden border">
+                                    <div key={index} className="relative w-64 h-64 sm:w-64 sm:h-64 mt-4 rounded-lg overflow-visible border">
                                         <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => handleDeleteImage(img, index)}
-                                            className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 rounded-bl"
+                                            className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-[#754E1A] text-white rounded-full text-xs p-1 "
                                         >
-                                            ✖
+                                            <X className="w-4 h-4 text-white" />
                                         </button>
                                     </div>
                                 );
@@ -377,10 +397,17 @@ const AddNewBunny = () => {
                 </div>
 
 
-                <div className="mt-6 flex justify-end">
+                <div className="mt-6 flex space-x-1 justify-end">
+                    <button
+                        onClick={handleCancel}
+                        className="text-[#754E1A] cursor-pointer bg-white px-4 py-2 rounded border border-[#4A3B2D] flex items-center"
+                        disabled={loading}
+                    >
+                        Cancel
+                    </button>
                     <button
                         onClick={handleSubmit}
-                        className="bg-[#754E1A] text-white px-4 py-2 rounded hover:bg-[#5f482a] flex items-center"
+                        className="bg-[#754E1A] cursor-pointer text-white px-4 py-2 rounded hover:bg-[#5f482a] flex items-center"
                         disabled={loading}
                     >
                         Save Bunny

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate ,useLocation} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Import icons
 import { motion } from "framer-motion"; // Smooth animations
 import axios from "axios"; // HTTP requests
@@ -47,6 +47,14 @@ function AdminNavbar() {
             alert("Failed to update site. Please try again.");
         }
     };
+    const handleLogout = () => {
+        try {
+            localStorage.removeItem("isAdmin");
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const handleIconClick = () => {
         fileInputRef.current.click();
     };
@@ -117,8 +125,8 @@ function AdminNavbar() {
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex space-x-6 text-[#754E1A] text-sm font-medium">
                     <Link to="/admin" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin")} pb-1`}>Dashboard</Link>
-                    <Link to="/admin/manage-listing" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/manage-listing")} pb-1`}>Manage Listing</Link>
                     <Link to="/admin/add-bunny" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/add-bunny")} pb-1`}>Add new Bunny</Link>
+                    <Link to="/admin/manage-listing" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/manage-listing")} pb-1`}>Manage Listing</Link>
                     <Link to="/admin/gallery" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/gallery")} pb-1`}>Gallery Management</Link>
                     <Link to="/admin/carousel" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/carousel")} pb-1`}>Carousel Management</Link>
                     <Link to="/admin/forms" className={`hover:text-[#4A3B2D] border-b-2  border-[#754E1A] ${isActive("/admin/forms")} pb-1`}>Form Responses</Link>
@@ -126,14 +134,19 @@ function AdminNavbar() {
 
 
                 {/* Mobile Menu Button */}
-                <button className="md:hidden text-[#4A3B2D]" onClick={() => setIsOpen(true)}>
+                <button className="absolute right-8 md:hidden text-[#4A3B2D]" onClick={() => setIsOpen(true)}>
                     <Menu size={28} />
                 </button>
 
                 {/* Save & Exit Button */}
-                <button onClick={handleSaveAndExit} className="hidden md:block bg-[#754E1A] hover:bg-[#5f482a] text-white px-4 py-2 text-sm rounded">
-                    Save & Exit
-                </button>
+                <div className="flex space-x-2">
+                    <button onClick={handleSaveAndExit} className="hidden md:block border text-[#754E1A] cursor-pointer bg-white px-4 py-2 text-sm rounded">
+                        Save & Exit
+                    </button>
+                    <button onClick={handleLogout} className="hidden md:block bg-[#754E1A] cursor-pointer hover:bg-[#5f482a] text-white px-4 py-2 text-sm rounded">
+                        Logout
+                    </button>
+                </div>
             </nav>
 
             {/* Mobile Menu Overlay */}
@@ -158,17 +171,22 @@ function AdminNavbar() {
                         {/* Mobile Navigation Links */}
                         <div className="flex flex-col space-y-4 mt-10 w-full text-[#4A3B2D] font-medium text-lg">
                             <Link to="/admin" className="block py-2" onClick={() => setIsOpen(false)}>Dashboard</Link>
-                            <Link to="/admin/manage-listing" className="block py-2" onClick={() => setIsOpen(false)}>Manage Listing</Link>
                             <Link to="/admin/add-bunny" className="block py-2" onClick={() => setIsOpen(false)}>Add new Bunny</Link>
+                            <Link to="/admin/manage-listing" className="block py-2" onClick={() => setIsOpen(false)}>Manage Listing</Link>
                             <Link to="/admin/gallery" className="block py-2" onClick={() => setIsOpen(false)}>Gallery Management</Link>
                             <Link to="/admin/carousel" className="block py-2" onClick={() => setIsOpen(false)}>Carousel Management</Link>
                             <Link to="/admin/forms" className="block py-2" onClick={() => setIsOpen(false)}>Form Responses</Link>
                         </div>
 
                         {/* Save & Exit Button (Visible in Mobile Menu) */}
-                        <button className="mt-8 w-full bg-black text-white py-3 rounded" onClick={handleSaveAndExit}>
-                            Save & Exit
-                        </button>
+                        <div>
+                            <button className="mt-8 w-full  text-[#754E1A]  bg-white  py-3 rounded" onClick={handleSaveAndExit}>
+                                Save & Exit
+                            </button>
+                            <button className="mt-8 w-full bg-black text-white py-3 rounded" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </div>
                     </motion.div>
                 </>
             )}

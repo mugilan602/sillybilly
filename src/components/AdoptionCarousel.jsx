@@ -4,6 +4,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "react-router-dom";
 
 function AdoptionGallery() {
     const [images, setImages] = useState([]);
@@ -84,12 +85,12 @@ function AdoptionGallery() {
 
             {/* Buttons Section */}
             <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4">
-                <button className="bg-[#3498db] text-white w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
+                <Link to="/holland_lop"  className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
                     View all Holland Lops for adoption
-                </button>
-                <button className="bg-[#3498db] text-white w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
+                </Link>
+                <Link to="/netherland_dwarf" className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
                     View all Netherland Dwarfs for adoption
-                </button>
+                </Link>
             </section>
         </>
     );
