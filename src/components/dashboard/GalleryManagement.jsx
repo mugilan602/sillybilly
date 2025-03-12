@@ -338,7 +338,7 @@ const GalleryManagement = () => {
                 <>
                     {/* List Existing Entries */}
                     {entries.map((entry) => (
-                        <div key={entry.id} className="bg-white py-14 sm:py-8 sm:px-8 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
+                        <div key={entry.id} className="bg-white py-7 sm:py-8 sm:px-8 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
                             {/* Show spinner overlay when saving or deleting */}
                             {(savingId === entry.id || deletingId === entry.id) && (
                                 <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded-lg z-10">
@@ -350,7 +350,7 @@ const GalleryManagement = () => {
                             )}
 
                             {/* Icons for Edit, Save, Delete */}
-                            <div className="absolute top-3 right-2 sm:top-3 sm:right-8 flex gap-3">
+                            <div className="sm:absolute top-3 right-2 sm:top-3 sm:right-8 flex gap-3">
                                 {entry.isEditing ? (
                                     <>
                                         <div>
