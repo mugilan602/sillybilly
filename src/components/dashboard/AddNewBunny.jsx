@@ -224,7 +224,7 @@ const AddNewBunny = () => {
             </div>
             <div className="bg-white text-[#4A3B2D] p-6 rounded-lg shadow">
                 <h2 className="text-lg text-[#754E1A] font-semibold mb-4">Select Breed</h2>
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div
                         className={`border border-[#4A3B2D] rounded-lg p-6 flex items-center justify-center h-24 cursor-pointer ${bunny.breed === "Holland Lop" ? "bg-blue-200 border-blue-500" : "bg-white"}`}
                         onClick={() => handleBreedSelection("Holland Lop")}
@@ -239,7 +239,7 @@ const AddNewBunny = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-[#4A3B2D]">Bunny Name/ID</label>
                         <input

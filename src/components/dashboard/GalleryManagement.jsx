@@ -244,7 +244,7 @@ const GalleryManagement = () => {
                 )}
 
                 {/* Image Upload */}
-                <label className="w-32 h-32 md:w-64 md:h-64 border-dashed border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden cursor-pointer">
+                <label className="w-64 h-64 md:w-64 md:h-64 border-dashed border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden cursor-pointer">
                     <input
                         type="file"
                         className="hidden"
@@ -338,7 +338,7 @@ const GalleryManagement = () => {
                 <>
                     {/* List Existing Entries */}
                     {entries.map((entry) => (
-                        <div key={entry.id} className="bg-white p-8 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
+                        <div key={entry.id} className="bg-white py-14 sm:py-8 sm:px-8 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
                             {/* Show spinner overlay when saving or deleting */}
                             {(savingId === entry.id || deletingId === entry.id) && (
                                 <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded-lg z-10">
@@ -350,7 +350,7 @@ const GalleryManagement = () => {
                             )}
 
                             {/* Icons for Edit, Save, Delete */}
-                            <div className="absolute top-8 right-8 sm:top-3 sm:right-8 flex gap-3">
+                            <div className="absolute top-3 right-2 sm:top-3 sm:right-8 flex gap-3">
                                 {entry.isEditing ? (
                                     <>
                                         <div>
@@ -378,7 +378,7 @@ const GalleryManagement = () => {
                             </div>
 
                             {/* Image Upload */}
-                            <div className="w-80 h-80 sm:w-64 sm:h-64 border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden">
+                            <div className="w-72 h-72 sm:w-64 sm:h-64 border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden">
                                 {entry.image_url ? (
                                     <img src={entry.image_url} alt="Uploaded" className="w-full h-full object-cover" />
                                 ) : (

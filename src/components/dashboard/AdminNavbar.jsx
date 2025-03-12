@@ -179,11 +179,11 @@ function AdminNavbar() {
                         </div>
 
                         {/* Save & Exit Button (Visible in Mobile Menu) */}
-                        <div>
-                            <button className="mt-8 w-full  text-[#754E1A]  bg-white  py-3 rounded" onClick={handleSaveAndExit}>
+                        <div className="flex w-full gap-4">
+                            <button className="mt-8 w-full border text-[#754E1A] cursor-pointer bg-white py-3 rounded" onClick={handleSaveAndExit}>
                                 Save & Exit
                             </button>
-                            <button className="mt-8 w-full bg-black text-white py-3 rounded" onClick={handleLogout}>
+                            <button className="mt-8 w-full bg-[#754E1A] cursor-pointer hover:bg-[#5f482a] text-white  py-3 rounded" onClick={handleLogout}>
                                 Logout
                             </button>
                         </div>

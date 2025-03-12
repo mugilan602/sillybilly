@@ -152,11 +152,11 @@ const ManageListings = () => {
 
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
             {/* Header & Search */}
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl text-[#754E1A] font-semibold">Manage Listings</h1>
-                <Link to="/admin/add-bunny" className="bg-[#754E1A]  text-white px-4 py-2 rounded hover:opacity-80">
+                <Link to="/admin/add-bunny" className="bg-[#754E1A] hidden sm:block text-white px-4 py-2 rounded hover:opacity-80">
                     Add New Bunny
                 </Link>
             </div>
