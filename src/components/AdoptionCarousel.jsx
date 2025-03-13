@@ -39,11 +39,11 @@ function AdoptionGallery() {
                 <div className="relative max-w-5xl mx-auto">
                     {images.length > 0 ? (
                         <>
-                            {/* Custom Navigation Buttons (Placed Outside the Swiper) */}
-                            <button className="custom-prev absolute left-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
+                            {/* Custom Navigation Buttons - Hidden on Mobile */}
+                            <button className="custom-prev cursor-pointer hidden sm:block absolute left-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
                                 ❮
                             </button>
-                            <button className="custom-next absolute right-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
+                            <button className="custom-next cursor-pointer hidden sm:block absolute right-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
                                 ❯
                             </button>
 
@@ -78,14 +78,14 @@ function AdoptionGallery() {
                         <p className="text-center text-gray-500">Loading images...</p>
                     )}
 
-                    {/* Custom Pagination Wrapper Below */}
-                    <div className="custom-pagination mt-4 flex justify-center"></div>
+                    {/* Custom Pagination - With Spacing */}
+                    <div className="custom-pagination mt-4 flex justify-center space-x-2"></div>
                 </div>
             </section>
 
             {/* Buttons Section */}
             <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4">
-                <Link to="/holland_lop"  className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
+                <Link to="/holland_lop" className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
                     View all Holland Lops for adoption
                 </Link>
                 <Link to="/netherland_dwarf" className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
