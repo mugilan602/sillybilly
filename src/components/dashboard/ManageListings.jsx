@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Edit, Trash2, CheckCircle, RefreshCcw } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import SortableBunnyCard from "./SortableBunnyCard"; // New component for draggable items
 const ManageListings = () => {
@@ -15,7 +15,12 @@ const ManageListings = () => {
     const [search, setSearch] = useState("");
     const [breedFilter, setBreedFilter] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
-    const navigate = useNavigate();
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: { delay: 150, tolerance: 5 }, // Prevents accidental drags on touch
+        })
+    );
 
     // Fetch bunnies from both endpoints
     useEffect(() => {
@@ -299,7 +304,7 @@ const ManageListings = () => {
             ) : error ? (
                 <p className="text-red-500 text-center">{error}</p>
             ) : (
-                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                     <SortableContext items={bunnies.map((b) => b.id)} strategy={verticalListSortingStrategy}>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {filteredBunnies.length > 0 ? (
