@@ -12,6 +12,8 @@ const PAGE_TYPE = "homepage"; // Page type for API requests
 
 const HomePageCarousel = () => {
     const [orderedImages, setOrderedImages] = useState([]);
+    const [orderChanged, setOrderChanged] = useState(false);
+
     const [loading, isLoading] = useState(false);
     const [images, setImages] = useState([]);
     const [fetching, setFetching] = useState(true);
@@ -164,7 +166,11 @@ const HomePageCarousel = () => {
             const oldIndex = images.findIndex((img) => img.id === active.id);
             const newIndex = images.findIndex((img) => img.id === over.id);
             const reorderedImages = arrayMove(images, oldIndex, newIndex);
+
+            const hasOrderChanged = JSON.stringify(reorderedImages.map(img => img.id)) !== JSON.stringify(images.map(img => img.id));
+
             setImages(reorderedImages);
+            setOrderChanged(hasOrderChanged);
             console.log("Updated Order:", reorderedImages.map(img => img.id));
             const newOrder = reorderedImages.map((img, index) => ({
                 id: img.id,
@@ -194,8 +200,9 @@ const HomePageCarousel = () => {
             console.log("Order successfully updated in the database");
         } catch (error) {
             console.error("Error updating order:", error);
-        }finally{
+        } finally {
             isLoading(false);
+            setOrderChanged(false);
         }
     };
 
@@ -206,11 +213,22 @@ const HomePageCarousel = () => {
                     <h1 className="text-2xl font-semibold text-[#754E1A] text-center md:text-left">Home Page Carousel</h1>
                     <div className="flex space-x-2">
                         <div className="mt-3 md:mt-0">
-                            <label className={`cursor-pointer ${uploading ? "bg-gray-400" : "bg-[#754E1A]"} ${uploading ? "" : "hover:bg-[#5f482a]"} text-white px-4 py-2 rounded-md  text-sm md:text-base flex items-center gap-2`}>
-                                {loading && <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>}
-                                {loading ? "Changing..." : "Change Order"}
-                                <input type="button" value="" onClick={handleOrderChange} />
-                            </label>
+                            <button
+                                onClick={handleOrderChange}
+                                disabled={!orderChanged || loading}
+                                className={`px-4 py-2 rounded-md text-white text-sm md:text-base flex items-center gap-2
+        ${orderChanged && !loading ? "bg-[#754E1A] hover:bg-[#5f482a]" : "bg-gray-400 cursor-not-allowed"}`}
+                            >
+                                {loading ? (
+                                    <>
+                                        <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                        Changing...
+                                    </>
+                                ) : (
+                                    "Change Order"
+                                )}
+                            </button>
+                            
                         </div>
                         {/* Upload Button */}
                         <div className="mt-3 md:mt-0">

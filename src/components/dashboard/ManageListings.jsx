@@ -10,6 +10,8 @@ const ManageListings = () => {
     const [error, setError] = useState(null);
     const [segregatedOrders, setSegregatedOrders] = useState({});
     const [bunnies, setBunnies] = useState([]); // Store fetched bunnies
+    const [initialOrder, setInitialOrder] = useState([]); // Store only the initial order of IDs
+    const [orderChanged, setOrderChanged] = useState(false); // Track order changes
     const [search, setSearch] = useState("");
     const [breedFilter, setBreedFilter] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
@@ -43,6 +45,7 @@ const ManageListings = () => {
                 const allBunnies = [...hollandLopData.bunnies, ...netherlandDwarfData.bunnies];
                 const sortedBunnies = allBunnies.sort((a, b) => a.order - b.order);
                 setBunnies(sortedBunnies);
+                setInitialOrder(sortedBunnies.map(bunny => bunny.id)); // Store initial IDs
 
             } catch (error) {
                 console.error("Error fetching bunnies:", error);
@@ -164,6 +167,8 @@ const ManageListings = () => {
             const newIndex = prevBunnies.findIndex((bunny) => bunny.id === over.id);
             const newBunnies = arrayMove(prevBunnies, oldIndex, newIndex);
 
+            const currentOrder = newBunnies.map(bunny => bunny.id);
+            setOrderChanged(JSON.stringify(currentOrder) !== JSON.stringify(initialOrder));
             // Update the segregated order state
             const updatedOrders = newBunnies.reduce((acc, bunny, index) => {
                 const breedKey = bunny.breed.toLowerCase().replace(/\s+/g, "_"); // Convert breed to URL format
@@ -210,7 +215,8 @@ const ManageListings = () => {
                     console.log(`Order updated successfully for ${pageType}`);
                 })
             );
-
+            setInitialOrder(bunnies.map(bunny => bunny.id)); // 🔹 Update initial order after saving
+            setOrderChanged(false);
             // Clear segregated orders after successful update
             setSegregatedOrders({});
         } catch (error) {
@@ -226,11 +232,22 @@ const ManageListings = () => {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl text-[#754E1A] font-semibold">Manage Listings</h1>
                 <div className="mt-3 md:mt-0">
-                    <label className={`cursor-pointer bg-[#754E1A] hover:bg-[#5f482a] text-white px-4 py-2 rounded-md  text-sm md:text-base flex items-center gap-2`}>
-                        {loading && <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>}
-                        {loading ? "Changing..." : "Change Order"}
-                        <input type="button" value="" onClick={updateBunnyOrder} />
-                    </label>
+                    <button
+                        className={`px-4 py-2 rounded-md text-white flex items-center gap-2 text-sm md:text-base
+        ${orderChanged ? "bg-[#754E1A] hover:bg-[#5f482a]" : "bg-gray-400 cursor-not-allowed"}`}
+                        onClick={updateBunnyOrder}
+                        disabled={!orderChanged || loading} // Disable if no changes or loading
+                    >
+                        {loading ? (
+                            <>
+                                <RefreshCcw className="animate-spin mr-2" />
+                                Loading...
+                            </>
+                        ) : (
+                            "Change Order"
+                        )}
+                    </button>
+
                 </div>
             </div>
 

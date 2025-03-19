@@ -17,7 +17,7 @@
         "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-2.jpeg",
         "/static-images/breeds/holland_lop/ecade4aa-0658-4b38-9c5b-dc6ae35b1db4-3.jpeg"
       ],
-      "order": 7
+      "order": 1
     },
     {
       "id": "5ac97615-d7a3-4a6c-9594-2496ecc11063",
@@ -36,7 +36,7 @@
         "/static-images/breeds/holland_lop/5ac97615-d7a3-4a6c-9594-2496ecc11063-2.jpeg",
         "/static-images/breeds/holland_lop/5ac97615-d7a3-4a6c-9594-2496ecc11063-3.jpeg"
       ],
-      "order": 5
+      "order": 6
     }
   ]
 }

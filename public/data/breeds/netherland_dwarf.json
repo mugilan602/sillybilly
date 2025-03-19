@@ -17,7 +17,7 @@
         "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-2.png",
         "/static-images/breeds/netherland_dwarf/1e3e02f5-7180-4e69-83d1-27628ca0f403-3.png"
       ],
-      "order": 3
+      "order": 7
     },
     {
       "id": "21fb8463-d869-4067-a492-5b1a4cd2c118",
@@ -36,7 +36,7 @@
         "/static-images/breeds/netherland_dwarf/21fb8463-d869-4067-a492-5b1a4cd2c118-2.jpeg",
         "/static-images/breeds/netherland_dwarf/21fb8463-d869-4067-a492-5b1a4cd2c118-3.jpeg"
       ],
-      "order": 1
+      "order": 2
     },
     {
       "id": "a7711a9f-2903-42a0-a34c-a31d66cc9c50",
@@ -52,7 +52,7 @@
       "images": [
         "/static-images/breeds/netherland_dwarf/a7711a9f-2903-42a0-a34c-a31d66cc9c50-0.jpeg"
       ],
-      "order": 2
+      "order": 3
     },
     {
       "id": "9797de1b-8349-4ba0-b96d-b9093cc35ed4",
@@ -87,7 +87,7 @@
         "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-2.jpeg",
         "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-3.jpeg"
       ],
-      "order": 6
+      "order": 5
     }
   ]
 }
