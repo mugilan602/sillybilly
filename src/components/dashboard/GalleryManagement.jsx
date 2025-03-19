@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { CgSpinner } from "react-icons/cg"; // Import spinner icon
+import { CgSpinner } from "react-icons/cg"; // Spinner icon
 import { Edit, Trash2, Save, SquareX } from "lucide-react";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import SortableGalleryItem from "./SortableGalleryItem";
 
 const API_URL = "https://backend.sillybillysilkies.workers.dev/pets"; // Replace with your backend URL
 
 const GalleryManagement = () => {
     const [entries, setEntries] = useState([]);
+    const [updatedEntries, setUpdatedEntries] = useState([]); // Stores new order
+
     const [newEntry, setNewEntry] = useState({
         breed: "",
         description: "",
@@ -13,23 +18,23 @@ const GalleryManagement = () => {
         purebred: false,
         image: "",
     });
-    // Add loading state variables
+
+    // Loading states
     const [isLoading, setIsLoading] = useState(true);
     const [isAdding, setIsAdding] = useState(false);
     const [savingId, setSavingId] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
 
-    // ✅ Fetch existing entries from backend
+    // ✅ Fetch entries from backend
     useEffect(() => {
         setIsLoading(true);
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
                 if (data.pets && typeof data.pets === "object") {
-                    const petsArray = Object.values(data.pets); // Convert object to array
-                    setEntries(petsArray);
-                    console.log(petsArray);
-
+                    const entriesArray = Object.values(data.pets);
+                    const sortedEntries = entriesArray.sort((a, b) => a.order - b.order); 
+                    setEntries(sortedEntries);
                 } else {
                     console.error("Invalid API response:", data);
                     setEntries([]); // Fallback to empty array
@@ -43,19 +48,23 @@ const GalleryManagement = () => {
                 setIsLoading(false);
             });
     }, []);
-
+    console.log(entries);
     // ✅ Toggle edit mode
     const toggleEdit = (id) => {
-        setEntries(entries.map(entry =>
-            entry.id === id ? { ...entry, isEditing: !entry.isEditing } : entry
-        ));
+        setEntries(prevEntries =>
+            prevEntries.map(entry =>
+                entry.id === id ? { ...entry, isEditing: !entry.isEditing } : entry
+            )
+        );
     };
 
-    // ✅ Handle changes in input fields
+    // ✅ Handle input changes
     const handleChange = (id, field, value) => {
-        setEntries(entries.map(entry =>
-            entry.id === id ? { ...entry, [field]: value } : entry
-        ));
+        setEntries(prevEntries =>
+            prevEntries.map(entry =>
+                entry.id === id ? { ...entry, [field]: value } : entry
+            )
+        );
     };
 
     // ✅ Handle image upload for existing entries
@@ -63,13 +72,15 @@ const GalleryManagement = () => {
         const file = event.target.files[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
-            setEntries(entries.map(entry =>
-                entry.id === id ? { ...entry, image: imageUrl, imageFile: file } : entry
-            ));
+            setEntries(prevEntries =>
+                prevEntries.map(entry =>
+                    entry.id === id ? { ...entry, image: imageUrl, imageFile: file } : entry
+                )
+            );
         }
     };
 
-    // ✅ Handle new entry field changes
+    // ✅ Handle new entry changes
     const handleNewEntryChange = (field, value) => {
         setNewEntry({ ...newEntry, [field]: value });
     };
@@ -83,7 +94,7 @@ const GalleryManagement = () => {
         }
     };
 
-    // ✅ Add a new entry
+    // ✅ Add new entry
     const handleAddEntry = async () => {
         if (!newEntry.breed.trim()) {
             alert("Breed name is required!");
@@ -93,53 +104,28 @@ const GalleryManagement = () => {
         console.log("New Entry:", newEntry);
         setIsAdding(true);
 
-        // Create a FormData object
         const formData = new FormData();
-
-        // Append details as JSON string
         const details = JSON.stringify({
             breed: newEntry.breed,
+            description: newEntry.description,
             pedigreed: newEntry.pedigreed,
             purebred: newEntry.purebred,
-            description: newEntry.description,
         });
 
         formData.append("details", details);
-
-        // Append file (if available)
         if (newEntry.imageFile) {
             formData.append("file", newEntry.imageFile);
         }
 
         try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                body: formData,
-            });
+            const response = await fetch(API_URL, { method: "POST", body: formData });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            // ✅ Fetch the updated list immediately after adding
             const updatedResponse = await fetch(API_URL);
             const updatedData = await updatedResponse.json();
+            setEntries(Object.values(updatedData.pets || {}));
 
-            if (updatedData.pets && typeof updatedData.pets === "object") {
-                const updatedPetsArray = Object.values(updatedData.pets); // Convert object to array
-                setEntries(updatedPetsArray);
-            }
-
-            // Reset the form
-            setNewEntry({
-                breed: "",
-                description: "",
-                pedigreed: false,
-                purebred: false,
-                image: "",
-                imageFile: null, // Reset file input
-            });
-
+            setNewEntry({ breed: "", description: "", pedigreed: false, purebred: false, image: "", imageFile: null });
         } catch (error) {
             console.error("Error adding entry:", error);
         } finally {
@@ -147,55 +133,35 @@ const GalleryManagement = () => {
         }
     };
 
-
-
-    // ✅ Save updates to an existing entry
+    // ✅ Save entry updates
     const handleSaveEntry = async (id) => {
+        setSavingId(id);
         const entry = entries.find(e => e.id === id);
         if (!entry) {
             console.error("Entry not found!");
             return;
         }
 
-        setSavingId(id);
         const formData = new FormData();
-
-        // ✅ Send ID as a separate key
         formData.append("id", id);
-
-        // ✅ Send details as a JSON string, including `pedigreed` and `purebred`
-        const details = JSON.stringify({
+        formData.append("details", JSON.stringify({
             breed: entry.breed,
             description: entry.description,
             pedigreed: entry.pedigreed,
             purebred: entry.purebred,
-        });
-        formData.append("details", details);
+        }));
 
-        // ✅ Append file (if updated)
         if (entry.imageFile) {
             formData.append("file", entry.imageFile);
         }
 
         try {
-            const response = await fetch(API_URL, {
-                method: "PUT",
-                body: formData,
-            });
+            const response = await fetch(API_URL, { method: "PUT", body: formData });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            // ✅ Fetch the updated list immediately after updating
             const updatedResponse = await fetch(API_URL);
             const updatedData = await updatedResponse.json();
-
-            if (updatedData.pets && typeof updatedData.pets === "object") {
-                const updatedPetsArray = Object.values(updatedData.pets);
-                setEntries(updatedPetsArray);
-            }
-
+            setEntries(Object.values(updatedData.pets || {}));
         } catch (error) {
             console.error("Error updating entry:", error);
         } finally {
@@ -203,37 +169,98 @@ const GalleryManagement = () => {
         }
     };
 
-
     // ✅ Delete an entry
     const handleDeleteEntry = async (id) => {
+        // setIsLoading(true);
         setDeletingId(id);
         try {
             const response = await fetch(API_URL, {
                 method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ id }) // Send ID in the request body
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
             });
+            if (!response.ok) throw new Error(`Failed to delete entry: ${response.statusText}`);
 
-            if (!response.ok) {
-                throw new Error(`Failed to delete entry: ${response.statusText}`);
-            }
-
-            // Remove the deleted entry from the state
-            setEntries(entries.filter(entry => entry.id !== id));
+            setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
         } catch (error) {
             console.error("Error deleting entry:", error);
         } finally {
             setDeletingId(null);
+            // setIsLoading(false);
+        }
+    };
+
+    // ✅ Handle drag-and-drop sorting
+    const handleDragEnd = (event) => {
+        const { active, over } = event;
+        if (!over || active.id === over.id) return;
+
+        setEntries(prevEntries => {
+            const oldIndex = prevEntries.findIndex(item => item.id === active.id);
+            const newIndex = prevEntries.findIndex(item => item.id === over.id);
+            const newOrder = arrayMove(prevEntries, oldIndex, newIndex);
+            setUpdatedEntries(newOrder);
+            // console.log("Updated Order:");
+            return newOrder;
+        });
+    };
+    // ✅ Function to update order in database
+    const updateOrderInDatabase = async () => {
+        setIsLoading(true);
+        if (entries.length === 0) {
+            console.log("No changes made to order.");
+            return;
+        }
+
+        // 🔹 Map entries to required format (ID → Order)
+        const formattedOrder = entries.map((entry, index) => ({
+            id: entry.id,
+            order: index + 1, // Order starts from 1
+        }));
+
+        console.log("Final Order to be sent:", JSON.stringify(formattedOrder, null, 4));
+
+        try {
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/updateGalleryOrder", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formattedOrder),
+            });
+
+            if (!response.ok) throw new Error(`Failed to update order: ${response.statusText}`);
+
+            console.log("✅ Order successfully updated in the database.");
+        } catch (error) {
+            console.error("❌ Error updating order:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="p-4 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl text-[#754E1A] font-semibold mb-4">Gallery Management</h1>
-            <p className="text-[#4A3B2D] mb-6">Total entries: {entries.length}</p>
-            {/* Add New Entry Section */}
+            <div className="flex justify-between">
+                <div>
+                    <h1 className="text-2xl font-semibold mb-4">Gallery Management</h1>
+                    <p className="mb-6">Total entries: {entries.length}</p>
+                </div>
+                <div>
+                    <button
+                        className="bg-[#754E1A] text-white px-4 py-2 rounded-md hover:bg-[#5f482a] transition w-full md:w-auto flex items-center justify-center"
+                        onClick={updateOrderInDatabase}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <>
+                                <CgSpinner className="animate-spin mr-2" />
+                                Changing...
+                            </>
+                        ) : (
+                            "Change Order"
+                        )}
+                    </button>
+                </div>
+            </div>
             <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 border-2 border-dashed border-[#4A3B2D] relative">
                 {/* Show spinner overlay when adding a new entry */}
                 {isAdding && (
@@ -313,7 +340,7 @@ const GalleryManagement = () => {
                     </div>
                     {/* Add Entry Button */}
                     <button
-                        className="bg-[#754E1A] text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full md:w-auto flex items-center justify-center"
+                        className="bg-[#754E1A] text-white px-4 py-2 rounded-md hover:bg-[#5f482a] transition w-full md:w-auto flex items-center justify-center"
                         onClick={handleAddEntry}
                         disabled={isAdding}
                     >
@@ -328,128 +355,33 @@ const GalleryManagement = () => {
                     </button>
                 </div>
             </div>
-            {/* Show loading spinner for initial data load */}
+
+
+            {/* Entry List with Drag-and-Drop */}
             {isLoading ? (
                 <div className="flex justify-center items-center p-12">
                     <CgSpinner className="animate-spin text-blue-500 text-4xl" />
                     <span className="ml-2 text-gray-600">Loading entries...</span>
                 </div>
             ) : (
-                <>
-                    {/* List Existing Entries */}
-                    {entries.map((entry) => (
-                        <div key={entry.id} className="bg-white py-7 sm:py-8 sm:px-8 rounded-lg shadow mb-6 flex flex-col md:flex-row items-center gap-4 relative">
-                            {/* Show spinner overlay when saving or deleting */}
-                            {(savingId === entry.id || deletingId === entry.id) && (
-                                <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded-lg z-10">
-                                    <CgSpinner className="animate-spin text-blue-500 text-4xl" />
-                                    <span className="ml-2 font-medium">
-                                        {savingId === entry.id ? "Saving..." : "Deleting..."}
-                                    </span>
-                                </div>
-                            )}
-
-                            {/* Icons for Edit, Save, Delete */}
-                            <div className="sm:absolute top-3 right-2 sm:top-3 sm:right-8 flex gap-3">
-                                {entry.isEditing ? (
-                                    <>
-                                        <div>
-                                            <button size={20} className="border border-[#4A3B2D] text-[#4A3B2D] rounded-sm px-3 py-1 flex items-center cursor-pointer" onClick={() => toggleEdit(entry.id)} >
-                                                <SquareX size={16} className="mr-1" />
-                                                Cancel
-                                            </button>
-                                        </div>
-
-                                    </>
-                                ) : (
-                                    <div className="flex justify-center gap-2">
-                                        <button size={20} className="border border-[#4A3B2D] text-[#4A3B2D] rounded-sm px-3 py-1 flex items-center cursor-pointer"
-                                            onClick={() => toggleEdit(entry.id)} >
-                                            <Edit size={16} className="mr-1" /> Edit
-                                        </button>
-                                        <button size={20} className="border border-[#4A3B2D] text-[#4A3B2D] rounded-sm px-3 py-1 flex items-center cursor-pointer"
-                                            onClick={() => handleDeleteEntry(entry.id)} >
-
-                                            <Trash2 strokeWidth={2.5} size={16} st className="mr-1" />
-                                            Delete
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Image Upload */}
-                            <div className="w-72 h-72 sm:w-64 sm:h-64 border-2 border-[#4A3B2D] rounded-lg flex items-center justify-center overflow-hidden">
-                                {entry.image_url ? (
-                                    <img src={entry.image_url} alt="Uploaded" className="w-full h-full object-cover" />
-                                ) : (
-                                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload(entry.id, e)} disabled={!entry.isEditing} />
-                                )}
-                            </div>
-
-                            {/* Form Inputs */}
-                            <div className="flex-1">
-                                <div className="flex-1 w-full md:w-auto">
-                                    <div className="mb-4">
-                                        <label className="block text-[#4A3B2D]">Breed</label>
-                                        <input
-                                            type="text"
-                                            value={entry.breed}
-                                            onChange={(e) => handleChange(entry.id, "breed", e.target.value)}
-                                            className="w-full text-[#4A3B2D] border border-[#4A3B2D] p-2 rounded"
-                                            disabled={!entry.isEditing}
-                                        />
-                                    </div>
-                                    <div className="flex space-x-4">
-                                        <div className="mb-4">
-                                            <label className="flex items-center text-[#4A3B2D]">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={entry.pedigreed}
-                                                    onChange={(e) => handleChange(entry.id, "pedigreed", e.target.checked)}
-                                                    className="mr-2"
-                                                    disabled={!entry.isEditing}
-                                                />
-                                                Pedigreed Parent
-                                            </label>
-                                        </div>
-                                        <div className="mb-4">
-                                            <label className="flex items-center text-[#4A3B2D]">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={entry.purebred}
-                                                    onChange={(e) => handleChange(entry.id, "purebred", e.target.checked)}
-                                                    className="mr-2"
-                                                    disabled={!entry.isEditing}
-                                                />
-                                                Purebred
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <label className="block text-[#4A3B2D]">Description</label>
-                                        <textarea
-                                            value={entry.description}
-                                            onChange={(e) => handleChange(entry.id, "description", e.target.value)}
-                                            className="w-full text-[#4A3B2D] border border-[#4A3B2D] p-2 rounded"
-                                            rows="3"
-                                            disabled={!entry.isEditing}
-                                        ></textarea>
-                                    </div>
-                                </div>
-                                {entry.isEditing &&
-                                    <div className="flex justify-end">
-                                        <button size={20} className="border bg-[#4A3B2D] text-[#ffffff] rounded-sm px-3 py-1 flex items-center cursor-pointer" onClick={() => handleSaveEntry(entry.id)} >
-                                            <Save size={16} className="mr-1" />
-                                            Save
-                                        </button>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    ))}
-
-
-                </>
+                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    <SortableContext items={entries} strategy={verticalListSortingStrategy}>
+                        {entries.map(entry => (
+                            <SortableGalleryItem
+                                key={entry.id}
+                                entry={entry}
+                                isLoading={isLoading}  // Pass isLoading
+                                savingId={savingId}    // Pass savingId to indicate which entry is being saved
+                                deletingId={deletingId} // Pass deletingId to indicate which entry is being deleted
+                                toggleEdit={toggleEdit}
+                                handleDeleteEntry={handleDeleteEntry}
+                                handleImageUpload={handleImageUpload}
+                                handleChange={handleChange}
+                                handleSaveEntry={handleSaveEntry}
+                            />
+                        ))}
+                    </SortableContext>
+                </DndContext>
             )}
         </div>
     );

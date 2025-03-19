@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { Edit, Trash2, CheckCircle, RefreshCcw } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
-
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import SortableBunnyCard from "./SortableBunnyCard"; // New component for draggable items
 const ManageListings = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [segregatedOrders, setSegregatedOrders] = useState({});
     const [bunnies, setBunnies] = useState([]); // Store fetched bunnies
     const [search, setSearch] = useState("");
     const [breedFilter, setBreedFilter] = useState("");
@@ -37,9 +39,10 @@ const ManageListings = () => {
                 ]);
 
                 // Combine both lists
-                
+
                 const allBunnies = [...hollandLopData.bunnies, ...netherlandDwarfData.bunnies];
-                setBunnies(allBunnies);
+                const sortedBunnies = allBunnies.sort((a, b) => a.order - b.order);
+                setBunnies(sortedBunnies);
 
             } catch (error) {
                 console.error("Error fetching bunnies:", error);
@@ -61,6 +64,7 @@ const ManageListings = () => {
 
     const handleDelete = async (id, breed) => {
         // Determine the pageType based on breed
+        setLoading(true);
         let pageType = "";
         if (breed === "Holland Lop") {
             pageType = "breeds/holland_lop";
@@ -90,6 +94,8 @@ const ManageListings = () => {
             console.log(`Bunny with ID: ${id} deleted successfully.`);
         } catch (error) {
             console.error("Error deleting bunny:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -149,16 +155,83 @@ const ManageListings = () => {
             );
         }
     };
+    const handleDragEnd = (event) => {
+        const { active, over } = event;
+        if (!over || active.id === over.id) return;
 
+        setBunnies((prevBunnies) => {
+            const oldIndex = prevBunnies.findIndex((bunny) => bunny.id === active.id);
+            const newIndex = prevBunnies.findIndex((bunny) => bunny.id === over.id);
+            const newBunnies = arrayMove(prevBunnies, oldIndex, newIndex);
+
+            // Update the segregated order state
+            const updatedOrders = newBunnies.reduce((acc, bunny, index) => {
+                const breedKey = bunny.breed.toLowerCase().replace(/\s+/g, "_"); // Convert breed to URL format
+                const pageType = `breeds/${breedKey}`;
+
+                if (!acc[pageType]) {
+                    acc[pageType] = [];
+                }
+                acc[pageType].push({ id: bunny.id, order: index + 1 });
+
+                return acc;
+            }, {});
+
+            setSegregatedOrders(updatedOrders);
+            console.log(updatedOrders);
+
+            return newBunnies;
+        });
+    };
+
+    // Send API request when button is clicked
+    const updateBunnyOrder = async () => {
+        setLoading(true);
+        try {
+            if (!Object.keys(segregatedOrders).length) {
+                console.warn("No changes to update.");
+                return;
+            }
+
+            console.log("Sending Order Update:", segregatedOrders);
+
+            await Promise.all(
+                Object.entries(segregatedOrders).map(async ([pageType, orderedIds]) => {
+                    const response = await fetch("https://backend.sillybillysilkies.workers.dev/updateBulkOrder", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ pageType, orderedIds }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to update order for ${pageType}`);
+                    }
+
+                    console.log(`Order updated successfully for ${pageType}`);
+                })
+            );
+
+            // Clear segregated orders after successful update
+            setSegregatedOrders({});
+        } catch (error) {
+            console.error("Error updating bunny order:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
             {/* Header & Search */}
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl text-[#754E1A] font-semibold">Manage Listings</h1>
-                <Link to="/admin/add-bunny" className="bg-[#754E1A] hidden sm:block text-white px-4 py-2 rounded hover:opacity-80">
-                    Add New Bunny
-                </Link>
+                <div className="mt-3 md:mt-0">
+                    <label className={`cursor-pointer bg-[#754E1A] hover:bg-[#5f482a] text-white px-4 py-2 rounded-md  text-sm md:text-base flex items-center gap-2`}>
+                        {loading && <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>}
+                        {loading ? "Changing..." : "Change Order"}
+                        <input type="button" value="" onClick={updateBunnyOrder} />
+                    </label>
+                </div>
             </div>
 
             {/* Filters */}
@@ -209,75 +282,24 @@ const ManageListings = () => {
             ) : error ? (
                 <p className="text-red-500 text-center">{error}</p>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {filteredBunnies.length > 0 ? (
-                        filteredBunnies.map((bunny) => (                            
-                            <div key={bunny.id} className="bg-white p-4 shadow rounded-lg">
-                                {/* Bunny Image */}
-                                <div className="relative">
-                                    {/* Bunny Image */}
-                                    <img
-                                        src={bunny.images[0]}
-                                        alt={bunny.name}
-                                        className="w-full h-64 object-cover rounded-lg"
+                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    <SortableContext items={bunnies.map((b) => b.id)} strategy={verticalListSortingStrategy}>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {filteredBunnies.length > 0 ? (
+                                filteredBunnies.map((bunny) => (
+                                    <SortableBunnyCard
+                                        key={bunny.id}
+                                        bunny={bunny}
+                                        handleDelete={handleDelete}
+                                        toggleStatus={toggleStatus}
                                     />
-
-                                    {/* Sold Label */}
-                                    {bunny.status.toLowerCase() === "sold" && (
-                                        <span className="absolute top-2 right-2 bg-red-500 text-white text-sm font-bold px-2 py-1 rounded">
-                                            SOLD
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Bunny Info */}
-                                <h2 className="text-lg font-semibold mt-3">{bunny.name}</h2>
-                                <p className="text-gray-500">{bunny.breed}</p>
-                                <p className="text-xl font-bold mt-1">${bunny.price}</p>
-
-                                {/* Buttons */}
-                                {/* Buttons */}
-                                <div className="mt-4 flex justify-center gap-2">
-                                    <button
-                                        className="border border-[#4A3B2D] text-[#4A3B2D] px-3 py-1 rounded flex items-center"
-                                        onClick={() => navigate(`/admin/edit-bunny/${bunny.id}`, { state: { bunny } })}
-                                    >
-                                        <Edit size={16} className="mr-1" /> Edit
-                                    </button>
-
-
-                                    <button
-                                        className="bg-white border border-[#4A3B2D] text-[#4A3B2D]  px-3 py-1 rounded flex items-center"
-                                        onClick={() => handleDelete(bunny.id, bunny.breed)}
-                                    >
-                                        <Trash2 strokeWidth={2.5} size={16} st className="mr-1" /> Delete
-                                    </button>
-
-                                    <button
-                                        className={`px-3 py-1 rounded flex items-center ${bunny.status.toLowerCase() === "available"
-                                            ? "bg-[#754E1A] text-white"
-                                            : "bg-gray-500 text-white"
-                                            }`}
-                                        onClick={() => toggleStatus(bunny.id, bunny.breed)}
-                                    >
-                                        {bunny.status.toLowerCase() === "available" ? (
-                                            <>
-                                                <CheckCircle size={16} className="mr-1" /> Mark as Sold
-                                            </>
-                                        ) : (
-                                            <>
-                                                <RefreshCcw size={16} className="mr-1" /> Mark as Unsold
-                                            </>
-                                        )}
-                                    </button>
-                                </div>
-
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-center col-span-3 text-gray-500">No bunnies found.</p>
-                    )}
-                </div>
+                                ))
+                            ) : (
+                                <p className="text-center col-span-3 text-gray-500">No bunnies found.</p>
+                            )}
+                        </div>
+                    </SortableContext>
+                </DndContext>
             )}
 
 

@@ -6,7 +6,7 @@ const ChickenCard = ({ data }) => {
             {/* Title */}
             <div
                 style={{ fontFamily: "Futura LT W01 Medium",}}
-                className="sm:px-7 sm:w-2/4 sm:mx-auto py-2 bg-[#D4A373] text-black text-xl sm:text-3xl mb-2 rounded-lg text-center"
+                className="sm:px-7 font-extralight sm:w-2/4 sm:mx-auto py-2 bg-[#D4A373] text-black text-xl sm:text-3xl mb-2 rounded-lg text-center"
             >
                 {data.title}
             </div>

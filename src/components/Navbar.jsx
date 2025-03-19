@@ -49,14 +49,14 @@ function Navbar() {
 
             {/* Navbar */}
             <nav className="bg-[#FFF8F1] shadow-md">
-                <div className="mx-auto flex justify-between items-center px-6 py-4">
+                <div className="mx-auto flex justify-between items-center px-6 py-1">
                     {/* Logo and Tagline */}
                     <div className="flex items-center space-x-4">
                         {profileImage && <img src={profileImage} alt="Silly Billy Silkies" className="h-full w-12 sm:w-16 rounded-full" />}
 
                         <h1
                             style={{ fontFamily: 'Reklame Script Medium' }}
-                            className="text-4xl md:text-7xl font-medium text-[#5B4D43]">
+                            className="text-4xl md:text-6xl font-medium text-[#5B4D43]">
                             Silly Billy Silkies
                         </h1>
                     </div>
@@ -70,7 +70,7 @@ function Navbar() {
                     </button>
 
                     {/* Email Section - Hidden on Small Screens */}
-                    <div className="hidden md:flex flex-col bg-[#E2B897] rounded-tl-3xl rounded-br-3xl px-4 py-2 shadow-md">
+                    <div className="hidden font-[Open_sans]  md:flex flex-col bg-[#E2B897] rounded-tl-3xl rounded-br-3xl px-4 py-2 shadow-md">
                         <p className="text-white text-center text-lg font-semibold">E-Mail us</p>
                         <p className="text-black text-lg">
                             SillyBillySilkies@gmail.com
@@ -79,18 +79,18 @@ function Navbar() {
                 </div>
 
                 {/* Horizontal Line */}
-                <hr className="w-full border-t-2 border-[#4A3B2D]" />
+                <hr className="w-full border-t border-[#808080]" />
 
                 {/* Tagline */}
-                <div className="px-6 md:ml-24 text-center md:text-left lg:pb-4 pt-2">
+                <div className="px-6 md:ml-24 text-center md:text-left lg:pb-20 pt-2">
                     <p className="text-[#A2672D] font-poppins font-semibold">
                         Silkie Chicken, Silky Goats and Bunnies
                     </p>
                 </div>
 
                 {/* Desktop Navigation - Hidden on Mobile */}
-                <div className="hidden font-[Open_Sans] md:flex justify-center items-center space-x-2 bg-[#E2B897] py-2 shadow-md text-[#4A3B2D] font-medium">
-                    <Link to="/" className={`px-4 py-2 ${isActive("/") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}>Home</Link>
+                <div className="hidden font-[Open_Sans] fot md:flex justify-center items-center space-x-2 bg-[#E0BE9A] py-2 shadow-md text-[#4A3B2D] font-normal">
+                    <Link to="/" className={`px-4 py-2 ${isActive("/") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Home</Link>
 
                     {/* Bunny Link with Sub-Links */}
                     <div
@@ -100,7 +100,7 @@ function Navbar() {
                     >
                         <h3
                             to="/bunny"
-                            className={`px-4 py-2 ${isActive("/bunny") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}
+                            className={`px-4 py-2 ${isActive("/bunny") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}
                         >
                             Bunny
                         </h3>
@@ -110,20 +110,20 @@ function Navbar() {
                             <div className="absolute top-full left-1/2 z-50 text-sm transform -translate-x-1/2 bg-[#E2B897] shadow-lg rounded-lg">
                                 <Link
                                     to="/holland_lop"
-                                    className="block text-center w-32 py-2 hover:bg-[#A56A3A] hover:text-white"
+                                    className="block text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white"
                                 >
                                     Holland Lops
                                 </Link>
                                 <Link
                                     to="/netherland_dwarf"
-                                    className="block text-center w-32 py-2 hover:bg-[#A56A3A] hover:text-white"
+                                    className="block text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white"
                                 >
                                     Netherland Dwarf
 
                                 </Link>
                                 <Link
                                     to="/Gallery"
-                                    className="block text-center w-32 py-2 hover:bg-[#A56A3A] hover:text-white"
+                                    className="block text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white"
                                 >
                                     Gallery
                                 </Link>
@@ -131,10 +131,10 @@ function Navbar() {
                         )}
                     </div>
 
-                    <Link to="/bunny-care" className={`px-4 py-2 ${isActive("/bunny-care") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}>Bunny Care</Link>
-                    <Link to="/chicks-eggs" className={`px-4 py-2 ${isActive("/chicks-eggs") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}>Chicks & Hatching Eggs</Link>
-                    <Link to="/goats" className={`px-4 py-2 ${isActive("/goats") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}>Goats</Link>
-                    <Link to="/contact" className={`px-4 py-2 ${isActive("/contact") ? "bg-[#A56A3A] text-white" : "hover:text-[#8B5A2B]"}`}>Contact Us</Link>
+                    <Link to="/bunny-care" className={`px-4 py-2 ${isActive("/bunny-care") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Bunny Care</Link>
+                    <Link to="/chicks-eggs" className={`px-4 py-2 ${isActive("/chicks-eggs") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Chicks & Hatching Eggs</Link>
+                    <Link to="/goats" className={`px-4 py-2 ${isActive("/goats") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Goats</Link>
+                    <Link to="/contact" className={`px-4 py-2 ${isActive("/contact") ? "bg-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Contact Us</Link>
                 </div>
             </nav>
 

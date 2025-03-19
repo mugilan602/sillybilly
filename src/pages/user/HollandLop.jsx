@@ -5,7 +5,7 @@ const HollandLop = () => {
     const [bunnies, setBunnies] = useState([]);
     const [isSoldOut, setIsSoldOut] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [currentPage]);
@@ -28,8 +28,11 @@ const HollandLop = () => {
                 }
 
                 console.log("✅ Successfully fetched bunny data:", data.bunnies);
-                setBunnies(data.bunnies);
-
+                // setBunnies(data.bunnies);
+                const bunnies = data.bunnies;
+                const sortedBunnies = bunnies.sort((a,b)=> a.order-b.order)
+                console.log(sortedBunnies);
+                setBunnies(sortedBunnies);
                 // Check if all bunnies are sold
                 const allSold = data.bunnies.every((bunny) => bunny.status === "sold");
                 setIsSoldOut(allSold);

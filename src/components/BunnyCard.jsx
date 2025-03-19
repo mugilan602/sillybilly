@@ -7,7 +7,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 
 const BunnyCard = ({ data, index }) => {
     return (
-        <div className="sm:max-w-3xl sm:mx-auto sm:p-6">
+        <div className="sm:max-w-4xl sm:mx-auto sm:p-6">
             {/* Ensure flex-row and alternate layout for odd and even indexes */}
             <div className={`flex flex-col sm:flex-row ${index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} ${index % 2 === 0 ? "sm:space-x-12" : "sm:ml-5"} items-center`}>
 
@@ -105,13 +105,13 @@ const BunnyCard = ({ data, index }) => {
                         <motion.img
                             src={img}
                             alt={`Bunny ${imgIndex + 2}`}
-                            className="w-60 h-60 rounded-lg object-cover border"
+                            className="w-full h-60 rounded-lg object-cover border"
                         />
                     </motion.div>
                 ))}
             </div>
 
-            <div className="flex justify-center my-4">
+            <div className="flex justify-center mt-12">
                 <hr className="border-t-2 border-yellow-500 w-4/5" />
             </div>
         </div>

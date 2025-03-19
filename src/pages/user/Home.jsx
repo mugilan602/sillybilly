@@ -10,7 +10,7 @@ function Home() {
             </section>
 
             <section className="mt-4">
-                <div className="grid grid-cols-1 md:grid-cols-5 md:gap-0 lg:h-[80vh]">
+                <div className="grid grid-cols-1 md:grid-cols-5 md:gap-0">
 
                     {/* Title Section */}
                     <div className="bg-[#A2672D] flex items-center justify-center text-center md:text-left p-2 lg:p-8 md:col-span-2">
@@ -20,7 +20,7 @@ function Home() {
                     </div>
 
                     {/* Content Section */}
-                    <div className="md:col-span-3 flex flex-col justify-center font-[Open_Sans] bg-[#E0BE9A] text-[#4A3B2D] leading-relaxed text-md lg:text-lg p-4 lg:p-6">
+                    <div className="md:col-span-3 flex flex-col justify-center font-[Open_Sans] bg-[#E0BE9A] text-[#4A3B2D] leading-relaxed text-md lg:text-lg p-4 lg:px-6 lg:py-12">
                         <p>
                             How did we come to name our humble establishment "Silly Billy Silkies"?
                             It all began with two charismatic Silkie roosters who came into our farm.

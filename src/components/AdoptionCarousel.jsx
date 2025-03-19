@@ -4,10 +4,11 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AdoptionGallery() {
     const [images, setImages] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchImages() {
@@ -17,7 +18,10 @@ function AdoptionGallery() {
                 console.log(data);
 
                 // Directly use the URL field from JSON (since it's already absolute)
-                setImages(data.images.map(image => image.url));
+                // setImages(data.images.map(image => image.url));
+                const sortedImages = data.images.sort((a, b) => a.order - b.order);
+                console.log(sortedImages);
+                setImages(sortedImages.map(image=>image.url));
             } catch (error) {
                 console.error("❌ Error fetching images:", error);
             }
@@ -53,7 +57,7 @@ function AdoptionGallery() {
                                 slidesPerView={1}
                                 breakpoints={{
                                     640: { slidesPerView: 2 },
-                                    1024: { slidesPerView: 3 },
+                                    1024: { slidesPerView: 5 },
                                 }}
                                 navigation={{
                                     nextEl: ".custom-next",
@@ -84,14 +88,18 @@ function AdoptionGallery() {
             </section>
 
             {/* Buttons Section */}
-            <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4">
-                <Link to="/holland_lop" className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
-                    View all Holland Lops for adoption
-                </Link>
-                <Link to="/netherland_dwarf" className="bg-[#3498db] text-white text-center flex items-center w-72 h-16 text-lg font-semibold rounded-md shadow-md hover:bg-[#917767] transition">
-                    View all Netherland Dwarfs for adoption
-                </Link>
+            <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4 min-h-[100px]">
+                <div onClick={() => navigate("/holland_lop")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                    <img src="/Images/Homepage/button.png" alt="button" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
+                    <img src="/Images/Homepage/button_hover.png" alt="button-hover" className="absolute inset-0   opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                </div>
+
+                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                    <img src="/Images/Homepage/button2.png" alt="button2" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
+                    <img src="/Images/Homepage/button2hover.png" alt="button2-hover" className="absolute inset-0  opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                </div>
             </section>
+
         </>
     );
 }

@@ -23,7 +23,10 @@ function Gallery() {
 
                 const formattedData = Object.values(data.pets); // Convert object to array
                 console.log("✅ Successfully fetched goat data:", formattedData);
-                setGoats(formattedData);
+                // setGoats(formattedData);
+                const sortedData = formattedData.sort((a, b) => a.order - b.order);
+                console.log(sortedData);
+                setGoats(sortedData);
             } catch (error) {
                 console.error("❌ Error fetching goat data:", error.message);
             }

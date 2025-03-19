@@ -15,7 +15,7 @@ const GalleryCard = ({ data }) => {
             {/* Text Box - Below Image on Mobile, Over Image on Larger Screens */}
             <div
                 style={{ fontFamily: "Futura LT W01 Medium" }}
-                className="w-full sm:w-10/12 mx-auto bg-[#D4A373] bg-opacity-75 text-black 
+                className="w-full sm:w-10/12 mx-auto bg-[#E0BE9A] bg-opacity-75 text-black 
                 text-lg font-thin p-3 rounded-lg shadow-md mt-3 sm:relative sm:bottom-6">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}

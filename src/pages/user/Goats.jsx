@@ -35,7 +35,7 @@ function Goats() {
 
     return (
         <>
-            <div className="bg-[#FAF3E0]">
+            <div className="bg-[#FFF8F1]">
                 <div
                     className="flex flex-col items-center w-full lg:h-[60vh] bg-cover bg-center justify-center text-white text-3xl"
                     style={{ backgroundImage: "url('/Images/goatBG.png')" }}

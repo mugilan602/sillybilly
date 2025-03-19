@@ -1,28 +1,19 @@
 {
   "images": [
     {
-      "id": "7866c784-3bda-4ccc-9221-f91c41f628b9",
-      "url": "/static-images/homepage/7866c784-3bda-4ccc-9221-f91c41f628b9.jpeg"
+      "id": "0a6be24e-d284-4cb5-9051-14e41716bfc8",
+      "url": "/static-images/homepage/0a6be24e-d284-4cb5-9051-14e41716bfc8.png",
+      "order": 3
     },
     {
-      "id": "db15ed11-8b92-4fec-a506-42e5b7af7623",
-      "url": "/static-images/homepage/db15ed11-8b92-4fec-a506-42e5b7af7623.jpeg"
+      "id": "6ce4edcc-072f-4608-8bfa-02903162731e",
+      "url": "/static-images/homepage/6ce4edcc-072f-4608-8bfa-02903162731e.png",
+      "order": 2
     },
     {
-      "id": "dfa5363f-8c7b-4c75-93f4-fc138b9832ad",
-      "url": "/static-images/homepage/dfa5363f-8c7b-4c75-93f4-fc138b9832ad.jpeg"
-    },
-    {
-      "id": "e873772c-e908-4a22-a861-f54696b2a9d3",
-      "url": "/static-images/homepage/e873772c-e908-4a22-a861-f54696b2a9d3.png"
-    },
-    {
-      "id": "0accab89-95a1-49b3-8ff3-5222b8238596",
-      "url": "/static-images/homepage/0accab89-95a1-49b3-8ff3-5222b8238596.jpeg"
-    },
-    {
-      "id": "43293455-ca9d-42d3-9505-cbba325b7737",
-      "url": "/static-images/homepage/43293455-ca9d-42d3-9505-cbba325b7737.jpeg"
+      "id": "eab78146-3971-4a4d-b9f1-7fbab63477b8",
+      "url": "/static-images/homepage/eab78146-3971-4a4d-b9f1-7fbab63477b8.png",
+      "order": 1
     }
   ]
 }
