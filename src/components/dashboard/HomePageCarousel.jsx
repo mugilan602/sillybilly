@@ -38,8 +38,9 @@ const HomePageCarousel = () => {
                 <img src={img.url} alt="Carousel" className="w-full h-full object-cover" />
 
                 <button
-                    onPointerDown={(e) => e.stopPropagation()}
-                    onClick={() => handleDeleteImage(img.id)}
+                    onTouchStart={(e) => e.stopPropagation()}  // Prevent drag on touch devices
+                    onMouseDown={(e) => e.stopPropagation()}   // Prevent drag on desktop
+                    onClick={() => handleDeleteImage(img.id)}  // Only delete when clicked
                     className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-[#754E1A] text-white rounded-full w-7 h-7 flex items-center justify-center shadow-lg"
                     disabled={deleting === img.id}
                 >
