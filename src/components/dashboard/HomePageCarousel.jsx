@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -19,6 +19,12 @@ const HomePageCarousel = () => {
     const [fetching, setFetching] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [deleting, setDeleting] = useState(null); // Holds the ID of the deleting image
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: { delay: 150, tolerance: 5 }, // Prevents accidental drags on touch
+        })
+    );
     const SortableImage = ({ img }) => {
         const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: img.id });
 
@@ -247,7 +253,7 @@ const HomePageCarousel = () => {
                         <div className="animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full w-10 h-10"></div>
                     </div>
                 ) : (
-                    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                         <SortableContext items={images.map((img) => img.id)} strategy={verticalListSortingStrategy}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
                                 {images.length === 0 ? (
