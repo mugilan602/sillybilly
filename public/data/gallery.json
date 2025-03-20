@@ -8,19 +8,8 @@
       "purebred": true,
       "image_url": "/static-images/gallery/d4c11364-96c9-47aa-86ea-69ec34a97685.png",
       "created_at": "2025-03-19T01:05:48.068Z",
-      "updated_at": "2025-03-19T05:09:29.808Z",
+      "updated_at": "2025-03-19T10:24:18.670Z",
       "order": 2
-    },
-    "e401b565-a381-4ed5-8d85-79b05183e12a": {
-      "id": "e401b565-a381-4ed5-8d85-79b05183e12a",
-      "breed": "first",
-      "description": "dfsdf",
-      "pedigreed": true,
-      "purebred": true,
-      "image_url": "/static-images/gallery/e401b565-a381-4ed5-8d85-79b05183e12a.png",
-      "created_at": "2025-03-19T01:06:18.871Z",
-      "updated_at": "2025-03-19T05:09:06.075Z",
-      "order": 1
     }
   }
 }

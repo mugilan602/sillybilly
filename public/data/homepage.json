@@ -1,19 +1,21 @@
 {
   "images": [
     {
-      "id": "0a6be24e-d284-4cb5-9051-14e41716bfc8",
-      "url": "/static-images/homepage/0a6be24e-d284-4cb5-9051-14e41716bfc8.png",
-      "order": 2
-    },
-    {
-      "id": "6ce4edcc-072f-4608-8bfa-02903162731e",
-      "url": "/static-images/homepage/6ce4edcc-072f-4608-8bfa-02903162731e.png",
+      "id": "f1ab0fb2-83cc-4f1f-9da1-a4528f03b149",
+      "url": "/static-images/homepage/f1ab0fb2-83cc-4f1f-9da1-a4528f03b149.png",
       "order": 3
     },
     {
-      "id": "eab78146-3971-4a4d-b9f1-7fbab63477b8",
-      "url": "/static-images/homepage/eab78146-3971-4a4d-b9f1-7fbab63477b8.png",
-      "order": 1
+      "id": "fbe8ad51-4d21-423c-b383-5eed38c19511",
+      "url": "/static-images/homepage/fbe8ad51-4d21-423c-b383-5eed38c19511.png"
+    },
+    {
+      "id": "cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea",
+      "url": "/static-images/homepage/cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea.png"
+    },
+    {
+      "id": "9212154c-f343-4a62-b406-daf180563d04",
+      "url": "/static-images/homepage/9212154c-f343-4a62-b406-daf180563d04.png"
     }
   ]
 }

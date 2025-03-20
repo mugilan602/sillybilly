@@ -21,6 +21,45 @@ const AddNewBunny = () => {
         color: "",
         images: [],
     });
+    
+    useEffect(() => {
+        const isFormComplete = bunny.breed && bunny.name && bunny.gender && bunny.dob && bunny.takeHomeDate && bunny.price;
+
+        const handleBeforeUnload = (event) => {
+            if (isFormComplete) {
+                event.preventDefault();
+                event.returnValue = "You have unsaved changes. Do you really want to leave?";
+            }
+        };
+
+        const handleNavigation = async (event) => {
+            const targetLink = event.target.closest("a");
+
+            if (isFormComplete && targetLink) {
+                event.preventDefault();
+                const userConfirmed = window.confirm("You have unsaved changes. Do you want to save before leaving?");
+
+                if (userConfirmed) {
+                    console.log("Bunny saving...");
+                    await handleSubmit();
+                } else if (bunny.images.length > 0) {
+                    console.log("Deleting images from R2...");
+                    await deleteImagesFromR2(bunny, setBunny);
+                }
+
+                navigate(targetLink.pathname + targetLink.search);
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        document.addEventListener("click", handleNavigation, true);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            document.removeEventListener("click", handleNavigation, true);
+        };
+    }, [bunny, setBunny]); // Add setBunny to dependencies
+
 
     useEffect(() => {
         if (id && location.state?.bunny) {
@@ -167,6 +206,16 @@ const AddNewBunny = () => {
     const handleAddImages = async (event) => {
         const files = Array.from(event.target.files);
         if (files.length === 0) return;
+        // Required fields
+        const requiredFields = ["breed", "name", "gender", "dob", "takeHomeDate", "price", "status", "pedigreedParents", "color"];
+
+        // Check if any required field is missing
+        const missingFields = requiredFields.filter((field) => !bunny[field]);
+
+        if (missingFields.length > 0) {
+            alert(`Please fill in the following details before uploading images: ${missingFields.join(", ")}`);
+            return;
+        }
         setLoading(true);
         const formData = new FormData();
         formData.append("pageType", `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`);
@@ -194,7 +243,48 @@ const AddNewBunny = () => {
             setLoading(false); // Hide spinner
         }
     };
-    const handleCancel = () => {
+
+    const deleteImagesFromR2 = async (bunny, setBunny, imageUrlToDelete = null) => {
+        if (!bunny || !bunny.images || bunny.images.length === 0) return;
+
+        try {
+            const pageType = `breeds/${bunny.breed.toLowerCase().replace(/\s+/g, "_")}`;
+            const imageUrls = imageUrlToDelete ? [imageUrlToDelete] : bunny.images;
+
+            const response = await fetch("https://backend.sillybillysilkies.workers.dev/deleteImageR2", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ pageType, imageUrls }),
+            });
+
+            if (!response.ok) throw new Error("Failed to delete images from R2");
+
+            console.log("Images successfully deleted from R2");
+
+            // Automatically update state inside the function
+            setBunny((prev) => ({
+                ...prev,
+                images: prev.images.filter((img) => !imageUrls.includes(img)),
+            }));
+        } catch (error) {
+            console.error("Error deleting images from R2:", error);
+            alert("Failed to delete images. Please try again.");
+            throw error;
+        }
+    };
+    const handleCancel = async () => {
+        if (bunny.images.length > 0) {
+            setLoading(true);
+            try {
+                await deleteImagesFromR2(bunny, setBunny); // Pass setBunny as an argument
+            } catch (error) {
+                return; // Stop execution if image deletion fails
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Reset bunny details (images already updated in deleteImagesFromR2)
         setBunny({
             breed: "",
             name: "",
@@ -205,9 +295,9 @@ const AddNewBunny = () => {
             status: "",
             pedigreedParents: "",
             color: "",
-            images: [],
-        })
-    }
+            images: [], // Already cleared inside deleteImagesFromR2
+        });
+    };
 
     return (
         <div className="p-2 sm:p-6 bg-gray-100 min-h-screen">
@@ -383,13 +473,30 @@ const AddNewBunny = () => {
                                 return (
                                     <div key={index} className="relative w-64 h-64 sm:w-64 sm:h-64 mt-4 rounded-lg overflow-visible border">
                                         <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+
                                         <button
-                                            onClick={() => handleDeleteImage(img, index)}
-                                            className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-[#754E1A] text-white rounded-full text-xs p-1 "
+                                            onClick={async () => {
+                                                setLoading(true);
+                                                try {
+                                                    if (id) {
+                                                        await handleDeleteImage(imageUrl, index); // Delete from both KV & R2
+                                                    } else {
+                                                        await deleteImagesFromR2(bunny, setBunny, imageUrl); // Delete from R2 & update UI
+                                                    }
+                                                } catch (error) {
+                                                    console.error("Error deleting image:", error);
+                                                    alert("Failed to delete image.");
+                                                } finally {
+                                                    setLoading(false);
+                                                }
+                                            }}
+                                            className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-[#754E1A] text-white rounded-full text-xs p-1"
                                         >
                                             <X className="w-4 h-4 text-white" />
                                         </button>
+
                                     </div>
+
                                 );
                             })
                         )}
@@ -398,13 +505,14 @@ const AddNewBunny = () => {
 
 
                 <div className="mt-6 flex space-x-1 justify-end">
-                    <button
+                    {!id && <button
                         onClick={handleCancel}
                         className="text-[#754E1A] cursor-pointer bg-white px-4 py-2 rounded border border-[#4A3B2D] flex items-center"
                         disabled={loading}
                     >
                         Cancel
-                    </button>
+                    </button>}
+
                     <button
                         onClick={handleSubmit}
                         className="bg-[#754E1A] cursor-pointer text-white px-4 py-2 rounded hover:bg-[#5f482a] flex items-center"

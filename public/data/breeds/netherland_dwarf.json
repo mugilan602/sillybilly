@@ -71,23 +71,24 @@
       "order": 4
     },
     {
-      "id": "7e0fb956-eb34-4ff7-82fa-9669a3737948",
+      "id": "d7a98fda-7fb7-4bf3-b8a9-68439edcbc40",
       "breed": "Netherland Dwarf",
-      "name": "sad",
-      "gender": "Female",
-      "dob": "2025-03-27",
-      "takeHomeDate": "fds",
-      "price": "324",
+      "name": "Sri",
+      "gender": "Male",
+      "dob": "2025-03-19",
+      "takeHomeDate": "23rd",
+      "price": "0687643",
       "status": "available",
-      "pedigreedParents": "fs",
-      "color": "fd",
+      "pedigreedParents": "yuyiuyiuyuiy",
+      "color": "yellow",
       "images": [
-        "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-0.jpeg",
-        "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-1.png",
-        "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-2.jpeg",
-        "/static-images/breeds/netherland_dwarf/7e0fb956-eb34-4ff7-82fa-9669a3737948-3.jpeg"
-      ],
-      "order": 5
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-0.png",
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-1.png",
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-2.png",
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-3.png",
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-4.png",
+        "/static-images/breeds/netherland_dwarf/d7a98fda-7fb7-4bf3-b8a9-68439edcbc40-5.png"
+      ]
     }
   ]
 }
