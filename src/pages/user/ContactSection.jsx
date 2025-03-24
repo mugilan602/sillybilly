@@ -130,13 +130,25 @@ const ContactSection = () => {
                             ></textarea>
                         </div>
 
-                        <button
-                            type="submit"
-                            className="mt-4 bg-[#E0BE9A]  ml-auto text-white px-8 py-2 rounded-md shadow-lg hover:bg-red-400 w-full sm:w-auto"
-                            disabled={loading}
+                        <div
+                            onClick={handleSubmit}
+                            className="relative ml-auto mt-4 w-[200px] h-[65px] cursor-pointer"
                         >
-                            {loading ? "Sending..." : "Send"}
-                        </button>
+                            {/* Normal State */}
+                            <img
+                                src="/Images/contactButton.png"
+                                alt="button2"
+                                className="absolute inset-0 transition-opacity duration-300 opacity-100 hover:opacity-0"
+                            />
+
+                            {/* Hover State */}
+                            <img
+                                src="/Images/contactButtonHover.png"
+                                alt="button2-hover"
+                                className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100"
+                            />
+                        </div>
+
 
                         {success && <p className="text-green-600 mt-2">Message sent successfully!</p>}
                         {error && <p className="text-red-600 mt-2">{error}</p>}

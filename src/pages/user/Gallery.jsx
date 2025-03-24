@@ -39,7 +39,7 @@ function Gallery() {
     return (
         <div className="p-3 lg:p-6 bg-[#FFF8F1] min-h-screen">
             <div className="my-4">
-                <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-4xl text-center mb-5 text-[#A2672D]">
+                <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-4xl text-center mb-5 text-[#A2672D] leading-relaxed">
                     Here are some of our adult bunnies
                     <br />
                     and

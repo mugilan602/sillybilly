@@ -6,7 +6,7 @@ function Home() {
     return (
         <>
             <section>
-                <img className="w-full mt-1 object-cover lg:h-[70vh]" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
+                <img className="w-full mt-1 object-cover lg:h-[80vh]" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
             </section>
 
             <section className="mt-4">
@@ -72,7 +72,9 @@ function Home() {
                                 className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
                             />
                             {/* Button inside each div - bottom left */}
-                            <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 lg:px-4 lg:py-2 rounded-lg text-lg lg:text-xl shadow-md hover:bg-red-400 transition">
+                            <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 
+   lg:px-2 lg:py-2 text-lg lg:text-xl shadow-[4px_4px_6px_rgba(0,0,0,0.6)] 
+   hover:bg-red-400 transition">
                                 {pet.name}
                             </a>
                         </div>
@@ -99,9 +101,14 @@ function Home() {
                                 className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
                             />
                             {/* Button inside each div - bottom left */}
-                            <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 lg:px-4 lg:py-2 rounded-lg text-lg lg:text-xl shadow-md hover:bg-red-400 transition">
+                            <a href={pet.link}
+                                className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 
+   lg:px-4 lg:py-2 text-lg lg:text-xl shadow-[4px_4px_6px_rgba(0,0,0,0.6)] 
+   hover:bg-red-400 transition">
                                 {pet.name}
                             </a>
+
+
                         </div>
                     ))}
                 </div>

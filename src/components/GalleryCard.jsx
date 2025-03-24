@@ -15,12 +15,20 @@ const GalleryCard = ({ data }) => {
             {/* Text Box - Below Image on Mobile, Over Image on Larger Screens */}
             <div
                 style={{ fontFamily: "Futura LT Book" }}
-                className="w-full sm:w-9/12 mx-auto bg-[#E0BE9A] bg-opacity-75 text-black 
+                className="w-full sm:w-9/12 mx-auto bg-[#E0BE9A] bg-opacity-75 text-[#404040] 
                 text-lg font-thin p-3 rounded-lg shadow-md mt-3 sm:relative sm:bottom-6">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}
                 {data.purebred && <p>Purebred</p>}
-                <p>{data.description}</p>
+                <p>
+                    {data.description.split("\n").map((line, index) => (
+                        <React.Fragment key={index}>
+                            {line}
+                            <br />
+                        </React.Fragment>
+                    ))}
+                </p>
+
             </div>
         </div>
     );

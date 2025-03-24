@@ -44,7 +44,7 @@ const ChickenCard = ({ data }) => {
             </p>
 
             {/* Bottom Line */}
-            <div className="w-2/5 border-b-2 border-[#D4A373] my-7 sm:my-0 sm:mt-10 mx-auto"></div>
+            <div className="w-2/5 border-b-2 border-yellow-500 my-7 sm:my-0 sm:mt-10 mx-auto"></div>
         </div>
     );
 };

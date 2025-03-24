@@ -55,6 +55,8 @@ const BunnyCard = ({ data, index }) => {
                     <div className="hidden sm:block relative">
                         {data.status === "sold" && (
                             <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                transition={{ duration: 0.3 }}
                                 className="absolute top-5 right-3 font-[Overlock] bg-blue-300 border text-white text-xl font-semibold px-4 shadow-xl rounded-lg"
                             >
                                 SOLD
@@ -70,7 +72,7 @@ const BunnyCard = ({ data, index }) => {
 
 
                 {/* Text Section */}
-                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-3xl space-y-3">
+                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-2xl space-y-5">
                     <p>Breed: {data.breed}</p>
                     <p>Pedigreed Parents: {data.pedigreedParents}</p>
                     <p>Gender: {data.gender}</p>

@@ -72,7 +72,7 @@ function AdoptionGallery() {
                                         <img
                                             src={src}
                                             alt={`Kit ${index + 1}`}
-                                            className="w-full aspect-square object-cover lg:rounded-lg shadow-md"
+                                            className="w-full aspect-square object-cover shadow-md"
                                         />
                                     </SwiperSlide>
                                 ))}

@@ -40,8 +40,8 @@ function BunnyCare() {
                 </div>
 
                 {/* Content Box */}
-                <div className="relative mt-5 lg:mt-36 z-10 max-w-4xl w-11/12 bg-white bg-opacity-90 p-2 sm:p-10 text-center lg:bottom-0">
-                    <h2 className="text-2xl font-poppins sm:text-4xl font-light text-[#404040]">
+                <div className="relative mt-5 lg:mt-36 z-10 max-w-4xl w-11/12 bg-[#FFF8F1] bg-opacity-90 p-2 sm:p-10 text-center lg:bottom-0">
+                    <h2 className="text-2xl  font-['Poppins',sans-serif] sm:text-4xl font-light text-[#404040]">
                         Care for your new Bunny
                     </h2>
                     <p className="mt-4 text-[#404040] font-[Open_sans] lg:w-5/6 mx-auto text-sm sm:text-lg">
