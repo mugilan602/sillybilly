@@ -110,13 +110,13 @@ function Navbar() {
                             <div className="absolute top-full left-1/2 z-50 text-sm transform -translate-x-1/2 bg-[#ffffff] shadow-lg rounded-lg">
                                 <Link
                                     to="/holland_lop"
-                                    className={`block  text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white ${isActive("/holland_lop") ? "bg-[#A2672D] border-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}
+                                    className={`block border-b border-[#A2672D] text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white ${isActive("/holland_lop") ? "bg-[#A2672D] border-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}
                                 >
                                     Holland Lops
                                 </Link>
                                 <Link
                                     to="/netherland_dwarf"
-                                    className={`block text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white ${isActive("/netherland_dwarf") ? "bg-[#A2672D] border-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}
+                                    className={`block border-b border-[#A2672D] text-center w-32 py-2 hover:bg-[#A2672D] hover:text-white ${isActive("/netherland_dwarf") ? "bg-[#A2672D] border-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}
                                 >
                                     Netherland Dwarf
 

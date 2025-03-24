@@ -16,9 +16,20 @@
       "order": 2
     },
     {
-      "id": "9212154c-f343-4a62-b406-daf180563d04",
-      "url": "/static-images/homepage/9212154c-f343-4a62-b406-daf180563d04.png",
-      "order": 4
+      "id": "cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea",
+      "url": "/static-images/homepage/cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea.png",
+      "order": 2
+    },
+    {
+      "id": "cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea",
+      "url": "/static-images/homepage/cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea.png",
+      "order": 2
+    }
+    ,
+    {
+      "id": "cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea",
+      "url": "/static-images/homepage/cfa9e4ae-f11e-411f-9b9e-d7efebc5b9ea.png",
+      "order": 2
     }
   ]
 }
