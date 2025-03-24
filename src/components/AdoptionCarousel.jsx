@@ -34,13 +34,13 @@ function AdoptionGallery() {
             <section className="py-6 lg:py-4 lg:px-6 md:px-16 bg-[#FFF8F1]">
                 <h2
                     style={{ fontFamily: "Futura LT W01 Medium" }}
-                    className="text-xl md:text-5xl text-[#A2672D] text-center mb-8"
+                    className="text-3xl md:text-4xl text-[#A2672D] text-center mb-8"
                 >
                     Some kits available for adoption
                 </h2>
 
                 {/* Swiper Carousel */}
-                <div className="relative max-w-5xl mx-auto">
+                <div className="relative max-w-7xl mx-auto">
                     {images.length > 0 ? (
                         <>
                             {/* Custom Navigation Buttons - Hidden on Mobile */}
@@ -89,12 +89,12 @@ function AdoptionGallery() {
 
             {/* Buttons Section */}
             <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4 min-h-[100px]">
-                <div onClick={() => navigate("/holland_lop")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                <div onClick={() => navigate("/holland_lop")} className="relative w-[350px] sm:w-[400px] h-[50px]">
                     <img src="/Images/Homepage/button.png" alt="button" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button_hover.png" alt="button-hover" className="absolute inset-0   opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>
 
-                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[350px] sm:w-[400px] h-[50px]">
                     <img src="/Images/Homepage/button2.png" alt="button2" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button2hover.png" alt="button2-hover" className="absolute inset-0  opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>

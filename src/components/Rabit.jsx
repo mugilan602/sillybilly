@@ -17,7 +17,7 @@ function Rabbit() {
                         </div>
 
                         {/* Text Content */}
-                        <div className="text-black bg-[#E0BEA4] rounded-tl-3xl rounded-br-3xl md:w-4/6 text-center md:text-left p-2 flex items-center">
+                        <div className="text-[#404040] bg-[#E0BE9A] rounded-tl-3xl rounded-br-3xl md:w-4/6 text-center md:text-left p-2 flex items-center">
                             <div className="px-1">
                                 <p className="text-md lg:text-lg mb-4">
                                     Rabbits make extraordinary pets.They are adorable, intelligent and fun to be around, often leaving you in stitches. They can provide you and your family with companionship for up to 12 years.

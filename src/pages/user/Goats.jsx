@@ -48,7 +48,7 @@ function Goats() {
                     </p>
                 </div>
                 <div
-                    className="py-4 px-4 sm:pt-8 sm:p-6 max-w-3xl mx-auto">
+                    className="py-4 px-4 sm:pt-8 sm:p-6 md:max-w-6xl lg:max-w-9/12 mx-auto">
                     <h2
                         style={{ fontFamily: "Inter" }}
                         className="text-2xl font-semibold tracking-widest text-[#A2672D] text-center">
@@ -57,15 +57,15 @@ function Goats() {
                     <div
                         style={{ fontFamily: "Open Sans" }}
                     >
-                        <p className="mt-4 text-md text-black text-left">
+                        <p className="mt-4 text-lg text-[#404040] text-left">
                             Miniature Silky Fainting Goats are a breed of goats that originated between 1990-2000. They are a perfect cross between the Long coated Nigerian Dwarf goats and Tennessee Fainting Goat.
                             These goats will steal your heart with their pint-sized stature, carefree wispy bangs, and long and lustrous velvety hair that hangs straight from the body.
                         </p>
-                        <p className="mt-4 text-md text-black text-left">
+                        <p className="mt-4 text-lg text-[#404040] text-left">
                             Yes, these goats have short lived fainting episodes when startled. There is no pain involved. They bounce back to normal within a matter of seconds.
                             This a condition known as Myotonia Congenita, a genetic mutation (a permanent alteration in the DNA) where muscle fibers stiffen momentarily, resulting in some goats toppling over. Older animals seem to adapt, sensing an oncoming episode by balancing themselves with outstretched legs, preventing a fall.
                         </p>
-                        <p className="mt-4 text-md text-black text-left">
+                        <p className="mt-4 text-lg text-[#404040] text-left">
                             Mini Silky Fainting goats are a breed to consider. They’re a complete package — stunning looks and the ability to connect with humans in a deep and meaningful way.
                             They are truly a joy to be around!
                         </p>
@@ -73,7 +73,7 @@ function Goats() {
                 </div>
 
                 <div className="">
-                    <div className="px-3 sm:p-6 max-w-3xl mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
+                    <div className="px-3 sm:p-6 md:max-w-6xl lg:max-w-9/12 mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
                         {data.map((goat, index) => (
                             <GoatCard key={index} data={goat} />
                         ))}

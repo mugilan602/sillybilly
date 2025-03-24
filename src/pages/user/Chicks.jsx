@@ -69,28 +69,28 @@ function Chicks() {
                     </h2>
 
                     <p
-                        style={{ fontFamily: "Futura LT W01 Medium" }}
-                        className="text-center text-lg lg:text-xl text-gray-700 lg:mt-12"
+                        style={{ fontFamily: "Futura LT Book" }}
+                        className="text-center text-lg lg:text-xl text-[#404040] lg:mt-12"
                     >
                         ** We have hatching eggs, day old & month old chicks available. Please send us an <br />
                         email with your requirement **
                     </p>
 
-                    <ul className="text-center text-lg lg:text-xl text-gray-700 space-y-1 lg:mt-8 list-disc list-inside">
-                        <li style={{ fontFamily: "Futura LT W01 Medium" }}>
+                    <ul className="text-center text-lg lg:text-xl text-[#404040] space-y-1 lg:mt-8 list-disc list-inside">
+                        <li style={{ fontFamily: "Futura LT Book" }}>
                             Fertility is always tested prior to sale of hatching eggs
                         </li>
-                        <li style={{ fontFamily: "Futura LT W01 Medium" }}>
+                        <li style={{ fontFamily: "Futura LT Book" }}>
                             No guarantee on fertility of shipped hatching eggs
                         </li>
-                        <li style={{ fontFamily: "Futura LT W01 Medium" }}>
+                        <li style={{ fontFamily: "Futura LT Book" }}>
                             Chicks are sold straight run
                         </li>
                     </ul>
                 </div>
 
 
-                <div className="space-y-10 sm:p-6">
+                <div className="sm:p-6">
                     {data.map((chicken, index) => (
                         <ChickenCard key={index} data={chicken} />
                     ))}

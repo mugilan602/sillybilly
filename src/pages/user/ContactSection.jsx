@@ -47,22 +47,23 @@ const ContactSection = () => {
     return (
         <>
             {/* Header Section */}
-            <div className="text-center bg-[#FFF8F1] py-5 lg:py-10 px-4">
-                <h1 className="text-2xl lg:text-3xl font-bold text-black mb-4 font-[Poppins]">CONTACT US</h1>
-                <p className="text-md text-black max-w-2xl mx-auto font-[Open_Sans]">
+            <div className="text-center bg-[#FFF8F1] py-5 lg:pt-10 px-4">
+                <h1 className="text-2xl lg:text-3xl font-semibold text-[#404040] mb-4 font-[Poppins]">CONTACT US</h1>
+                <p className="text-lg text-[#404040] max-w-3xl mx-auto font-[Open_Sans]">
                     Need some answers? Feel free to message / call us and we will be more than happy to assist in locating your ideal pet.
                 </p>
-                <p className="text-md text-black max-w-2xl mx-auto mt-4 font-[Open_Sans]">
+                <p className="text-lg text-[#404040] max-w-2xl mx-auto mt-4 font-[Open_Sans]">
                     Visits to our farm are by prior appointment only due to strict bio-security practices in place.
                 </p>
-                <p className="lg:text-2xl text-[#A2672D] font-semibold mt-4 font-[Inter]">
+                <p className="lg:text-2xl text-[#A2672D] font-semibold mt-12 font-[Inter]">
                     Throw us a message, we promise to fetch.
                 </p>
+                <hr className="w-10 border-2 mx-auto mt-4" />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 min-h-full">
                 {/* Left Section - Contact Info */}
-                <div className="bg-[#D4A373] text-[#4A3628] p-8 flex flex-col">
+                <div className="bg-[#E0BE9A] text-[#4A3628] p-8 flex flex-col justify-center">
                     <div>
                         <h3 className="text-lg font-semibold mb-3 font-[Inter]">Address</h3>
                         <div className="font-[Open_Sans]">
@@ -79,8 +80,8 @@ const ContactSection = () => {
                 </div>
 
                 {/* Middle Section - Contact Form */}
-                <div className="bg-[#F3E0D0] col-span-2 flex flex-col justify-center px-4 sm:px-12 py-4">
-                    <form onSubmit={handleSubmit}>
+                <div className="bg-[#E0BE9A]/40  col-span-2 flex flex-col justify-center px-4 sm:px-12 py-4">
+                    <form onSubmit={handleSubmit} className="flex flex-col justify-end">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="flex flex-col">
                                 <label className="text-[#4A3628] font-medium mb-1">First Name</label>
@@ -131,7 +132,7 @@ const ContactSection = () => {
 
                         <button
                             type="submit"
-                            className="mt-4 bg-[#D4A373] text-white px-8 py-2 rounded-md shadow-lg hover:bg-[#B5835A] w-full sm:w-auto"
+                            className="mt-4 bg-[#E0BE9A]  ml-auto text-white px-8 py-2 rounded-md shadow-lg hover:bg-red-400 w-full sm:w-auto"
                             disabled={loading}
                         >
                             {loading ? "Sending..." : "Send"}

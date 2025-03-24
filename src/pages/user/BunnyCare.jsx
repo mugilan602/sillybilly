@@ -41,10 +41,10 @@ function BunnyCare() {
 
                 {/* Content Box */}
                 <div className="relative mt-5 lg:mt-36 z-10 max-w-4xl w-11/12 bg-white bg-opacity-90 p-2 sm:p-10 text-center lg:bottom-0">
-                    <h2 className="text-2xl font-poppins sm:text-4xl font-light text-black">
+                    <h2 className="text-2xl font-poppins sm:text-4xl font-light text-[#404040]">
                         Care for your new Bunny
                     </h2>
-                    <p className="mt-4 text-black font-[Open_sans] lg:w-5/6 mx-auto text-sm sm:text-lg">
+                    <p className="mt-4 text-[#404040] font-[Open_sans] lg:w-5/6 mx-auto text-sm sm:text-lg">
                         Are you thinking about adding a pet bunny to your life? Glad you are here!
                         Browse around the page and take your time to read this guide in its entirety.
                         This page contains a list of items you'll need to have for the bunny, their diet plan,
@@ -74,10 +74,10 @@ function BunnyCare() {
                 </div>
                 {/* Shopping List Section */}
                 <div className="w-full lg:w-1/2">
-                    <h2 className="font-[Inter] tracking-widest  lg:tracking-[7px] text-lg lg:text-xl font-extrabold text-center text-black uppercase mb-4">
+                    <h2 className="font-[Inter] tracking-widest  lg:tracking-[7px] text-lg lg:text-xl font-extrabold text-center text-[#404040] uppercase mb-4">
                         Bunny Shopping List
                     </h2>
-                    <ul className="font-[Open_sans] text-md list-disc pl-5 text-black">
+                    <ul className="font-[Open_sans] text-md list-disc pl-5 text-[#404040]">
                         <li>Enclosure / Cage / Exercise pen - Bigger & taller the better</li>
                         <li>Towel or blanket for the base</li>
                         <li>Two heavy ceramic or wide base bowls for water and Pellets</li>
@@ -98,10 +98,10 @@ function BunnyCare() {
             <div className="max-w-5xl mx-auto lg:items-stretch flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-10 px-4 lg:p-6">
                 {/* Health Information Section */}
                 <div className="w-full lg:w-2/3">
-                    <h2 className="font-[Inter] tracking-widest text-center lg:tracking-[7px] lg:text-xl text-lg  font-extrabold text-black uppercase mb-4">
+                    <h2 className="font-[Inter] tracking-widest text-center lg:tracking-[7px] lg:text-xl text-lg  font-extrabold text-[#404040] uppercase mb-4">
                         To Keep The Bunny Healthy
                     </h2>
-                    <ul className="font-[Open_sans] text-md list-disc pl-5 text-black">
+                    <ul className="font-[Open_sans] text-md list-disc pl-5 text-[#404040]">
                         <li>A proper balanced diet is crucial for the rabbit's health. It should consist of copious hay, fresh vegetables, and a measured amount of high-quality pellets.</li>
                         <li>Rabbits need to have their body weights equivalent in hay every day. The high fiber content helps keep their digestive tracts moving and to keep their ever-growing teeth ground down.</li>
                         <li>The most common rabbit health problems are gastrointestinal issues and dental disease. Insufficient hay is often the key contributing factor in each of these widespread problems. Feeding 80% hay is preventative health care.</li>
@@ -128,7 +128,7 @@ function BunnyCare() {
                     <h2 className="bg-[#A2672D] font-[Poppins] mb-5 tracking-widest  text-lg  lg:text-xl text-center font-semibold rounded-tl-3xl rounded-br-3xl uppercase py-3">
                         Safe Fruits
                     </h2>
-                    <div className="bg-[#E0BE9A82] p-6 rounded-b-4xl text-black flex flex-col h-full relative">
+                    <div className="bg-[#E0BE9A82] p-6 rounded-b-4xl text-[#404040] flex flex-col h-full relative">
                         <ul className="font-[Open_sans]  text-md lg:text-lg  list-disc pl-5 flex-grow">
                             <li>Bananas</li>
                             <li>Apples (Seeds removed)</li>
@@ -156,7 +156,7 @@ function BunnyCare() {
                     <h2 className="bg-[#A2672D] font-[Poppins] mb-5 tracking-widest  text-lg  lg:text-xl text-center font-semibold rounded-tl-3xl rounded-br-3xl uppercase py-3">
                         Safe Greens
                     </h2>
-                    <div className="bg-[#E0BE9A] p-6 rounded-b-3xl text-black flex flex-col h-full relative">
+                    <div className="bg-[#E0BE9A] p-6 rounded-b-3xl text-[#404040] flex flex-col h-full relative">
                         <ul className="font-[Open_sans] text-md lg:text-lg list-disc pl-5 flex-grow">
                             <li>Romaine Lettuce</li>
                             <li>Coriander</li>
@@ -185,7 +185,7 @@ function BunnyCare() {
                     <h2 className="bg-[#A2672D] font-[Poppins] mb-5 tracking-widest  text-lg lg:text-xl text-center font-semibold rounded-tl-3xl rounded-br-3xl uppercase py-3">
                         Strictly No
                     </h2>
-                    <div className="bg-[#E0BE9A82] p-6 rounded-b-3xl text-black flex flex-col h-full relative">
+                    <div className="bg-[#E0BE9A82] p-6 rounded-b-3xl text-[#404040] flex flex-col h-full relative">
                         <ul className="font-[Open_sans] text-md lg:text-lg list-disc pl-5 flex-grow">
                             <li>Iceberg lettuce</li>
                             <li>Excess Carrots</li>
@@ -221,10 +221,10 @@ function BunnyCare() {
 
                 {/* Bunny Happiness Information */}
                 <div className="w-full lg:w-2/3 bg-white">
-                    <h2 className="font-[Inter] text-center tracking-widest lg:tracking-[7px] text-lg lg:text-xl  font-extrabold text-black uppercase mb-4">
+                    <h2 className="font-[Inter] text-center tracking-widest lg:tracking-[7px] text-lg lg:text-xl  font-extrabold text-[#404040] uppercase mb-4">
                         To keep the bunny hAPPY
                     </h2>
-                    <ul className="font-[Open_sans] list-disc pl-5 text-black">
+                    <ul className="font-[Open_sans] list-disc pl-5 text-[#404040]">
                         <li>Rabbits can live between 8-10 years.</li>
                         <li>
                             Rabbits are very social and enjoy having another rabbit friend to play and cuddle with.
@@ -264,7 +264,7 @@ function BunnyCare() {
                         Periodic Care
                     </h2>
                 </div>
-                <div className="bg-[#E2C19B] p-3 lg:px-9 lg:py-6 rounded-b-4xl not-only:text-black">
+                <div className="bg-[#E2C19B] p-3 lg:px-9 lg:py-6 rounded-b-4xl not-only:text-[#404040]">
                     <ul className="font-[open_sans] list-disc pl-4 leading-[1.35] text-md lg:text-lg">
                         <li>There is no approved/licensed rabies vaccine for rabbits. So vaccination is not mandated for bunnies in Canada.</li>
                         <li>Bunnies should be dewormed if you notice a weight loss, excess scratching, or fur loss.</li>
@@ -303,7 +303,7 @@ function BunnyCare() {
                         LITTER BOX TRAINING
                     </h2>
                 </div>
-                <div className="font-[Open_sans] lg:text-lg leading-[1.35] bg-[#EBD5B3] p-3 lg:px-6 lg:py-4 rounded-lg shadow-md text-black max-w-5xl mx-auto">
+                <div className="font-[Open_sans] lg:text-lg leading-[1.35] bg-[#EBD5B3] p-3 lg:px-6 lg:py-4 rounded-lg shadow-md text-[#404040] max-w-5xl mx-auto">
 
                     <h3 className="text-md lg:text-lg font-semibold mb-2">Before you begin litter training your pet rabbit, there are a few things to keep in mind:</h3>
                     <ul className="text-md list-disc pl-4 lg:pl-5 lg:space-y-1">
@@ -352,7 +352,7 @@ function BunnyCare() {
                     </ul>
                 </div>
             </div>
-            <div className="max-w-5xl px-3 lg:p-6 text-black mx-auto">
+            <div className="max-w-5xl px-3 lg:p-6 text-[#404040] mx-auto">
                 <div className="bg-[#A36D3A]  rounded-tl-3xl rounded-br-3xl  text-white rounded-t-lg shadow-md">
                     <h2 className="bg-[#A2672D] font-[Poppins] mb-5 tracking-widest px-2 text-lg lg:text-2xl text-center font-semibold rounded-tl-3xl rounded-br-3xl uppercase py-3">
                         BEST LITTER BOX BEDDING

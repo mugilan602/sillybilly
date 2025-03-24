@@ -60,7 +60,7 @@ const NetherlandDwarf = () => {
                 <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-4xl text-center mb-5 text-[#A2672D]">
                     Here are a few of our babies currently available for reservation.
                 </h2>
-                <p style={{ fontFamily: "Futura LT W01 Medium" }} className="text-center text-xl text-gray-700 my-2">
+                <p style={{ fontFamily: "Futura LT W01 Medium" }} className="text-center text-xl text-[#404040] my-2">
                     ** We have more babies in the nest box, please stop by for updates **
                 </p>
             </div>

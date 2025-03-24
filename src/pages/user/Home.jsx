@@ -6,7 +6,7 @@ function Home() {
     return (
         <>
             <section>
-                <img className="w-full h-[50vh] lg:h-[90vh] object-cover" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
+                <img className="w-full mt-1 object-cover lg:h-[70vh]" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
             </section>
 
             <section className="mt-4">
@@ -20,7 +20,7 @@ function Home() {
                     </div>
 
                     {/* Content Section */}
-                    <div className="md:col-span-3 flex flex-col justify-center font-[Open_Sans] bg-[#E0BE9A] text-[#4A3B2D] leading-relaxed text-md lg:text-lg p-4 lg:px-6 lg:py-12">
+                    <div className="md:col-span-3 flex flex-col justify-center font-[Open_Sans] bg-[#E0BE9A] text-[#404040] leading-relaxed text-md lg:text-lg p-4 lg:px-6 lg:py-16">
                         <p>
                             How did we come to name our humble establishment "Silly Billy Silkies"?
                             It all began with two charismatic Silkie roosters who came into our farm.
@@ -42,14 +42,17 @@ function Home() {
                 </div>
             </section>
 
-            <section className="my-4 lg:py-0 md:px-8">
+            <section className="my-4 lg:py-0 md:px-0">
                 {/* Image Grid */}
-                <div className="max-w-7xl bg-[#FFF8F1] px-10 py-8 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="lg:w-11/12 bg-[#FFF8F1] px-5 lg:px-10 py-8 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {/* FAMILY RUN FARM */}
                     <div className="bg-[#5B4D43] text-white flex flex-col justify-center items-center p-6 lg:rounded-lg shadow-md
         md:row-start-1 md:col-start-2 order-1 md:order-none relative">
                         <div className="text-center w-full">
-                            <h3 className="text-2xl font-[Roboto] font-bold mb-16">FAMILY RUN FARM</h3>
+                            <div>
+                                <h3 className="text-4xl font-[Roboto] font-bold mb-16">FAMILY RUN FARM <br /> <span><hr className='w-6 mt-4 mx-auto' /></span></h3>
+
+                            </div>
                             <p className="mt-2 font-[Overlock] text-lg">Quality Purebred <br /> Pedigreed Pets</p>
                         </div>
                     </div>
@@ -66,7 +69,7 @@ function Home() {
                             <img
                                 src={pet.src}
                                 alt={pet.alt}
-                                className="w-full h-64 lg:h-80 object-cover transition-transform duration-300 hover:scale-105"
+                                className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
                             />
                             {/* Button inside each div - bottom left */}
                             <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 lg:px-4 lg:py-2 rounded-lg text-lg lg:text-xl shadow-md hover:bg-red-400 transition">
@@ -77,10 +80,10 @@ function Home() {
                 </div>
             </section>
 
-            <section className="my-4 lg:py-0 md:px-8">
+            <section className="my-4 lg:py-0 md:px-0">
                 {/* Image Grid */}
-                <div className="max-w-7xl px-10 py-8 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    
+                <div className="lg:w-11/12 px-5 lg:px-10 py-8 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
                     {/* Images with buttons */}
                     {[
                         // { src: "/Images/holland_lop.png", alt: "Holland Lop", link: "/holland_lop", name: "Holland Lop" },
@@ -93,7 +96,7 @@ function Home() {
                             <img
                                 src={pet.src}
                                 alt={pet.alt}
-                                className="w-full h-64 lg:h-80 object-cover transition-transform duration-300 hover:scale-105"
+                                className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
                             />
                             {/* Button inside each div - bottom left */}
                             <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 lg:px-4 lg:py-2 rounded-lg text-lg lg:text-xl shadow-md hover:bg-red-400 transition">
