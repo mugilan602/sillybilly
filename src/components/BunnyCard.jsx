@@ -31,7 +31,7 @@ const BunnyCard = ({ data, index }) => {
                                         {/* Sold Badge */}
                                         {data.status === "sold" && (
                                             <motion.div
-                                                className="absolute top-2 right-8 font-[Overlock] bg-blue-400 text-white text-sm font-bold px-3 py-1 rounded z-10"
+                                                className="absolute top-2 right-8 font-[Overlock] bg-blue-300 border text-white text-sm font-bold px-3 rounded shadow-2xl z-10"
                                             >
                                                 SOLD
                                             </motion.div>
@@ -55,7 +55,7 @@ const BunnyCard = ({ data, index }) => {
                     <div className="hidden sm:block relative">
                         {data.status === "sold" && (
                             <motion.div
-                                className="absolute top-5 right-3 font-[Overlock] bg-blue-300 border text-white text-xl font-semibold px-4 rounded-lg"
+                                className="absolute top-5 right-3 font-[Overlock] bg-blue-300 border text-white text-xl font-semibold px-4 shadow-xl rounded-lg"
                             >
                                 SOLD
                             </motion.div>
