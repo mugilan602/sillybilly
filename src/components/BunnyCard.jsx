@@ -72,7 +72,7 @@ const BunnyCard = ({ data, index }) => {
 
 
                 {/* Text Section */}
-                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-2xl space-y-5">
+                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-2xl space-y-7">
                     <p>Breed: {data.breed}</p>
                     <p>Pedigreed Parents: {data.pedigreedParents}</p>
                     <p>Gender: {data.gender}</p>
