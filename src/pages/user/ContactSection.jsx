@@ -136,14 +136,14 @@ const ContactSection = () => {
                         >
                             {/* Normal State */}
                             <img
-                                src="/Images/contactButton.png"
+                                src="/Images/contactButton1.svg"
                                 alt="button2"
                                 className="absolute inset-0 transition-opacity duration-300 opacity-100 hover:opacity-0"
                             />
 
                             {/* Hover State */}
                             <img
-                                src="/Images/contactButtonHover.png"
+                                src="/Images/contactButtonHover1.svg"
                                 alt="button2-hover"
                                 className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100"
                             />
