@@ -77,7 +77,7 @@ function BunnyCare() {
                     <h2 className="font-[Inter] tracking-widest  lg:tracking-[7px] text-lg lg:text-xl font-extrabold text-center text-[#404040] uppercase mb-4">
                         Bunny Shopping List
                     </h2>
-                    <ul className="font-[Open_sans] text-md list-disc pl-5 text-[#404040]">
+                    <ul className="font-[Open_sans] text-base list-disc pl-5 text-[#404040]">
                         <li>Enclosure / Cage / Exercise pen - Bigger & taller the better</li>
                         <li>Towel or blanket for the base</li>
                         <li>Two heavy ceramic or wide base bowls for water and Pellets</li>

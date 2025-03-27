@@ -49,10 +49,10 @@ const ContactSection = () => {
             {/* Header Section */}
             <div className="text-center bg-[#FFF8F1] py-5 lg:pt-10 px-4">
                 <h1 className="text-2xl lg:text-3xl font-semibold text-[#404040] mb-4 font-[Poppins]">CONTACT US</h1>
-                <p className="text-lg text-[#404040] max-w-3xl mx-auto font-[Open_Sans]">
+                <p className="text-lg lg:text-xl text-[#404040] max-w-3xl mx-auto font-[Open_Sans]">
                     Need some answers? Feel free to message / call us and we will be more than happy to assist in locating your ideal pet.
                 </p>
-                <p className="text-lg text-[#404040] max-w-2xl mx-auto mt-4 font-[Open_Sans]">
+                <p className="text-lg lg:text-xl text-[#404040] max-w-2xl mx-auto mt-4 font-[Open_Sans]">
                     Visits to our farm are by prior appointment only due to strict bio-security practices in place.
                 </p>
                 <p className="lg:text-2xl text-[#A2672D] font-semibold mt-12 font-[Inter]">
