@@ -87,7 +87,7 @@ const ContactSection = () => {
 
                 {/* Middle Section - Contact Form */}
                 <div className="bg-[#E0BE9A]/40  col-span-2 flex flex-col justify-center px-4 sm:px-2 py-4">
-                    <form onSubmit={handleSubmit} className="flex flex-col mx-auto sm:w-9/12 justify-end">
+                    <form onSubmit={handleSubmit} className="flex flex-col mx-auto sm:w-8/12 justify-end">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="flex flex-col">
                                 <label className="text-[#000000] font-[Inter] font-light mb-1">First Name</label>
