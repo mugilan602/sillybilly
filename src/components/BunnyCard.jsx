@@ -57,9 +57,9 @@ const BunnyCard = ({ data, index }) => {
                             <motion.div
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.3 }}
-                                className="absolute top-5 right-3 font-[Overlock] bg-[#8FDDFB] border text-white text-xl font-semibold px-4 shadow-xl rounded-lg"
+                                className="absolute top-5 right-5"
                             >
-                                SOLD
+                                <img src="/Images/sold_button.svg" className="h-12" alt="" />
                             </motion.div>
                         )}
                         <motion.img
@@ -96,11 +96,12 @@ const BunnyCard = ({ data, index }) => {
                         {/* Sold Badge on Additional Images */}
                         {data.status === "sold" && (
                             <motion.div
-                                className="absolute top-3 right-2 font-[Overlock] bg-[#8FDDFB] border text-white text-xl font-bold px-4 rounded-lg"
+                                className="absolute top-3 right-2"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                SOLD
+
+                                <img src="/Images/sold_button.svg" className="h-9" alt="" />
                             </motion.div>
                         )}
 
@@ -114,7 +115,7 @@ const BunnyCard = ({ data, index }) => {
             </div>
 
 
-            <div className="flex justify-center my-5 sm:my-0 sm:mt-12">
+            <div className="flex justify-center my-5 sm:my-0 sm:mt-16 sm:mb-4">
                 <hr className="border-t-2 border-yellow-500 w-4/5" />
             </div>
         </div>
