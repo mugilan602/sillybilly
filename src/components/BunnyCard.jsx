@@ -7,7 +7,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 
 const BunnyCard = ({ data, index }) => {
     return (
-        <div className="sm:w-4/6 sm:mx-auto sm:py-6 sm:px-12">
+        <div className="sm:w-4/6 sm:mx-auto sm:py-6 sm:px-16">
             {/* Ensure flex-row and alternate layout for odd and even indexes */}
             <div className={`flex flex-col sm:flex-row ${index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} ${index % 2 === 0 ? "sm:space-x-12" : "sm:ml-5"} items-center`}>
 
