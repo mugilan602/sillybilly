@@ -52,11 +52,11 @@ function Navbar() {
                 <div className="mx-auto flex justify-between items-center px-6 py-1">
                     {/* Logo and Tagline */}
                     <div className="flex items-center space-x-4">
-                        {profileImage && <img src={profileImage} alt="Silly Billy Silkies" className="h-full w-12 sm:w-16 rounded-full" />}
+                        {profileImage && <img src={profileImage} alt="Silly Billy Silkies" className="h-full w-12 sm:w-20 rounded-full" />}
 
                         <h1
                             style={{ fontFamily: 'Reklame Script Medium' }}
-                            className="text-4xl md:text-6xl font-medium text-[#5B4D43]">
+                            className="text-4xl md:text-7xl font-medium text-[#5B4D43]">
                             Silly Billy Silkies
                         </h1>
                     </div>

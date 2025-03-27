@@ -2,7 +2,7 @@ import React from "react";
 
 const ChickenCard = ({ data }) => {
     return (
-        <div className="w-10/12 mx-auto sm:p-6 rounded-lg text-center">
+        <div className="w-10/12 mx-auto sm:p-7 rounded-lg text-center">
             {/* Title */}
             <div
                 style={{ fontFamily: "Futura LT Book",}}
@@ -39,12 +39,12 @@ const ChickenCard = ({ data }) => {
             {/* Description */}
             <p
                 style={{ fontFamily: "Open Sans" }}
-                className="text-[#404040] max-w-5xl mx-auto lg:text-xl mt-8 px-1 sm:px-8">
+                className="text-[#404040] max-w-5xl mx-auto lg:text-xl mt-16 px-1 sm:px-8">
                 {data.description}
             </p>
 
             {/* Bottom Line */}
-            <div className="w-2/5 border-b-2 border-yellow-500 my-7 sm:my-0 sm:mt-10 mx-auto"></div>
+            <div className="w-2/5 border-b-2 border-yellow-500 my-7 sm:my-0 sm:mt-14 mx-auto"></div>
         </div>
     );
 };

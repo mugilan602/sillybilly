@@ -84,7 +84,7 @@ const BunnyCard = ({ data, index }) => {
             </div>
 
             {/* Desktop: Standard Layout */}
-            <div className="hidden sm:grid grid-cols-3 mt-16 gap-10">
+            <div className="hidden sm:grid grid-cols-3 mt-16 gap-16">
                 {data.images.slice(1).map((img, imgIndex) => (
                     <motion.div
                         key={imgIndex}
