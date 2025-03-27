@@ -40,7 +40,7 @@ function AdoptionGallery() {
                 </h2>
 
                 {/* Swiper Carousel */}
-                <div className="relative max-w-7xl pt-8 px-5 overflow-x-hidden bg-white mx-auto">
+                <div className="relative max-w-6xl pt-8 px-5 overflow-x-visible bg-white mx-auto">
                     {images.length > 0 ? (
                         <>
                             {/* Custom Navigation Buttons - Hidden on Mobile */}
