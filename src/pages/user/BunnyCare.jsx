@@ -40,11 +40,11 @@ function BunnyCare() {
                 </div>
 
                 {/* Content Box */}
-                <div className="relative mt-5 lg:mt-36 z-10 max-w-4xl w-11/12 bg-[#FFF8F1] bg-opacity-90 p-2 sm:p-10 text-center lg:bottom-0">
-                    <h2 className="text-2xl  font-['Poppins',sans-serif] sm:text-4xl font-light text-[#404040]">
+                <div className="relative mt-5 lg:mt-36 z-10 max-w-5xl w-11/12 bg-[#FFF8F1] bg-opacity-90 p-2 sm:p-10 text-center lg:bottom-0">
+                    <h2 className="text-2xl  font-['Poppins',sans-serif] sm:text-5xl font-light text-[#404040]">
                         Care for your new Bunny
                     </h2>
-                    <p className="mt-4 text-[#404040] font-[Open_sans] lg:w-5/6 mx-auto text-sm sm:text-lg">
+                    <p className="mt-4 text-[#404040] font-[Open_sans] lg:w-5/6 mx-auto text-sm sm:text-xl">
                         Are you thinking about adding a pet bunny to your life? Glad you are here!
                         Browse around the page and take your time to read this guide in its entirety.
                         This page contains a list of items you'll need to have for the bunny, their diet plan,
