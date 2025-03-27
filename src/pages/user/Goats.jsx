@@ -37,7 +37,7 @@ function Goats() {
         <>
             <div className="bg-[#FFF8F1]">
                 <div
-                    className="flex flex-col items-center w-full lg:h-[60vh] bg-cover bg-center justify-center text-white text-3xl"
+                    className="flex flex-col items-center w-full lg:h-[60vh] bg-cover bg-center justify-end text-white text-3xl"
                     style={{ backgroundImage: "url('/Images/goatBG.png')" }}
                 >
                     <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-5xl text-center mt-4 sm:mb-5 text-[#404040]">
@@ -48,7 +48,7 @@ function Goats() {
                     </p>
                 </div>
                 <div
-                    className="py-4 px-4 sm:pt-8 sm:p-6 md:max-w-6xl lg:max-w-9/12 mx-auto">
+                    className="py-4 px-4 sm:pt-8 sm:p-6 md:max-w-6xl lg:max-w-8/12 mx-auto">
                     <h2
                         style={{ fontFamily: "Inter" }}
                         className="text-2xl font-semibold tracking-widest text-[#A2672D] text-center">
@@ -73,7 +73,7 @@ function Goats() {
                 </div>
 
                 <div className="">
-                    <div className="px-3 sm:p-6 md:max-w-6xl lg:max-w-9/12 mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
+                    <div className="px-3 sm:p-6 md:max-w-6xl lg:max-w-8/12 mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
                         {data.map((goat, index) => (
                             <GoatCard key={index} data={goat} />
                         ))}

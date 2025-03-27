@@ -6,7 +6,7 @@ function Home() {
     return (
         <>
             <section>
-                <img className="w-full mt-1 object-cover lg:h-[80vh]" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
+                <img className="w-full mt-1 object-cover sm:object-cover h-[40vh] lg:h-[80vh]" src="/Images/Homepage/Landing.webp" alt="Landing Image" />
             </section>
 
             <section className="mt-4">
@@ -69,7 +69,7 @@ function Home() {
                             <img
                                 src={pet.src}
                                 alt={pet.alt}
-                                className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
+                                className="w-full aspect-square object-cover transition-transform duration-300"
                             />
                             {/* Button inside each div - bottom left */}
                             <a href={pet.link} className="font-[Inter] absolute bottom-4 left-4 bg-[#E0BE9A] text-white px-2 py-1 
@@ -98,7 +98,7 @@ function Home() {
                             <img
                                 src={pet.src}
                                 alt={pet.alt}
-                                className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
+                                className="w-full aspect-square object-cover transition-transform duration-300"
                             />
                             {/* Button inside each div - bottom left */}
                             <a href={pet.link}

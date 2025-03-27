@@ -40,7 +40,7 @@ function AdoptionGallery() {
                 </h2>
 
                 {/* Swiper Carousel */}
-                <div className="relative max-w-7xl mx-auto">
+                <div className="relative max-w-7xl pt-8 px-5 overflow-x-hidden bg-white mx-auto">
                     {images.length > 0 ? (
                         <>
                             {/* Custom Navigation Buttons - Hidden on Mobile */}
@@ -54,7 +54,7 @@ function AdoptionGallery() {
                             <Swiper
                                 modules={[Navigation, Pagination, Autoplay]}
                                 spaceBetween={20}
-                                slidesPerView={Math.min(images.length, 5)}
+                                slidesPerView={1}
                                 breakpoints={{
                                     640: { slidesPerView: Math.min(images.length, 2) },
                                     1024: { slidesPerView: Math.min(images.length, 5) },
@@ -83,18 +83,18 @@ function AdoptionGallery() {
                     )}
 
                     {/* Custom Pagination - With Spacing */}
-                    <div className="custom-pagination mt-4 flex justify-center space-x-2"></div>
+                    <div className="custom-pagination mt-4 pb-4 flex justify-center space-x-2"></div>
                 </div>
             </section>
 
             {/* Buttons Section */}
             <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4 min-h-[100px]">
-                <div onClick={() => navigate("/holland_lop")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                <div onClick={() => navigate("/holland_lop")} className="relative w-[300px] sm:w-[500px] h-[50px]">
                     <img src="/Images/Homepage/button.png" alt="button" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button_hover.png" alt="button-hover" className="absolute inset-0   opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>
 
-                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[300px] sm:w-[400px] h-[50px]">
+                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[300px] sm:w-[500px] h-[50px]">
                     <img src="/Images/Homepage/button2.png" alt="button2" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button2hover.png" alt="button2-hover" className="absolute inset-0  opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>

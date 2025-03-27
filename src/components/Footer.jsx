@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
     return (
         <footer className="bg-[#FFF8F1] pt-4">
-            <div className="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-9 items-stretch">
+            <div className="max-w-8xl mx-16 grid grid-cols-1 md:grid-cols-9 items-stretch">
 
                 {/* Image 1 - Square */}
                 <div className="w-full col-span-2 aspect-square">

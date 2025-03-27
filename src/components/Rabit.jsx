@@ -4,8 +4,8 @@ function Rabbit() {
     return (
         <>
             {/* Rabbit Section */}
-            <div className="font-[Open_sans] py-5">
-                <div className="w-full bg-[#FFF8F1]">
+            <div className="font-[Open_sans]">
+                <div className="w-full bg-[#FFF8F1] py-5">
                     <div className="flex flex-col md:flex-row p-2 gap-6 max-w-5xl mx-auto space-y-4 lg:space-y-0 space-x-0 md:space-x-5 md:px-0 py-5">
                         {/* Image with SVG Mask */}
                         <div className=" w-5/6 mx-auto md:w-2/6 flex items-center justify-center">
