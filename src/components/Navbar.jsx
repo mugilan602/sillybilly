@@ -89,7 +89,7 @@ function Navbar() {
                 </div>
 
                 {/* Desktop Navigation - Hidden on Mobile */}
-                <div className="hidden font-[Open_Sans] fot md:flex justify-center items-center bg-[#E0BE9A] py-2  text-[#4A3B2D] font-normal">
+                <div className="hidden font-[Open_Sans] fot md:flex justify-center items-center bg-[#E0BE9A] py-3 text-[#4A3B2D] font-normal">
                     <Link to="/" className={`px-4 border-l border-r border-[#A2672D] py-2 ${isActive("/") ? "bg-[#A2672D] border-[#A2672D] text-white" : "hover:text-[#8B5A2B]"}`}>Home</Link>
 
                     {/* Bunny Link with Sub-Links */}

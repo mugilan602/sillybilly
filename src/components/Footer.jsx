@@ -18,11 +18,11 @@ function Footer() {
                 <div className="w-full font-[Open_sans] flex flex-col justify-center px-6 py-8 bg-[#E0BE9A] text-[#A2672D] col-span-2 aspect-square">
                     <h2
                         style={{ fontFamily: 'Reklame Script Medium' }}
-                        className="text-2xl mb-2">Silly Billy Silkies</h2>
-                    <p>Amaranth, ON</p>
-                    <p>Canada</p>
-                    <p className="mt-4 font-semibold">SillyBillySilkies@gmail.com</p>
-                    <p className="font-semibold">416-806-3485</p>
+                        className="text-3xl ml-5">Silly Billy Silkies</h2>
+                    <p className=" ml-5">Amaranth, ON</p>
+                    <p className="ml-5">Canada</p>
+                    <p className="mt-4 ml-5 font-normal">SillyBillySilkies@gmail.com</p>
+                    <p className="font-normal ml-5">416-806-3485</p>
                 </div>
 
                 {/* Image 2 - Square */}

@@ -13,7 +13,7 @@ const ChickenCard = ({ data }) => {
 
 
             {/* Top Images */}
-            <div className=" grid grid-cols-1 sm:grid-cols-3 justify-center space-y-8 sm:space-y-0 mt-4">
+            <div className=" grid grid-cols-1 sm:grid-cols-3 justify-center space-y-8 sm:space-y-0 mt-7">
                 {data.images.slice(0, 3).map((img, index) => (
                     <img
                         key={index}
@@ -25,7 +25,7 @@ const ChickenCard = ({ data }) => {
             </div>
 
             {/* Circular Images */}
-            <div className=" grid grid-cols-1 sm:grid-cols-3 space-y-8 sm:space-y-0  mt-8">
+            <div className=" grid grid-cols-1 sm:grid-cols-3 space-y-8 sm:space-y-0  mt-12">
                 {data.images.slice(3, 6).map((img, index) => (
                     <img
                         key={index}
