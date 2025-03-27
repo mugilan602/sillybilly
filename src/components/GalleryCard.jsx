@@ -16,7 +16,7 @@ const GalleryCard = ({ data }) => {
             <div
                 style={{ fontFamily: "Futura LT Book" }}
                 className="w-full sm:w-9/12 mx-auto bg-[#E0BE9A] bg-opacity-75 text-[#404040] 
-                text-xl font-thin p-3  shadow-md mt-3 sm:relative rounded sm:bottom-6">
+                text-xl font-thin py-2 shadow-md mt-3 sm:relative rounded-lg sm:bottom-6">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}
                 {data.purebred && <p>Purebred</p>}
