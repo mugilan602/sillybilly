@@ -53,10 +53,10 @@ function BunnyCare() {
 
                     {/* Decorative Bunny Icon & Quote */}
                     <div className="flex flex-col sm:flex-row sm:space-x-5 justify-center items-center mt-6 text-center sm:text-left">
-                        <p className="font-[Sail] text-lg sm:ml-4 sm:text-3xl text-gray-500 font-semibold sm:order-2 sm:mr-4">
+                        <p className="font-[Sail] text-lg sm:ml-4 sm:text-3xl text-gray-500 font-normal sm:order-2 sm:mr-4">
                             A healthy bunny is a happy bunny
                         </p>
-                        <img src="/Images/BunnyCare/Nose.png" alt="Bunny Nose" className="w-12 h-12 rounded-full sm:order-1 sm:w-16 sm:h-16 mt-2 sm:mt-0" />
+                        <img src="/Images/BunnyCare/Nose.png" alt="Bunny Nose" className="w-12 h-12 rounded-full sm:order-1 sm:w-20 sm:h-20 mt-2 sm:mt-0" />
                     </div>
 
                 </div>
