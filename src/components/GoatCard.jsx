@@ -16,7 +16,7 @@ const GoatCard = ({ data }) => {
             {/* Text Box Over Image */}
             <div
                 style={{ fontFamily: "Futura LT Book" }}
-                className=" bg-[#E0BE9A] w-full sm:w-8/12 mx-auto mt-2 sm:mt-0 sm:relative sm:bottom-6 bg-opacity-75 text-[#404040] text-lg sm:text-lg font-thin p-3 shadow-md">
+                className=" bg-[#E0BE9A] w-full sm:w-8/12 mx-auto mt-2 sm:mt-0 sm:relative sm:bottom-6 bg-opacity-75 text-[#404040] text-lg sm:text-xl font-thin p-3 shadow-md">
                 <p className="font-thin">{data.breed}</p>
                 {data.pedigreed && <p>Pedigreed</p>}
                 {data.purebred && <p>Purebred</p>}
