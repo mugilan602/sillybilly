@@ -40,10 +40,10 @@ function Goats() {
                     className="flex flex-col items-center w-full lg:h-[60vh] bg-cover bg-center justify-end text-white text-3xl"
                     style={{ backgroundImage: "url('/Images/goatBG.png')" }}
                 >
-                    <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-5xl text-center mt-4 sm:mb-5 text-[#404040]">
-                        Here are some of our adult Silky Fainting Goats & Nigerian <br /> Dwarf Goats
+                    <h2 style={{ fontFamily: "Cookie, cursive" }} className="text-3xl sm:text-5xl max-w-4xl leading-relaxed text-center mt-4 sm:mb-0 text-[#404040]">
+                        Here are some of our adult Silky Fainting Goats & Nigerian Dwarf Goats
                     </h2>
-                    <p style={{ fontFamily: "Futura LT W01 Medium" }} className="text-center text-base sm:text-xl text-black my-2">
+                    <p style={{ fontFamily: "Futura LT W01 Medium" }} className="text-center text-base sm:text-xl text-black mb-2">
                         ** Looking for some kids to add to your farm, Please e-mail us to find out who are available **
                     </p>
                 </div>
@@ -73,7 +73,7 @@ function Goats() {
                 </div>
 
                 <div className="">
-                    <div className="px-3 sm:p-6 md:max-w-6xl lg:max-w-8/12 mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
+                    <div className="px-3 sm:px-6 sm:pb-6 md:max-w-6xl lg:max-w-8/12 mx-auto grid grid-col-1 space-y-4 sm:grid-cols-2">
                         {data.map((goat, index) => (
                             <GoatCard key={index} data={goat} />
                         ))}

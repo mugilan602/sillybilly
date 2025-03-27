@@ -63,20 +63,20 @@ function Chicks() {
                 <div className="my-4">
                     <h2
                         style={{ fontFamily: "Cookie, cursive" }}
-                        className="text-3xl lg:text-5xl text-center lg:mb-5 text-[#A2672D]"
+                        className="text-3xl lg:text-4xl text-center lg:mb-15 text-[#A2672D]"
                     >
                         Listed below are the chicken breeds we raise here in our farm.
                     </h2>
 
                     <p
                         style={{ fontFamily: "Futura LT Book" }}
-                        className="text-center text-lg lg:text-2xl text-[#404040] lg:mt-12"
+                        className="text-center text-lg lg:text-xl text-[#404040] lg:mt-12"
                     >
                         ** We have hatching eggs, day old & month old chicks available. Please send us an <br />
                         email with your requirement **
                     </p>
 
-                    <ul className="text-center text-lg lg:text-2xl text-[#404040] space-y-1 lg:mt-8 list-disc list-inside">
+                    <ul className="text-center text-lg lg:text-xl text-[#404040] space-y-1 lg:mt-8 list-disc list-inside">
                         <li style={{ fontFamily: "Futura LT Book" }}>
                             Fertility is always tested prior to sale of hatching eggs
                         </li>
