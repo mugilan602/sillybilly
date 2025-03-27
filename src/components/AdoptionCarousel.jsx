@@ -40,16 +40,9 @@ function AdoptionGallery() {
                 </h2>
 
                 {/* Swiper Carousel */}
-                <div className="relative max-w-6xl pt-8 px-5 overflow-x-visible bg-white mx-auto">
+                <div className="relative max-w-8xl pt-8 px-5 overflow-x-visible bg-white mx-auto">
                     {images.length > 0 ? (
                         <>
-                            {/* Custom Navigation Buttons - Hidden on Mobile */}
-                            <button className="custom-prev cursor-pointer hidden sm:block absolute left-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
-                                ❮
-                            </button>
-                            <button className="custom-next cursor-pointer hidden sm:block absolute right-[-50px] top-1/2 transform -translate-y-1/2 text-3xl text-[#A2672D] hover:text-[#8B5A2B] transition z-10">
-                                ❯
-                            </button>
 
                             <Swiper
                                 modules={[Navigation, Pagination, Autoplay]}
