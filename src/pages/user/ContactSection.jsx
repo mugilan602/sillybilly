@@ -96,7 +96,7 @@ const ContactSection = () => {
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="p-2 border bg-white border-black w-full"
+                                    className="p-2 border bg-[#FFF8F1] border-black w-full"
                                     required
                                 />
                             </div>
@@ -107,7 +107,7 @@ const ContactSection = () => {
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleChange}
-                                    className="p-2 border bg-white border-black w-full"
+                                    className="p-2 border bg-[#FFF8F1] border-black w-full"
                                     required
                                 />
                             </div>
@@ -120,7 +120,7 @@ const ContactSection = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="p-2 border bg-white border-black w-full"
+                                className="p-2 border bg-[#FFF8F1] border-black w-full"
                                 required
                             />
                         </div>
@@ -131,7 +131,7 @@ const ContactSection = () => {
                                 name="message"
                                 value={formData.message}
                                 onChange={handleChange}
-                                className="p-2 border bg-white border-black w-full h-28"
+                                className="p-2 border bg-[#FFF8F1] border-black w-full h-28"
                                 required
                             ></textarea>
                         </div>
