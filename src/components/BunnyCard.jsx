@@ -7,7 +7,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 
 const BunnyCard = ({ data, index }) => {
     return (
-        <div className="sm:w-4/6 sm:mx-auto sm:py-6 sm:px-16">
+        <div className="sm:max-w-5xl sm:mx-auto sm:py-6 sm:px-16">
             {/* Ensure flex-row and alternate layout for odd and even indexes */}
             <div className={`flex flex-col sm:flex-row ${index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} ${index % 2 === 0 ? "sm:space-x-12" : "sm:ml-5"} items-center`}>
 
@@ -31,7 +31,7 @@ const BunnyCard = ({ data, index }) => {
                                         {/* Sold Badge */}
                                         {data.status === "sold" && (
                                             <motion.div
-                                                className="absolute top-2 right-8 font-[Overlock] bg-blue-300 border text-white text-sm font-bold px-3 rounded shadow-2xl z-10"
+                                                className="absolute top-2 right-8 font-[Overlock] bg-blue-300 border text-white text-sm font-bold px-3 rounded shadow-3xl z-10"
                                             >
                                                 SOLD
                                             </motion.div>
@@ -57,7 +57,7 @@ const BunnyCard = ({ data, index }) => {
                             <motion.div
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.3 }}
-                                className="absolute top-5 right-3 font-[Overlock] bg-blue-300 border text-white text-xl font-semibold px-4 shadow-xl rounded-lg"
+                                className="absolute top-5 right-3 font-[Overlock] bg-[#8FDDFB] border text-white text-xl font-semibold px-4 shadow-xl rounded-lg"
                             >
                                 SOLD
                             </motion.div>
@@ -65,14 +65,14 @@ const BunnyCard = ({ data, index }) => {
                         <motion.img
                             src={data.images[0]}
                             alt="Bunny"
-                            className="w-full aspect-square rounded-2xl object-cover"
+                            className="w-full aspect-square rounded-3xl object-cover"
                         />
                     </div>
                 </motion.div>
 
 
                 {/* Text Section */}
-                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-2xl space-y-7">
+                <div style={{ fontFamily: "Futura LT Light, sans-serif" }} className="mt-4 sm:mt-0 sm:w-1/2 text-[#404040] flex flex-col text-lg sm:text-2xl space-y-9">
                     <p>Breed: {data.breed}</p>
                     <p>Pedigreed Parents: {data.pedigreedParents}</p>
                     <p>Gender: {data.gender}</p>
@@ -84,7 +84,7 @@ const BunnyCard = ({ data, index }) => {
             </div>
 
             {/* Desktop: Standard Layout */}
-            <div className="hidden sm:grid grid-cols-3 mt-8 gap-4">
+            <div className="hidden sm:grid grid-cols-3 mt-16 gap-10">
                 {data.images.slice(1).map((img, imgIndex) => (
                     <motion.div
                         key={imgIndex}
@@ -96,7 +96,7 @@ const BunnyCard = ({ data, index }) => {
                         {/* Sold Badge on Additional Images */}
                         {data.status === "sold" && (
                             <motion.div
-                                className="absolute top-3 right-2 font-[Overlock] bg-blue-300 border text-white text-xl font-bold px-4 rounded-lg"
+                                className="absolute top-3 right-2 font-[Overlock] bg-[#8FDDFB] border text-white text-xl font-bold px-4 rounded-lg"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.3 }}
                             >
@@ -107,7 +107,7 @@ const BunnyCard = ({ data, index }) => {
                         <motion.img
                             src={img}
                             alt={`Bunny ${imgIndex + 2}`}
-                            className="w-full h-full object-cover rounded-2xl"
+                            className="w-full h-full object-cover rounded-3xl"
                         />
                     </motion.div>
                 ))}
