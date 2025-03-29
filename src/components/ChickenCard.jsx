@@ -39,7 +39,7 @@ const ChickenCard = ({ data }) => {
             {/* Description */}
             <p
                 style={{ fontFamily: "Open Sans" }}
-                className="text-[#404040] max-w-5xl mx-auto lg:text-xl mt-16 px-1 sm:px-8">
+                className="text-[#404040] max-w-4xl mx-auto lg:text-lg mt-16 px-1 sm:px-8">
                 {data.description}
             </p>
 

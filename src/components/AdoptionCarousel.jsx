@@ -82,12 +82,12 @@ function AdoptionGallery() {
 
             {/* Buttons Section */}
             <section className="font-[Open_sans] bg-[#FFF8F1] py-4 flex flex-col md:flex-row justify-center items-center gap-6 px-4 min-h-[100px]">
-                <div onClick={() => navigate("/holland_lop")} className="relative w-[300px] sm:w-[500px] h-[50px]">
+                <div onClick={() => navigate("/holland_lop")} className="relative w-full sm:w-[500px] h-[50px]">
                     <img src="/Images/Homepage/button.svg" alt="button" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button_hover.svg" alt="button-hover" className="absolute inset-0   opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>
 
-                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-[300px] sm:w-[500px] h-[50px]">
+                <div onClick={() => navigate("/netherland_dwarf")} className="relative w-full sm:w-[500px] h-[50px]">
                     <img src="/Images/Homepage/button2.svg" alt="button2" className="absolute inset-0  transition-opacity duration-300 hover:opacity-0" />
                     <img src="/Images/Homepage/button2hover.svg" alt="button2-hover" className="absolute inset-0  opacity-0 transition-opacity duration-300 hover:opacity-100" />
                 </div>
