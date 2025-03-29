@@ -48,16 +48,16 @@ function Goats() {
                     </p>
                 </div>
                 <div
-                    className="py-4 px-4 sm:pt-8 sm:p-6 md:max-w-6xl lg:max-w-8/12 mx-auto">
+                    className="py-4 px-4 sm:py-10 sm:px-6 md:max-w-6xl lg:max-w-8/12 mx-auto">
                     <h2
                         style={{ fontFamily: "Inter" }}
-                        className="text-2xl font-semibold tracking-widest text-[#A2672D] text-center">
+                        className="text-2xl font-semibold tracking-[0.5rem] text-[#A2672D] text-center">
                         MINIATURE SILKY FAINTING GOATS
                     </h2>
                     <div
                         style={{ fontFamily: "Open Sans" }}
                     >
-                        <p className="mt-4 text-lg lg:text-xl text-[#404040] text-left">
+                        <p className="mt-8 text-lg lg:text-xl text-[#404040] text-left">
                             Miniature Silky Fainting Goats are a breed of goats that originated between 1990-2000. They are a perfect cross between the Long coated Nigerian Dwarf goats and Tennessee Fainting Goat.
                             These goats will steal your heart with their pint-sized stature, carefree wispy bangs, and long and lustrous velvety hair that hangs straight from the body.
                         </p>
